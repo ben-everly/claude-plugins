@@ -1,0 +1,22 @@
+{
+  "name": "ben-everly",
+  "description": "My personal collection of Claude Code plugins",
+  "owner": {
+    "name": "Ben Everly"
+  },
+  "metadata": {
+    "description": "My personal collection of Claude Code plugins"
+  },
+  "plugins": [
+    {
+      "name": "development-workflow",
+      "source": "./development-workflow",
+      "description": "A structured development workflow covering planning, design, implementation, review, and delivery",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ben Everly"
+      },
+      "category": "development"
+    }
+  ]
+}
