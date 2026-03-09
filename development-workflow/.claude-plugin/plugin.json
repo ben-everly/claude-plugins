@@ -4,6 +4,5 @@
   "description": "A structured development workflow covering planning, design, implementation, review, and delivery",
   "author": {
     "name": "Ben Everly"
-  },
-  "category": "development"
+  }
 }
