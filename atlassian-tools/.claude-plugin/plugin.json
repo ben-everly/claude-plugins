@@ -1,0 +1,8 @@
+{
+  "name": "atlassian-tools",
+  "description": "Atlassian CLI (acli) skills — currently covers Jira (JQL queries, ticket management, sprints, boards, comments, and workflow operations). Requires acli installed and authenticated.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Ben Everly"
+  }
+}

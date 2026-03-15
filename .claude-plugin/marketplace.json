@@ -18,6 +18,16 @@
         "name": "Ben Everly"
       },
       "category": "development"
+    },
+    {
+      "name": "atlassian-tools",
+      "source": "./atlassian-tools",
+      "description": "Atlassian CLI (acli) skills — currently covers Jira (JQL queries, ticket management, sprints, boards, comments, and workflow operations)",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ben Everly"
+      },
+      "category": "productivity"
     }
   ]
 }
