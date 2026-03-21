@@ -26,9 +26,10 @@ Install a plugin:
 
 ## Available Plugins
 
-| Plugin | Description | Install |
-|--------|-------------|---------|
+| Plugin                   | Description                                                                                       | Install                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
 | **development-workflow** | A structured development workflow covering planning, design, implementation, review, and delivery | `/plugin install development-workflow@ben-everly` |
+| **atlassian-tools**      | Atlassian CLI skills — Jira queries, ticket management, sprints, boards, and workflow operations  | `/plugin install atlassian-tools@ben-everly`      |
 
 ## Creating a Plugin
 
