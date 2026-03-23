@@ -1,0 +1,8 @@
+{
+  "name": "intelephense",
+  "description": "PHP language server (Intelephense) for Claude Code with optimized file exclusions to reduce RAM usage. Replaces the official php-lsp plugin. Requires intelephense installed globally (npm install -g intelephense).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ben Everly"
+  }
+}

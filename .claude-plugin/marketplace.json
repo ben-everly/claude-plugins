@@ -28,6 +28,16 @@
         "name": "Ben Everly"
       },
       "category": "productivity"
+    },
+    {
+      "name": "intelephense",
+      "source": "./intelephense",
+      "description": "PHP language server (Intelephense) for Claude Code with optimized file exclusions to reduce RAM usage",
+      "version": "1.0.0",
+      "author": {
+        "name": "Ben Everly"
+      },
+      "category": "development"
     }
   ]
 }
