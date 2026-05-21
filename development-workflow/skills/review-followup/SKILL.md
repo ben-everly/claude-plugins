@@ -67,23 +67,25 @@ Investigation:
 Verdict: real-problem
   <one sentence reasoning>
 
-Fix options:
-  1. <option A> — <one-line tradeoff>
-  2. <option B> — <one-line tradeoff>
-  3. Skip — <why you might choose not to fix>
+Possible directions:
+  - <direction A> — <one-line tradeoff>
+  - <direction B> — <one-line tradeoff>
+  - Skip — <why you might choose not to fix>
+
+These are starting points for discussion, not a menu — let me know your thoughts.
 ```
 
 For `not-a-problem` issues, lead with the verdict and prominent reasoning. The user can still push back or ask to fix anyway.
 
-For `unclear-need-input` issues, lead with the verdict and replace the "Fix options" section with **Questions to resolve before fixing** — a numbered list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). Once the user answers, update the verdict and present real fix options in a follow-up turn before waiting for the implement signal.
+For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). Once the user answers, update the verdict and present real directions in a follow-up turn before waiting for the implement signal.
 
 Create a `TaskCreate` task per issue at the start of the walkthrough. Mark `in_progress` when presented, `completed` when the user signals "move on."
 
-**Then stop and wait.** Discuss this issue only — treat new fix ideas as options to weigh, not directives to code.
+**Then stop and wait.** Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 ### 5. Implement & confirm
 
-When the user signals "implement option N" (or a variant from discussion):
+When the user signals which direction to take (e.g., "go with direction A," "do the rename one," or any variant from discussion):
 
 - Implement _only_ the current issue's fix; no adjacent cleanup
 - Run targeted verification (test, type check, grep) — not the full suite unless the issue is broad
