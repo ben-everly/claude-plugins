@@ -1,0 +1,11 @@
+{
+  "name": "claude-plugins-marketplace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tooling for releasing plugins in this marketplace",
+  "devDependencies": {
+    "@release-it/bumper": "^7.0.5",
+    "@release-it/conventional-changelog": "^11.0.0",
+    "release-it": "^20.0.1"
+  }
+}

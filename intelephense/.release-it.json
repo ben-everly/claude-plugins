@@ -1,0 +1,32 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "tagName": "intelephense-v${version}",
+    "tagAnnotation": "Release intelephense v${version}",
+    "commitMessage": "chore(release): intelephense v${version} [skip ci]",
+    "requireBranch": "main",
+    "requireCleanWorkingDir": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "intelephense-v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "in": ".claude-plugin/plugin.json",
+      "out": ".claude-plugin/plugin.json"
+    },
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "gitRawCommitsOpts": {
+        "path": "."
+      }
+    }
+  },
+  "hooks": {
+    "after:bump": "node ../scripts/sync-marketplace.js intelephense ${version}"
+  }
+}
