@@ -3,7 +3,7 @@
   "git": {
     "tagName": "intelephense-v${version}",
     "tagAnnotation": "Release intelephense v${version}",
-    "commitMessage": "chore(release): intelephense v${version} [skip ci]",
+    "commitMessage": "chore(release): intelephense v${version}",
     "requireBranch": "main",
     "requireCleanWorkingDir": false
   },

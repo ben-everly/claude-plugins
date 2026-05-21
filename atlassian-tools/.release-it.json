@@ -3,7 +3,7 @@
   "git": {
     "tagName": "atlassian-tools-v${version}",
     "tagAnnotation": "Release atlassian-tools v${version}",
-    "commitMessage": "chore(release): atlassian-tools v${version} [skip ci]",
+    "commitMessage": "chore(release): atlassian-tools v${version}",
     "requireBranch": "main",
     "requireCleanWorkingDir": false
   },

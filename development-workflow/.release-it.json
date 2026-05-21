@@ -3,7 +3,7 @@
   "git": {
     "tagName": "development-workflow-v${version}",
     "tagAnnotation": "Release development-workflow v${version}",
-    "commitMessage": "chore(release): development-workflow v${version} [skip ci]",
+    "commitMessage": "chore(release): development-workflow v${version}",
     "requireBranch": "main",
     "requireCleanWorkingDir": false
   },
