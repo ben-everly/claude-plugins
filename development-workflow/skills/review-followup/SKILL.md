@@ -15,38 +15,24 @@ Walk through review feedback one issue at a time: investigate, present with fix 
 
 Use best judgment from input:
 
-- Review reference (PR/MR number, URL, branch) passed → use it
-- "This review" / "the review" / nothing → identify the review for the current branch
-- Ambiguous → list the user's open reviews and ask
-- Chat-only intent ("the issues you just raised") → use chat history
+- If the user provides a review reference (PR/MR number, URL, branch), use it
+- Check chat history for recent reviews
+- Check the current branch's PR/MR for reviews
+- If the input is ambiguous, use your best judgment. If you cannot determine what to review, list the user's open reviews and ask
 
-### 2. Aggregate sources
+### 2. Gather issues
 
-When a review is in play, gather from all four sources:
+Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from (so you can reply later - see step 6).
 
-| Source                                    | What to fetch                                                                                                       |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Inline review comments + review summaries | Unresolved, non-outdated review threads with their bodies, locations, and thread identifiers; review summary bodies |
-| Top-level comments                        | Top-level conversation comments on the review                                                                       |
-| Chat history                              | Issues raised earlier in this conversation                                                                          |
+Number issues 1..N. If there are no issues, say "No open review feedback found" (name the sources you checked) and stop.
 
-Normalize each issue:
-
-```
-{ id, source, source_ref, location?, body, author?, thread_ref? }
-```
-
-where `source ∈ {inline, review_summary, top_level, chat}` and `thread_ref` is set only for `inline` — an opaque handle the agent's tooling can use to target reply/resolve operations.
-
-Number issues 1..N. Show a summary table to the user (number, source, location, one-line summary) before investigation. Use "—" for the location cell when the source has no location (e.g., `top_level`, `chat`).
-
-**Empty result:** if zero issues, say "No open review feedback found" (mention which sources were checked) and stop.
+Create a `TaskCreate` task per issue. Mark `in_progress` when presented, `completed` after the review action. See steps 4 and 6.
 
 ### 3. Investigation pass (read-only) - one issue at a time
 
 Investigate the current issue (loop: steps 3 → 4 → 5 → 6 → next issue, until all are addressed):
 
-1. Read the referenced code (`location` if present, else grep for symbols/file the comment names).
+1. Read the referenced code.
 2. Check the claim against the current code.
 3. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
@@ -56,32 +42,37 @@ Investigate the current issue (loop: steps 3 → 4 → 5 → 6 → next issue, u
 
 Present the current issue in this format:
 
-```
-─── Issue k of N ───
-Source:    inline review comment by @reviewer at src/foo.ts:42 (also raised in chat)
-Comment:   "<verbatim body, trimmed if long>"
+```markdown
+## Issue k of N
 
-Investigation:
-  <2-4 sentences: what the code does, whether the claim holds, context affecting the fix>
+### Source:
 
-Verdict: real-problem
-  <one sentence reasoning>
+inline review comment by @reviewer at src/foo.ts:42 (also raised in chat)
 
-Possible directions:
-  - <direction A> — <one-line tradeoff>
-  - <direction B> — <one-line tradeoff>
-  - Skip — <why you might choose not to fix>
+### Comment:
 
-These are starting points for discussion, not a menu — let me know your thoughts.
+<verbatim body, trimmed if long>
+
+### Investigation:
+
+<2-4 sentences: what the code does, whether the claim holds, context affecting the fix>
+
+### Verdict: real-problem
+
+<one sentence reasoning>
+
+### Possible directions:
+
+- <direction A> — <one-line tradeoff>
+- <direction B> — <one-line tradeoff>
+- Skip — <why you might choose not to fix>
 ```
 
 For `not-a-problem` issues, lead with the verdict and prominent reasoning. The user can still push back or ask to fix anyway.
 
 For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). Once the user answers, update the verdict and present real directions in a follow-up turn before waiting for the implement signal.
 
-Create a `TaskCreate` task per issue at the start of the walkthrough. Mark `in_progress` when presented, `completed` when the user signals "move on."
-
-**Then stop and wait.** Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
+**Then stop and wait. Do not give a menu.** Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 ### 5. Implement & confirm
 
@@ -93,11 +84,9 @@ When the user signals which direction to take (e.g., "go with direction A," "do 
 
 Then say:
 
-```
+```text
 Fixed. <one-line summary of the change>
 Verified by: <command/check, or "manual review only" if nothing automated applies>
-
-Let me know when you're satisfied with the fix.
 ```
 
 **Wait for the satisfaction signal** — any clear positive acknowledgment of the fix. If the user pushes back, iterate on the same issue.
@@ -107,42 +96,31 @@ Let me know when you're satisfied with the fix.
 - Satisfied with the fix: "next" / "move on" / "good" / "great" / "lgtm" / "looks good" / "perfect" / "satisfied" / "👍" — anything clearly positive counts
 - Wants more changes: "actually, also do X" / "tweak it to Y" / any specific change request
 
-Satisfaction triggers step 6 (the review-action question), not a jump to the next issue. Advance to the next issue only after step 6 completes.
-
 ### 6. After-fix review action
 
-After the user signals satisfaction, ask via `AskUserQuestion`:
+Only for issues that came from the review. For issues raised only in chat there's nothing to act on — just advance.
 
-> "Fix is in. What should I do on the review?"
->
-> - **Reply + resolve** — post a brief fix summary on the thread, mark resolved
-> - **Reply only** — post the summary; leave the thread open
-> - **Resolve only** — mark resolved without a reply
-> - **Skip** — do nothing on the review
+Draft the reply comment up front and show it:
 
-**Skip the question entirely for `chat`-source issues** (no review thread to act on) and just advance.
-
-**For inline issues (`thread_ref` present):**
-
-- Reply → post a reply on the specific thread (use `thread_ref` to target it)
-- Resolve → mark the thread resolved (use `thread_ref` to target it)
-
-**For `review_summary` and `top_level` issues** (no `thread_ref`):
-
-- Reply → post a top-level comment on the review
-- Resolve is not applicable — collapse the menu to **Reply** / **Skip**
-
-**Reply body** — drafted by the skill, shown to the user before sending:
-
-```
+```text
 Fixed in <commit-ish or path:line>. <One-sentence description of the change.>
 ```
 
-Short and factual. No "Thanks for the review!" or performative agreement. The user can edit before sending.
+(If the user chose not to fix, draft it as "Discussed and decided not to fix because X.") Short and factual — no "Thanks for the review!" or performative agreement.
 
-**If the user chose "Skip" as the fix option** (decided not to fix), still ask the review-action question, but draft the reply body as "Discussed and decided not to fix because X."
+Then ask via `AskUserQuestion` what to do with it:
 
-After the review action: mark the current issue's task `completed`, present the next issue (back to step 4). When all are done, say "All N issues addressed" and stop.
+- **Reply + resolve** (if applicable) — post the comment, mark the thread resolved
+- **Reply only** — post the comment, leave the thread open
+- **Resolve only** (if applicable) — mark resolved without posting
+- **Skip** — do nothing on the review
+- **Chat about it** — discuss before deciding
+
+If they pick **Chat about it**, discuss the options, then re-ask this menu once it's settled.
+
+Post the reply in the appropriate place (the thread, or top-level review comment). The user can edit the comment before it's sent.
+
+After the action: mark the issue's task `completed` and present the next issue (back to step 4). When all are done, say "All N issues addressed" and stop.
 
 ## Common Mistakes
 
@@ -156,4 +134,4 @@ After the review action: mark the current issue's task `completed`, present the 
 | Implementing without first investigating      | Read code, form a verdict, present, wait for signal                              |
 | Batching multiple fixes at once               | One at a time. Each gets its own present → discuss → fix → confirm cycle         |
 | Drifting into adjacent cleanup                | Implement only what the current issue requires                                   |
-| Asking review action for chat-source issues   | Skip the question entirely for `chat` source — no thread exists to reply to      |
+| Asking the review action for chat-only issues | Skip the question entirely for chat-only issues — there's no thread to reply to  |
