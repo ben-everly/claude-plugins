@@ -38,6 +38,16 @@
         "name": "Ben Everly"
       },
       "category": "development"
+    },
+    {
+      "name": "superpowers-artifacts",
+      "source": "./superpowers-artifacts",
+      "description": "Route Superpowers spec artifacts to a pluggable backend (local file or Jira), scoped per-developer and per-project",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ben Everly"
+      },
+      "category": "development"
     }
   ]
 }

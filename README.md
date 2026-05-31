@@ -31,6 +31,7 @@ Install a plugin:
 | **development-workflow** | A structured development workflow covering planning, design, implementation, review, and delivery | `/plugin install development-workflow@ben-everly` |
 | **atlassian-tools**      | Atlassian CLI skills — Jira queries, ticket management, sprints, boards, and workflow operations  | `/plugin install atlassian-tools@ben-everly`      |
 | **intelephense**         | PHP language server (Intelephense) with optimized file exclusions to reduce RAM usage             | `/plugin install intelephense@ben-everly`         |
+| **superpowers-artifacts** | Route Superpowers specs to a pluggable backend (local file or Jira), scoped per-developer and per-project | `/plugin install superpowers-artifacts@ben-everly` |
 
 ## Creating a Plugin
 
