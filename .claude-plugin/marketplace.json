@@ -13,7 +13,7 @@
       "name": "development-workflow",
       "source": "./development-workflow",
       "description": "A structured development workflow covering planning, design, implementation, review, and delivery",
-      "version": "0.2.0",
+      "version": "0.1.0",
       "author": {
         "name": "Ben Everly"
       },
@@ -33,7 +33,7 @@
       "name": "intelephense",
       "source": "./intelephense",
       "description": "PHP language server (Intelephense) for Claude Code with optimized file exclusions to reduce RAM usage",
-      "version": "1.0.0",
+      "version": "0.1.0",
       "author": {
         "name": "Ben Everly"
       },
