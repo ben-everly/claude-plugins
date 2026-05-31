@@ -5,7 +5,10 @@
     "tagAnnotation": "Release development-workflow v${version}",
     "commitMessage": "chore(release): development-workflow v${version}",
     "requireBranch": "main",
-    "requireCleanWorkingDir": false
+    "requireCleanWorkingDir": false,
+    "requireCommits": true,
+    "requireCommitsFail": false,
+    "commitsPath": "."
   },
   "github": {
     "release": true,
@@ -23,6 +26,12 @@
       "preset": "angular",
       "gitRawCommitsOpts": {
         "path": "."
+      },
+      "commitsOpts": {
+        "path": "."
+      },
+      "tagOpts": {
+        "prefix": "development-workflow-v"
       }
     }
   },
