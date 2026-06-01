@@ -67,10 +67,12 @@ inline review comment by @reviewer at src/foo.ts:42 (also raised in chat)
 
 ### Possible directions:
 
-- <direction A> — <one-line tradeoff>
-- <direction B> — <one-line tradeoff>
-- Skip — <why you might choose not to fix>
+- **A** — <direction> — <one-line tradeoff>
+- **B** — <direction> — <one-line tradeoff>
+- **C — Skip** — <why you might choose not to fix>
 ```
+
+**Always label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets.
 
 For `not-a-problem` issues, lead with the verdict and prominent reasoning. The user can still push back or ask to fix anyway.
 
@@ -80,7 +82,7 @@ For `unclear-need-input` issues, lead with the verdict and replace the "Possible
 
 #### 3. Implement & confirm
 
-When the user signals which direction to take (e.g., "go with direction A," "do the rename one," or any variant from discussion):
+When the user signals which direction to take (e.g., "A," "go with B," "the second one," "do the rename one," or any variant from discussion):
 
 - Implement _only_ the current issue's fix; no adjacent cleanup
 - Run targeted verification (test, type check, grep) — not the full suite unless the issue is broad
