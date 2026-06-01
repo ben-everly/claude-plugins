@@ -36,6 +36,6 @@
     }
   },
   "hooks": {
-    "after:bump": "node ../scripts/sync-marketplace.js atlassian-tools ${version}"
+    "after:bump": "node ../scripts/sync-marketplace.js atlassian-tools ${version} && git add ../.claude-plugin/marketplace.json"
   }
 }

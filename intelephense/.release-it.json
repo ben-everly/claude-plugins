@@ -36,6 +36,6 @@
     }
   },
   "hooks": {
-    "after:bump": "node ../scripts/sync-marketplace.js intelephense ${version}"
+    "after:bump": "node ../scripts/sync-marketplace.js intelephense ${version} && git add ../.claude-plugin/marketplace.json"
   }
 }

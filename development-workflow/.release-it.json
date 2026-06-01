@@ -36,6 +36,6 @@
     }
   },
   "hooks": {
-    "after:bump": "node ../scripts/sync-marketplace.js development-workflow ${version}"
+    "after:bump": "node ../scripts/sync-marketplace.js development-workflow ${version} && git add ../.claude-plugin/marketplace.json"
   }
 }

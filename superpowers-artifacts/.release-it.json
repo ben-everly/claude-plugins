@@ -36,6 +36,6 @@
     }
   },
   "hooks": {
-    "after:bump": "node ../scripts/sync-marketplace.js superpowers-artifacts ${version}"
+    "after:bump": "node ../scripts/sync-marketplace.js superpowers-artifacts ${version} && git add ../.claude-plugin/marketplace.json"
   }
 }
