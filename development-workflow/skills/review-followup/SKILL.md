@@ -22,7 +22,7 @@ Use best judgment from input:
 
 ### 2. Gather issues
 
-Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from (so you can reply later - see step 3, substep 4).
+Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from — the source becomes the issue title (substep 2) and lets you reply later (substep 4).
 
 Number issues 1..N. If there are no issues, say "No open review feedback found" (name the sources you checked) and stop.
 
@@ -39,19 +39,21 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 3. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
+6. Pick a recommended option and rate your confidence — `high` | `medium` | `low` — with a one-sentence justification. If you can't reach at least `medium` confidence, treat that as a sign the verdict is `unclear-need-input` and gather input instead of guessing.
+7. Choose the template for substep 2: the **compact** template when the verdict is `real-problem`, confidence is `high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
 
-#### 2. Present the current issue in this format
+#### 2. Present the current issue
 
-```markdown
-## Issue k of N
+Pick the template chosen during investigation (step 7 above).
 
-### Source:
+**Full template** — the default, for anything with a real tradeoff or less-than-high confidence:
 
-inline review comment by @reviewer at src/foo.ts:42 (also raised in chat)
+`````markdown
+## Issue k of N - <source>
 
 ### Background:
 
-<1-3 sentences: the current code the comment refers to, with `path:line` refs; include a short code block only if it aids understanding>
+<1-3 sentences: the current code the comment refers to. List EVERY relevant `path:line` and line range the issue touches — not just the comment's anchor. Include a short code block only if it aids understanding>
 
 ### Comment:
 
@@ -70,19 +72,45 @@ inline review comment by @reviewer at src/foo.ts:42 (also raised in chat)
 - **A** — <direction> — <one-line tradeoff>
 - **B** — <direction> — <one-line tradeoff>
 - **C — Skip** — <why you might choose not to fix>
-```
+
+### Recommendation: <letter> (<high | medium | low> confidence)
+
+<one-sentence justification>
+`````
+
+**Compact template** — only when the verdict is `real-problem`, confidence is `high`, and there's effectively one sensible fix (no meaningful alternative besides skipping):
+
+`````markdown
+## Issue k of N - <source>
+
+### Comment:
+
+<verbatim body, trimmed if long>
+
+### Recommendation: fix it (high confidence)
+
+`path:line` — <what's wrong + the one-line fix. Still list EVERY relevant `path:line` the issue touches.>
+`````
+
+Use the full template whenever there's a real alternative worth weighing; compact is only for true no-brainers.
+
+**Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. The trailing `<source>` label is a **stable backlink** to the original review item, so a reference survives re-ordering. Build `<source>` like this:
+
+- **Chat:** `chat history #c` — `c` counts chat-raised issues (1st raised in chat = `#1`). → `## Issue 2 of 7 - chat history #1`
+- **GitHub / GitLab:** `github - @<user> - <identifier>` (use `gitlab` for MRs). Resolve `<identifier>` in order: the reviewer's own label for the item if the review gives one (whatever scheme they use — e.g. `#3`, `R2`, `nit-1`) → else a clickable markdown link to the source comment, e.g. `[↗](<comment-url>)` → else omit it entirely. → `## Issue 4 of 7 - github - @alice - #3` or `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)` or `## Issue 6 of 7 - github - @carol`
+- **Cross-referenced** (raised in a review *and* in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
 **Always label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets.
 
-For `not-a-problem` issues, lead with the verdict and prominent reasoning. The user can still push back or ask to fix anyway.
+For `not-a-problem` issues, lead with the verdict and prominent reasoning, and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
 
-For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). Once the user answers, update the verdict and present real directions in a follow-up turn before waiting for the implement signal.
+For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). **Omit the Recommendation** until the user answers; then update the verdict, present real directions, and add the recommendation in a follow-up turn before waiting for the implement signal.
 
-**Then stop and wait. Do not give a menu.** Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
+**Then stop and wait. Do not give a menu.** The Recommendation is advice, not a decision. Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 #### 3. Implement & confirm
 
-When the user signals which direction to take (e.g., "A," "go with B," "the second one," "do the rename one," or any variant from discussion):
+When the user signals which direction to take — "A," "go with B," "the second one," "do the rename one," any variant from discussion, or (in the compact template, where there's no letter) a plain "yes" / "go" / "do it":
 
 - Implement _only_ the current issue's fix; no adjacent cleanup
 - Run targeted verification (test, type check, grep) — not the full suite unless the issue is broad
@@ -135,3 +163,6 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Batching multiple fixes at once               | One at a time. Each gets its own present → discuss → fix → confirm cycle         |
 | Drifting into adjacent cleanup                | Implement only what the current issue requires                                   |
 | Asking the review action for chat-only issues | Skip the question entirely for chat-only issues — there's no thread to reply to  |
+| Burying an obvious fix in the full template   | Use the compact template when the verdict is `real-problem`, confidence is high, and there's effectively one sensible fix (no meaningful alternative besides skipping) |
+| Dropping relevant line numbers from Background | Background must list every relevant `path:line` the issue touches, not just the comment's anchor |
+| Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `high`/`medium`/`low` confidence and a one-sentence justification |
