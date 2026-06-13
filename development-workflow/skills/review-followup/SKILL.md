@@ -39,8 +39,8 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 3. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
-6. Pick a recommended option and rate your confidence — `high` | `medium` | `low` — with a one-sentence justification. If you can't reach at least `medium` confidence, treat that as a sign the verdict is `unclear-need-input` and gather input instead of guessing.
-7. Choose the template for substep 2: the **compact** template when the verdict is `real-problem`, confidence is `high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
+6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. `medium` is the floor: if you can't reach at least `medium` confidence, treat that as a sign the verdict is `unclear-need-input` and gather input instead of guessing.
+7. Choose the template for substep 2: the **compact** template when the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
 
 #### 2. Present the current issue
 
@@ -73,12 +73,12 @@ Pick the template chosen during investigation (step 7 above).
 - **B** — <direction> — <one-line tradeoff>
 - **C — Skip** — <why you might choose not to fix>
 
-### Recommendation: <letter> (<high | medium | low> confidence)
+### Recommendation: <letter> (<medium | high | very high> confidence)
 
 <one-sentence justification>
 `````
 
-**Compact template** — only when the verdict is `real-problem`, confidence is `high`, and there's effectively one sensible fix (no meaningful alternative besides skipping):
+**Compact template** — only when the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping):
 
 `````markdown
 ## Issue k of N - <source>
@@ -87,7 +87,7 @@ Pick the template chosen during investigation (step 7 above).
 
 <verbatim body, trimmed if long>
 
-### Recommendation: fix it (high confidence)
+### Recommendation: fix it (very high confidence)
 
 `path:line` — <what's wrong + the one-line fix. Still list EVERY relevant `path:line` the issue touches.>
 `````
@@ -163,6 +163,6 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Batching multiple fixes at once               | One at a time. Each gets its own present → discuss → fix → confirm cycle         |
 | Drifting into adjacent cleanup                | Implement only what the current issue requires                                   |
 | Asking the review action for chat-only issues | Skip the question entirely for chat-only issues — there's no thread to reply to  |
-| Burying an obvious fix in the full template   | Use the compact template when the verdict is `real-problem`, confidence is high, and there's effectively one sensible fix (no meaningful alternative besides skipping) |
+| Burying an obvious fix in the full template   | Use the compact template when the verdict is `real-problem`, confidence is very high, and there's effectively one sensible fix (no meaningful alternative besides skipping) |
 | Dropping relevant line numbers from Background | Background must list every relevant `path:line` the issue touches, not just the comment's anchor |
-| Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `high`/`medium`/`low` confidence and a one-sentence justification |
+| Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
