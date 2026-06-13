@@ -40,7 +40,7 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
 6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. `medium` is the floor: if you can't reach at least `medium` confidence, change the verdict to `unclear-need-input`, discard the directions you drafted in step 5, and present **Questions to resolve before fixing** instead (substep 2) — gather input rather than guessing.
-7. Choose the template for substep 2: the **compact** template when the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
+7. Choose the template for substep 2: the **compact** template when the issue clears the **no-brainer bar** — the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
 
 #### 2. Present the current issue
 
@@ -78,7 +78,7 @@ Pick the template chosen during investigation (step 7 above).
 <one-sentence justification>
 `````
 
-**Compact template** — only when the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping):
+**Compact template** — only when the issue clears the no-brainer bar (step 7):
 
 `````markdown
 ## Issue k of N - <source>
@@ -163,6 +163,6 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Batching multiple fixes at once               | One at a time. Each gets its own present → discuss → fix → confirm cycle         |
 | Drifting into adjacent cleanup                | Implement only what the current issue requires                                   |
 | Asking the review action for chat-only issues | Skip the question entirely for chat-only issues — there's no thread to reply to  |
-| Burying an obvious fix in the full template   | Use the compact template when the verdict is `real-problem`, confidence is very high, and there's effectively one sensible fix (no meaningful alternative besides skipping) |
+| Burying an obvious fix in the full template   | Use the compact template when the issue clears the no-brainer bar (step 7)        |
 | Dropping relevant line numbers from Background | Background must list every relevant `path:line` the issue touches, not just the comment's anchor |
 | Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
