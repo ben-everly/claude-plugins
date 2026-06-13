@@ -39,7 +39,7 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 3. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
-6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. `medium` is the floor: if you can't reach at least `medium` confidence, treat that as a sign the verdict is `unclear-need-input` and gather input instead of guessing.
+6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. `medium` is the floor: if you can't reach at least `medium` confidence, change the verdict to `unclear-need-input`, discard the directions you drafted in step 5, and present **Questions to resolve before fixing** instead (substep 2) — gather input rather than guessing.
 7. Choose the template for substep 2: the **compact** template when the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
 
 #### 2. Present the current issue
@@ -104,7 +104,7 @@ Use the full template whenever there's a real alternative worth weighing; compac
 
 For `not-a-problem` issues, lead with the verdict and prominent reasoning, and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
 
-For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). **Omit the Recommendation** until the user answers; then update the verdict, present real directions, and add the recommendation in a follow-up turn before waiting for the implement signal.
+For `unclear-need-input` issues, lead with the verdict and replace the "Possible directions" section with **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). **Omit the Recommendation** until the user answers; then update the verdict, present real directions, and add the recommendation in a follow-up turn (re-applying the step 6 confidence check) before waiting for the implement signal.
 
 **Then stop and wait. Do not give a menu.** The Recommendation is advice, not a decision. Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
