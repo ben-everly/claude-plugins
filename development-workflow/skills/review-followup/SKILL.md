@@ -22,7 +22,7 @@ Use best judgment from input:
 
 ### 2. Gather issues
 
-Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from — the source becomes the issue title (substep 2) and lets you reply later (substep 4).
+Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from — the source becomes the issue title (substep 2) and lets you reply later (substep 4). For chat-raised issues, assign the `chat history #c` counter (substep 2) in the order they appear here and keep it fixed, so the backlink stays stable if issues are reordered.
 
 Number issues 1..N. If there are no issues, say "No open review feedback found" (name the sources you checked) and stop.
 
