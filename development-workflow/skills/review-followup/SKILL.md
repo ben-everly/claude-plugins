@@ -90,6 +90,10 @@ Pick the template chosen during investigation (step 7 above).
 ### Recommendation: fix it (very high confidence)
 
 `path:line` — <currently does X; should do Y. Still list EVERY relevant `path:line` the issue touches.>
+
+### Why it's a no-brainer:
+
+<one line naming the evidence that makes this the only sensible change — e.g. "typo, no behavioral change," or "the failing test at `foo.test.ts:30` pins the corrected value">
 ```
 
 Use the full template whenever there's a real alternative worth weighing; compact is only for true no-brainers.
