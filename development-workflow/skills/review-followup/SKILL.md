@@ -97,7 +97,10 @@ Use the full template whenever there's a real alternative worth weighing; compac
 **Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. The trailing `<source>` label is a **stable backlink** to the original review item, so a reference survives re-ordering. Build `<source>` like this:
 
 - **Chat:** `chat history #c` — `c` counts chat-raised issues (1st raised in chat = `#1`). → `## Issue 2 of 7 - chat history #1`
-- **GitHub / GitLab:** `github - @<user> - <identifier>` (use `gitlab` for MRs). Resolve `<identifier>` in order: the reviewer's own label for the item if the review gives one (whatever scheme they use — e.g. `#3`, `R2`, `nit-1`) → else a clickable markdown link to the source comment, e.g. `[↗](<comment-url>)` → else omit it entirely. → `## Issue 4 of 7 - github - @alice - #3` or `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)` or `## Issue 6 of 7 - github - @carol`
+- **GitHub / GitLab:** `github - @<user> - <identifier>` (use `gitlab` for MRs). Resolve `<identifier>` in order:
+  1. The reviewer's own label, whatever scheme they use (e.g. `#3`, `R2`, `nit-1`). → `## Issue 4 of 7 - github - @alice - #3`
+  2. Else a clickable markdown link to the source comment. → `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
+  3. Else omit it. → `## Issue 6 of 7 - github - @carol`
 - **Cross-referenced** (raised in a review _and_ in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
 **Always label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets.
