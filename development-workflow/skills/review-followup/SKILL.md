@@ -116,7 +116,7 @@ For `unclear-need-input` issues, lead with the verdict and replace the "Possible
 When the user signals which direction to take:
 
 - **Full template:** a letter or named direction — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which direction before coding.
-- **Compact template:** there's no letter — a plain "yes" / "go" / "do it" is the signal.
+- **Compact template:** there's no letter — a plain "yes" / "go" / "do it" is the signal. But any question, hedge, or sign of uncertainty cancels the shortcut — switch to the full template and confirm the specific change before coding.
 
 Then:
 
@@ -172,5 +172,7 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Drifting into adjacent cleanup                   | Implement only what the current issue requires                                                                                 |
 | Asking the review action for chat-only issues    | Skip the question entirely for chat-only issues — there's no thread to reply to                                                |
 | Burying an obvious fix in the full template      | Use the compact template when the issue clears the no-brainer bar (step 7)                                                     |
+| Over-compacting an issue with a real tradeoff    | Full is the default; compact only when the fix is obvious and skipping is the only alternative                                 |
+| Treating a "yes" as go after the user hedged     | Any question or hint of doubt cancels the compact shortcut — fall back to the full template and confirm the change             |
 | Dropping relevant line numbers from Background   | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                               |
 | Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
