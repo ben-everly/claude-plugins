@@ -110,7 +110,12 @@ For `unclear-need-input` issues, lead with the verdict and replace the "Possible
 
 #### 3. Implement & confirm
 
-When the user signals which direction to take — "A," "go with B," "the second one," "do the rename one," any variant from discussion, or (in the compact template, where there's no letter) a plain "yes" / "go" / "do it":
+When the user signals which direction to take:
+
+- **Full template:** a letter or named direction — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which direction before coding.
+- **Compact template:** there's no letter — a plain "yes" / "go" / "do it" is the signal.
+
+Then:
 
 - Implement _only_ the current issue's fix; no adjacent cleanup
 - Run targeted verification (test, type check, grep) — not the full suite unless the issue is broad
