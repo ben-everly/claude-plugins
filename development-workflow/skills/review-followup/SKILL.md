@@ -46,7 +46,7 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 
 Pick the template chosen during investigation (step 7 above).
 
-**Full template** — the default, for anything with a real tradeoff or less-than-high confidence:
+**Full template** — the default, for anything that doesn't clear the no-brainer bar (step 7) — any real tradeoff, or less-than-`very high` confidence:
 
 ```markdown
 ## Issue k of N - <source>
