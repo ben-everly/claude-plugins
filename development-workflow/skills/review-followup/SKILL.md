@@ -89,7 +89,7 @@ Pick the template chosen during investigation (step 7 above).
 
 ### Recommendation: fix it (very high confidence)
 
-`path:line` — <what's wrong + the one-line fix. Still list EVERY relevant `path:line` the issue touches.>
+`path:line` — <currently does X; should do Y. Still list EVERY relevant `path:line` the issue touches.>
 `````
 
 Use the full template whenever there's a real alternative worth weighing; compact is only for true no-brainers.
