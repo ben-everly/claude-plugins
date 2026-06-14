@@ -75,7 +75,7 @@ Pick the template chosen during investigation (step 7 above).
 
 ### Recommendation: <letter> (<medium | high | very high> confidence)
 
-<one-sentence justification>
+<one-sentence justification — why this option over the others>
 ```
 
 **Compact template** — only when the issue clears the no-brainer bar (step 7):
