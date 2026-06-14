@@ -48,7 +48,7 @@ Pick the template chosen during investigation (step 7 above).
 
 **Full template** — the default, for anything with a real tradeoff or less-than-high confidence:
 
-`````markdown
+```markdown
 ## Issue k of N - <source>
 
 ### Background:
@@ -76,11 +76,11 @@ Pick the template chosen during investigation (step 7 above).
 ### Recommendation: <letter> (<medium | high | very high> confidence)
 
 <one-sentence justification>
-`````
+```
 
 **Compact template** — only when the issue clears the no-brainer bar (step 7):
 
-`````markdown
+```markdown
 ## Issue k of N - <source>
 
 ### Comment:
@@ -90,7 +90,7 @@ Pick the template chosen during investigation (step 7 above).
 ### Recommendation: fix it (very high confidence)
 
 `path:line` — <currently does X; should do Y. Still list EVERY relevant `path:line` the issue touches.>
-`````
+```
 
 Use the full template whenever there's a real alternative worth weighing; compact is only for true no-brainers.
 
@@ -98,7 +98,7 @@ Use the full template whenever there's a real alternative worth weighing; compac
 
 - **Chat:** `chat history #c` — `c` counts chat-raised issues (1st raised in chat = `#1`). → `## Issue 2 of 7 - chat history #1`
 - **GitHub / GitLab:** `github - @<user> - <identifier>` (use `gitlab` for MRs). Resolve `<identifier>` in order: the reviewer's own label for the item if the review gives one (whatever scheme they use — e.g. `#3`, `R2`, `nit-1`) → else a clickable markdown link to the source comment, e.g. `[↗](<comment-url>)` → else omit it entirely. → `## Issue 4 of 7 - github - @alice - #3` or `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)` or `## Issue 6 of 7 - github - @carol`
-- **Cross-referenced** (raised in a review *and* in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
+- **Cross-referenced** (raised in a review _and_ in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
 **Always label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets.
 
@@ -157,17 +157,17 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 
 ## Common Mistakes
 
-| Mistake                                       | Fix                                                                              |
-| --------------------------------------------- | -------------------------------------------------------------------------------- |
-| Auto-advancing after a fix                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it |
-| Replying or resolving without asking          | Use `AskUserQuestion` per issue                                                  |
-| Auto-committing or auto-pushing               | Never commit or push without an explicit user signal                             |
-| Filtering out `not-a-problem` issues silently | Present anyway with the verdict; user decides                                    |
-| Performative reply ("Thanks for the catch!")  | Factual: "Fixed in `<ref>`. `<summary>`."                                        |
-| Implementing without first investigating      | Read code, form a verdict, present, wait for signal                              |
-| Batching multiple fixes at once               | One at a time. Each gets its own present → discuss → fix → confirm cycle         |
-| Drifting into adjacent cleanup                | Implement only what the current issue requires                                   |
-| Asking the review action for chat-only issues | Skip the question entirely for chat-only issues — there's no thread to reply to  |
-| Burying an obvious fix in the full template   | Use the compact template when the issue clears the no-brainer bar (step 7)        |
-| Dropping relevant line numbers from Background | Background must list every relevant `path:line` the issue touches, not just the comment's anchor |
+| Mistake                                          | Fix                                                                                                                            |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Auto-advancing after a fix                       | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                            |
+| Replying or resolving without asking             | Use `AskUserQuestion` per issue                                                                                                |
+| Auto-committing or auto-pushing                  | Never commit or push without an explicit user signal                                                                           |
+| Filtering out `not-a-problem` issues silently    | Present anyway with the verdict; user decides                                                                                  |
+| Performative reply ("Thanks for the catch!")     | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                      |
+| Implementing without first investigating         | Read code, form a verdict, present, wait for signal                                                                            |
+| Batching multiple fixes at once                  | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                       |
+| Drifting into adjacent cleanup                   | Implement only what the current issue requires                                                                                 |
+| Asking the review action for chat-only issues    | Skip the question entirely for chat-only issues — there's no thread to reply to                                                |
+| Burying an obvious fix in the full template      | Use the compact template when the issue clears the no-brainer bar (step 7)                                                     |
+| Dropping relevant line numbers from Background   | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                               |
 | Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
