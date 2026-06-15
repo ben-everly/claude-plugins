@@ -39,14 +39,14 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 3. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
-6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. Confidence measures whether the recommended direction is the right call for this issue, not merely that some fix is correct: `very high` means it's the only change the user could reasonably want (this is what gates the compact template); `medium` is the floor — proceed, but look closely, this is one you'd want the user's eyes on. There is no tier below `medium`: if you can't reach it, change the verdict to `unclear-need-input`, discard the directions you drafted in step 5, and present **Questions to resolve before fixing** instead (substep 2) — gather input rather than guessing.
-7. Choose the template for substep 2: the **compact** template when the issue clears the **no-brainer bar** — the verdict is `real-problem`, confidence is `very high`, and there's effectively one sensible fix (no meaningful alternative besides skipping); otherwise the **full** template.
+6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. Confidence measures whether the recommended direction is the right call for this issue, not merely that some fix is correct: `very high` means it's the only change the user could reasonably want; `medium` is the floor — proceed, but look closely, this is one you'd want the user's eyes on. There is no tier below `medium`: if you can't reach it, change the verdict to `unclear-need-input`, discard the directions you drafted in step 5, and present **Questions to resolve before fixing** instead (substep 2) — gather input rather than guessing.
+7. Decide which sections substep 2 needs: always Title, Comment, and Recommendation; add Background, Investigation, Verdict, and Possible directions only when they help explain the issue (see the brevity principle in substep 2).
 
 #### 2. Present the current issue
 
-Pick the template chosen during investigation (step 7 above).
+Always present Title, Comment, and Recommendation; include the other sections only when they help. Follow this principle:
 
-**Full template** — the default, for anything that doesn't clear the no-brainer bar (step 7) — any real tradeoff, or less-than-`very high` confidence:
+> _Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything. Title, Comment, and Recommendation are the only constants._
 
 ```markdown
 ## Issue k of N - <source>
@@ -73,30 +73,10 @@ Pick the template chosen during investigation (step 7 above).
 - **B** — <direction> — <one-line tradeoff>
 - **C — Skip** — <why you might choose not to fix>
 
-### Recommendation: <letter> (<medium | high | very high> confidence)
+### Recommendation: <letter, or "fix it" when no directions are listed> (<medium | high | very high> confidence)
 
-<one-sentence justification — why this option over the others>
+<one-sentence justification — why this option over the others; or, when no directions are listed, the evidence that makes this the only sensible change. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
-
-**Compact template** — only when the issue clears the no-brainer bar (step 7):
-
-```markdown
-## Issue k of N - <source>
-
-### Comment:
-
-<verbatim body, trimmed if long>
-
-### Recommendation: fix it (very high confidence)
-
-`path:line` — <currently does X; should do Y. Still list EVERY relevant `path:line` the issue touches.>
-
-### Why it's a no-brainer:
-
-<one line naming the evidence that makes this the only sensible change — e.g. "typo, no behavioral change," or "the failing test at `foo.test.ts:30` pins the corrected value">
-```
-
-Use the full template whenever there's a real alternative worth weighing; compact is only for true no-brainers.
 
 **Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. The trailing `<source>` label is a **stable backlink** to the original review item, so a reference survives re-ordering. Build `<source>` like this:
 
@@ -107,7 +87,7 @@ Use the full template whenever there's a real alternative worth weighing; compac
     3. Else omit it. → `## Issue 6 of 7 - github - @carol`
 - **Cross-referenced** (raised in a review _and_ in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
-**Always label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets.
+**Whenever you include the Possible directions section, label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets. (When you omit Possible directions and recommend "fix it," there are no options to label.)
 
 For `not-a-problem` issues, lead with the verdict and prominent reasoning, and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
 
@@ -119,8 +99,8 @@ For `unclear-need-input` issues, lead with the verdict and replace the "Possible
 
 When the user signals which direction to take:
 
-- **Full template:** a letter or named direction — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which direction before coding.
-- **Compact template:** there's no letter — a plain "yes" / "go" / "do it" is the signal. But any question, hedge, or sign of uncertainty cancels the shortcut — switch to the full template and confirm the specific change before coding.
+- **If you presented directions:** a letter or named direction — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which direction before coding.
+- **If you presented one sensible fix (no directions):** there's no letter — a plain "yes" / "go" / "do it" is the signal. But any question, hedge, or sign of uncertainty means you should lay out the directions and confirm the specific change before coding.
 
 Then:
 
@@ -175,8 +155,8 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Batching multiple fixes at once                  | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                       |
 | Drifting into adjacent cleanup                   | Implement only what the current issue requires                                                                                 |
 | Asking the review action for chat-only issues    | Skip the question entirely for chat-only issues — there's no thread to reply to                                                |
-| Burying an obvious fix in the full template      | Use the compact template when the issue clears the no-brainer bar (step 7)                                                     |
-| Over-compacting an issue with a real tradeoff    | Full is the default; compact only when the fix is obvious and skipping is the only alternative                                 |
-| Treating a "yes" as go after the user hedged     | Any question or hint of doubt cancels the compact shortcut — fall back to the full template and confirm the change             |
+| Padding an obvious fix with sections it doesn't need | Drop Background/Investigation/Verdict/Directions for an obvious fix; present just Comment + Recommendation                  |
+| Stripping sections an issue with a real tradeoff needs | Include the directions and reasoning whenever there's a genuine alternative to weigh                                       |
+| Treating a "yes" as go after the user hedged     | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                   |
 | Dropping relevant line numbers from Background   | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                               |
 | Recommending without confidence or justification | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
