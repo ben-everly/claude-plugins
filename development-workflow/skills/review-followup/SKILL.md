@@ -40,7 +40,7 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 4. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`.
 5. Draft 1–3 fix options (even for `not-a-problem`, in case the user disagrees).
 6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. Confidence measures whether the recommended direction is the right call for this issue, not merely that some fix is correct: `very high` means it's the only change the user could reasonably want; `medium` is the floor — proceed, but look closely, this is one you'd want the user's eyes on. There is no tier below `medium`: if you can't reach it, change the verdict to `unclear-need-input`, discard the directions you drafted in step 5, and present **Questions to resolve before fixing** instead (substep 2) — gather input rather than guessing.
-7. Decide which sections substep 2 needs: always Title, Comment, and Recommendation; add Background, Investigation, Verdict, and Possible directions only when they help explain the issue (see the brevity principle in substep 2).
+7. Decide which sections substep 2 needs: always Title, Comment, and Recommendation; add Background, Investigation, Verdict, and Possible directions only when they help explain the issue (see the brevity principle in substep 2). **Exception:** `not-a-problem` and `unclear-need-input` issues must always keep the Verdict — they lead with it (substeps below) — so never drop it for those.
 
 #### 2. Present the current issue
 
