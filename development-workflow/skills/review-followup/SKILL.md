@@ -46,7 +46,7 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 
 Always present Title, Comment, and Recommendation; include the other sections only when they help. Follow this principle:
 
-> _Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything. Title, Comment, and Recommendation are the only constants._
+> _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything. Title, Comment, and Recommendation are the only constants._
 
 ```markdown
 ## Issue k of N - <source>
@@ -155,7 +155,7 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Batching multiple fixes at once                  | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                       |
 | Drifting into adjacent cleanup                   | Implement only what the current issue requires                                                                                 |
 | Asking the review action for chat-only issues    | Skip the question entirely for chat-only issues — there's no thread to reply to                                                |
-| Padding an obvious fix with sections it doesn't need | Drop Background/Investigation/Verdict/Directions for an obvious fix; present just Comment + Recommendation                  |
+| Padding an obvious fix with sections it doesn't need | Drop Background/Investigation/Verdict/Directions for an obvious fix; present just Title + Comment + Recommendation                  |
 | Stripping sections an issue with a real tradeoff needs | Include the directions and reasoning whenever there's a genuine alternative to weigh                                       |
 | Treating a "yes" as go after the user hedged     | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                   |
 | Dropping relevant line numbers from Background   | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                               |
