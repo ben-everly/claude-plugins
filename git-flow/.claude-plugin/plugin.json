@@ -1,0 +1,8 @@
+{
+  "name": "git-flow",
+  "version": "0.1.0",
+  "description": "Name git branches and point PRs following the git flow model (git-flow CLI / Atlassian): feature/, bugfix/, release/, hotfix/ around main and develop",
+  "author": {
+    "name": "Ben Everly"
+  }
+}
