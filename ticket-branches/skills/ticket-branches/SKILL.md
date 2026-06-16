@@ -52,8 +52,8 @@ plugin) fits better.
 ## Where PRs point
 
 All branches open their pull request against `main` (the trunk). If the repo's
-default branch is named differently (e.g. `master`), use that instead — check the
-repo or rely on project-specific context.
+default branch is named differently, use that instead — check the repo or rely
+on project-specific context.
 
 ## Examples
 
