@@ -47,14 +47,13 @@ git for-each-ref refs/heads/PROJ-123/ refs/remotes/*/PROJ-123/
 ## No ticket?
 
 This convention assumes a tracker. If there is genuinely no ticket, do not
-invent a fake id — note that another model (such as the `conventional-branches`
-plugin) fits better.
+invent a fake id — note that another model may fit better. If it's not clear from
+context, ask the user how they want to handle it.
 
 ## Where PRs point
 
-All branches open their pull request against `main` (the trunk). If the repo's
-default branch is named differently, use that instead — check the repo or rely
-on project-specific context.
+Branches typically integrate into the default branch (`main` on trunk-based
+repos). If the integration branch isn't clear from context, ask the user.
 
 ## Examples
 
