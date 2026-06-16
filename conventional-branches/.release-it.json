@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "tagName": "conventional-branches-v${version}",
+    "tagAnnotation": "Release conventional-branches v${version}",
+    "commitMessage": "chore(release): conventional-branches v${version}",
+    "requireBranch": "main",
+    "requireCleanWorkingDir": false,
+    "requireCommits": true,
+    "requireCommitsFail": false,
+    "commitsPath": "."
+  },
+  "github": {
+    "release": true,
+    "releaseName": "conventional-branches-v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "in": ".claude-plugin/plugin.json",
+      "out": ".claude-plugin/plugin.json"
+    },
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "gitRawCommitsOpts": {
+        "path": "."
+      },
+      "commitsOpts": {
+        "path": "."
+      },
+      "tagOpts": {
+        "prefix": "conventional-branches-v"
+      }
+    }
+  },
+  "hooks": {
+    "after:bump": "node ../scripts/sync-marketplace.js conventional-branches ${version} && git add ../.claude-plugin/marketplace.json"
+  }
+}
