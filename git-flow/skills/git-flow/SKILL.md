@@ -26,11 +26,15 @@ the branch names, ask the user.
 | `release/*` | `develop` | `main`    | `develop`          |
 | `hotfix/*`  | `main`    | `main`    | `develop`          |
 
-`release/*` and `hotfix/*` merge into **both** `main` and `develop`, so the work
-ships to production and is not lost from the next release line. A single PR
-targets one branch: open it into `main`, then after it merges back-merge `main`
-into `develop` (a second PR or a local `git merge`) so the two branches do not
-diverge.
+`release/*` and `hotfix/*` must land in **both** `main` and `develop`, so the
+work ships to production and isn't lost from the next release line. A pull
+request targets one branch, so finish them in order:
+
+1. Merge the branch into `main` (via PR).
+2. Tag `main` with the release version (e.g. `2.1.0`).
+3. Merge `main` into `develop` (a second PR or a local `git merge`) so the two
+   branches don't diverge. Resolve any conflicts keeping both sides — a hotfix
+   back-merge resolved wrong silently reintroduces the bug it fixed.
 
 ## Naming
 
