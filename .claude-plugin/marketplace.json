@@ -63,7 +63,7 @@
       "name": "ticket-branches",
       "source": "./ticket-branches",
       "description": "Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based development",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "author": {
         "name": "Ben Everly"
       },
