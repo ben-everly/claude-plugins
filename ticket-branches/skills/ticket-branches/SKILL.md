@@ -35,10 +35,12 @@ git for-each-ref refs/heads/PROJ-123/ refs/remotes/*/PROJ-123/
 
 ## Rules
 
-- **Ticket id:** use the tracker's native key verbatim — Jira `PROJ-123`,
-  GitHub/GitLab issue number `1234`. The id must appear exactly as the tracker
-  expects, because that is what powers automatic linking of the branch to the
-  ticket.
+- **Ticket id:** use the id as the tracker emits it — Jira `PROJ-123`,
+  GitHub/GitLab issue number `1234` — and only from a trusted tracker, since it
+  flows straight into branch names and `git` commands. Match its canonical case:
+  git ref namespaces are case-sensitive, so `PROJ-123/...` and `proj-123/...` are
+  different namespaces that won't group together. The exact key is also what
+  powers automatic linking of the branch to the ticket.
 - **Description:** lowercase, hyphen-separated (kebab-case), alphanumeric and
   hyphens only, short.
 - One `/` only — separating the ticket id from the description.
