@@ -39,8 +39,7 @@ git for-each-ref refs/heads/PROJ-123/ refs/remotes/*/PROJ-123/
   GitHub/GitLab issue number `1234` — and only from a trusted tracker, since it
   flows straight into branch names and `git` commands. Match its canonical case:
   git ref namespaces are case-sensitive, so `PROJ-123/...` and `proj-123/...` are
-  different namespaces that won't group together. The exact key is also what
-  powers automatic linking of the branch to the ticket.
+  different namespaces that won't group together.
 - **Description:** lowercase, hyphen-separated (kebab-case), alphanumeric and
   hyphens only, short.
 - One `/` only — separating the ticket id from the description.
@@ -71,7 +70,7 @@ PROJ-456/ui
 - **Leading with type instead of ticket:** `feature/PROJ-123-add-export` →
   `PROJ-123/add-export` (this plugin is ticket-first)
 - **Mangling the tracker key:** `proj123/add-export` → `PROJ-123/add-export`
-  (auto-linking needs the exact key)
+  (use the tracker's canonical key)
 - **Spaces or uppercase in the description:** `PROJ-123/Add Export` →
   `PROJ-123/add-export`
 - **Inventing an id when there is no ticket** — use a different branching model
