@@ -1,6 +1,6 @@
 ---
 name: conventional-branches
-description: Use when naming a git branch, choosing which branch to base it on, targeting a pull request, or merging a branch, following the Conventional Branch spec (type-first prefixes: feature/, fix/, release/, hotfix/, chore/).
+description: Use when naming a git branch, choosing which branch to base it on, targeting a pull request, or merging a branch, in a repo that follows the Conventional Branch spec (type-first branch naming).
 ---
 
 # Conventional Branch
@@ -26,13 +26,16 @@ For example, `feature/issue-123-add-login`.
 
 Use exactly one of the following category prefixes:
 
-| Type                  | When to use                              |
-| --------------------- | ---------------------------------------- |
-| `feature/` or `feat/` | New feature or capability                |
-| `bugfix/` or `fix/`   | Bug fix                                  |
-| `hotfix/`             | Urgent fix, typically against production |
-| `release/`            | Release preparation                      |
-| `chore/`              | Tooling, dependencies, housekeeping      |
+| Type       | When to use                              |
+| ---------- | ---------------------------------------- |
+| `feature/` | New feature or capability                |
+| `bugfix/`  | Bug fix                                  |
+| `hotfix/`  | Urgent fix, typically against production |
+| `release/` | Release preparation                      |
+| `chore/`   | Tooling, dependencies, housekeeping      |
+
+\* `feat/` and `fix/` are accepted aliases for `feature/` and `bugfix/`; use
+them only if that is already your project's convention.
 
 The long-lived base branches are `main` and, if the repo uses
 one, `develop`. These have no prefix.
