@@ -53,7 +53,7 @@
       "name": "conventional-branches",
       "source": "./conventional-branches",
       "description": "Name git branches following the Conventional Branch spec (type-first: feature/, bugfix/, hotfix/, release/, chore/)",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "author": {
         "name": "Ben Everly"
       },
@@ -63,7 +63,7 @@
       "name": "ticket-branches",
       "source": "./ticket-branches",
       "description": "Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based development",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "author": {
         "name": "Ben Everly"
       },
@@ -73,7 +73,7 @@
       "name": "git-flow",
       "source": "./git-flow",
       "description": "Name git branches and point PRs following the git flow model (git-flow CLI / Atlassian): feature/, bugfix/, release/, hotfix/ around main and develop",
-      "version": "0.1.0",
+      "version": "0.0.0",
       "author": {
         "name": "Ben Everly"
       },
