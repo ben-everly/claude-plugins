@@ -51,12 +51,9 @@ one, `develop`. These have no prefix.
 
 ## Where PRs point
 
-All working branches (`feature/`, `bugfix/`, `hotfix/`, `release/`, `chore/`)
-open their pull request against `main` (the trunk). If the repo's default branch
-is named differently, use that instead — check the repo or rely
-on project-specific context. Conventional Branch governs naming, not flow: if the
-repo also keeps a long-lived `develop` branch, target whichever branch the team
-integrates into (or use the `git-flow` plugin for that model).
+Conventional Branch governs naming, not flow. A branch typically integrates into
+the repo's default branch (`main` on trunk-based repos). If the integration
+branch isn't clear from context, ask the user.
 
 ## Examples
 
