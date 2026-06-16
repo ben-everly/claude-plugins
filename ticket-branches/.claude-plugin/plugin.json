@@ -1,0 +1,8 @@
+{
+  "name": "ticket-branches",
+  "version": "0.1.0",
+  "description": "Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based development",
+  "author": {
+    "name": "Ben Everly"
+  }
+}
