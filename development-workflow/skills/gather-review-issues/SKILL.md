@@ -1,6 +1,6 @@
 ---
 name: gather-review-issues
-description: Use when a skill or the user needs to locate a review and turn its feedback into a normalized, numbered issue list — invoked by review-followup and reusable by other skills. Gathers every comment, inline thread, summary body, and chat-raised issue without filtering, and gives each a stable source backlink.
+description: Use when a skill needs to locate a review and turn its feedback into a normalized, numbered issue list — invoked by review-followup and reusable by other skills. Gathers every comment, inline thread, summary body, and chat-raised issue without filtering, and gives each a stable source backlink. Produces the list and stops — it does not present, discuss, or fix issues; the calling skill does that.
 ---
 
 # Gather Review Issues
@@ -47,4 +47,4 @@ Give each issue a stable identity with these fields:
 
 ## Output
 
-Return the normalized, numbered issue list — each issue carrying number, `source`, code location(s), body, and origin. Consumers create their own tracking state and render titles from these fields.
+Return the normalized issue list — each issue carrying its current `number` (ordering, not stable identity), `source` (the stable identity), code location(s), body, and origin. Consumers create their own tracking state and render titles from these fields.
