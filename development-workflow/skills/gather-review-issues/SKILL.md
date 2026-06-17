@@ -21,7 +21,7 @@ If there are no issues, say "No open review feedback found" (name the sources yo
 
 Give each issue these fields, each holding exactly one thing. Omit the optional ones when the source doesn't provide them.
 
-- **number** — its `1..N` position in the list. This is just display order and can shift as issues are added or removed, so don't use it to refer back to an issue.
+- **number** — its `1..N` position in the list, assigned in gather order. New issues are appended, so a number stays put once assigned — you can use it to refer back to an issue.
 - **source** — where the issue came from: `chat`, `github`, or `gitlab`. This is how a consumer tells a chat-only issue from a review one. If an issue was raised in both a review and chat, use the review as its `source` — that's what gets a reply.
 - **reviewer** — who raised the issue, stored as the handle you'd use to address them (`@alice`). Optional — omit for chat or when there's no distinct reviewer.
 - **identifier** — the source's own label for the item, whatever scheme it uses (`#3`, `R2`, `nit-1`), if one is given. Optional.

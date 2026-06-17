@@ -42,7 +42,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title, Comm
 
 ### Background:
 
-<1-3 sentences: the current code the comment refers to. List EVERY relevant `path:line` and line range the issue touches — not just the comment's anchor. Include a short code block only if it aids understanding>
+<1-3 sentences: the current code the comment refers to. Start from the issue's `anchor`, then list EVERY relevant `path:line` and line range the issue touches — not just that anchor. Include a short code block only if it aids understanding>
 
 ### Comment:
 
@@ -67,7 +67,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title, Comm
 <one-sentence justification — why this option over the others; or, when no directions are listed, the evidence that makes this the only sensible change. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. `source`, `reviewer`, `identifier`, and `link` all come from `gather-review-issues`; render the title as `k of N - <source>`, then append `reviewer`, `identifier`, and `link` when present and drop whichever are absent. Examples:
+**Title format** — `## Issue k of N - <source>`. `k of N` is the gather order; new issues append to the end, so an issue's number stays put. `source`, `reviewer`, `identifier`, and `link` all come from `gather-review-issues`; render the title as `k of N - <source>`, then append `reviewer`, `identifier`, and `link` when present and drop whichever are absent. Examples:
 
 - `## Issue 2 of 7 - chat`
 - `## Issue 3 of 7 - chat - #2`
