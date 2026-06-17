@@ -11,24 +11,13 @@ Walk through review feedback one issue at a time: investigate, present with fix 
 
 ## Workflow
 
-### 1. Identify the review
+### 1. Gather the issues
 
-Use best judgment from input:
+Invoke the `gather-review-issues` skill to locate the review and produce the normalized, numbered issue list. Each issue arrives with its `number`, `source` backlink, code location(s), verbatim body, and origin (review vs. chat). If `gather-review-issues` reports no issues, stop — there is nothing to walk through.
 
-- If the user provides a review reference (PR/MR number, URL, branch), use it
-- Check chat history for recent reviews
-- Check the current branch's PR/MR for reviews
-- If the input is ambiguous, use your best judgment. If you cannot determine what to review, list the user's open reviews and ask
+Create a `TaskCreate` task per issue. Mark `in_progress` when presented, `completed` after the review action. See step 2, substeps 2 and 4.
 
-### 2. Gather issues
-
-Fetch every comment — top-level comments, inline threads, and review-summary bodies — plus any issues raised earlier in this chat. Don't filter by author or location; the goal is to find every issue. Note each issue's code location (for investigation) and where it came from — the source becomes the issue title (substep 2) and lets you reply later (substep 4). For chat-raised issues, assign the `chat history #c` counter (substep 2) in the order they appear here and keep it fixed, so the backlink stays stable if issues are reordered.
-
-Number issues 1..N. If there are no issues, say "No open review feedback found" (name the sources you checked) and stop.
-
-Create a `TaskCreate` task per issue. Mark `in_progress` when presented, `completed` after the review action. See step 3, substeps 2 and 4.
-
-### 3. Walkthrough — one issue at a time
+### 2. Walkthrough — one issue at a time
 
 For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, until all are addressed.
 
@@ -78,14 +67,12 @@ Always present Title, Comment, and Recommendation; include the other sections on
 <one-sentence justification — why this option over the others; or, when no directions are listed, the evidence that makes this the only sensible change. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. The trailing `<source>` label is a **stable backlink** to the original review item, so a reference survives re-ordering. Build `<source>` like this:
+**Title format** — `## Issue k of N - <source>`. `k of N` is the working order and can shift as issues are added or removed. The `<source>` value comes from `gather-review-issues` (it builds the stable backlink); render the title as `k of N - <source>`. Examples:
 
-- **Chat:** `chat history #c` — `c` counts chat-raised issues (1st raised in chat = `#1`). → `## Issue 2 of 7 - chat history #1`
-- **GitHub / GitLab:** `github - @<user> - <identifier>` (use `gitlab` for MRs). Resolve `<identifier>` in order:
-    1. The reviewer's own label, whatever scheme they use (e.g. `#3`, `R2`, `nit-1`). → `## Issue 4 of 7 - github - @alice - #3`
-    2. Else a clickable markdown link to the source comment. → `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
-    3. Else omit it. → `## Issue 6 of 7 - github - @carol`
-- **Cross-referenced** (raised in a review _and_ in chat): title by the review source — it's what gets a reply — and append `(also raised in chat)`. → `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
+- `## Issue 2 of 7 - chat history #1`
+- `## Issue 4 of 7 - github - @alice - #3`
+- `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
+- `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
 **Whenever you include the Possible directions section, label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets. (When you omit Possible directions and recommend "fix it," there are no options to label.)
 
