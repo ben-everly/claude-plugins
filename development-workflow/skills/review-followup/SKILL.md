@@ -72,6 +72,7 @@ Always present Title, Comment, and Recommendation; include the other sections on
 - `## Issue 2 of 7 - chat history #1`
 - `## Issue 4 of 7 - github - @alice - #3`
 - `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
+- `## Issue 6 of 7 - github - @carol`
 - `## Issue 3 of 7 - github - @alice - #2 (also raised in chat)`
 
 **Whenever you include the Possible directions section, label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B," "take the second one"). Never present the directions as unlabeled prose bullets. (When you omit Possible directions and recommend "fix it," there are no options to label.)
