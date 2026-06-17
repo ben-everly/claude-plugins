@@ -6,17 +6,17 @@ This repo is a Claude Code plugin marketplace. It follows the marketplace spec u
 
 ```
 .claude-plugin/
-  marketplace.json          # Marketplace registry — lists all plugins
+    marketplace.json          # Marketplace registry — lists all plugins
 <plugin-name>/
-  .claude-plugin/
-    plugin.json             # Plugin metadata
-  skills/<skill-name>/
-    SKILL.md                # Skill definitions
-  commands/
-    <command-name>.md       # Slash commands
-  agents/
-    <agent-name>.md         # Agent definitions
-  .mcp.json                 # MCP server config (if needed)
+    .claude-plugin/
+        plugin.json             # Plugin metadata
+    skills/<skill-name>/
+        SKILL.md                # Skill definitions
+    commands/
+        <command-name>.md       # Slash commands
+    agents/
+        <agent-name>.md         # Agent definitions
+    .mcp.json                 # MCP server config (if needed)
 ```
 
 ## Key Rules
@@ -32,19 +32,32 @@ This repo is a Claude Code plugin marketplace. It follows the marketplace spec u
 2. Add `.claude-plugin/plugin.json` with metadata.
 3. Add skills, commands, agents, or MCP config as needed.
 4. Register the plugin in `.claude-plugin/marketplace.json`:
-   ```json
-   {
-     "name": "plugin-name",
-     "source": "./plugin-name",
-     "description": "What the plugin does",
-     "version": "1.0.0",
-     "author": {
-       "name": "Ben Everly"
-     },
-     "category": "development"
-   }
-   ```
+
+    ```json
+    {
+        "name": "plugin-name",
+        "source": "./plugin-name",
+        "description": "What the plugin does",
+        "version": "1.0.0",
+        "author": {
+            "name": "Ben Everly"
+        },
+        "category": "development"
+    }
+    ```
+
 5. Update the "Available Plugins" section in README.md.
+
+## Releases
+
+Plugins are released automatically by release-it, which derives each plugin's version bump from the Conventional Commits made since its last tag.
+
+**Pull requests are squash-merged, so the PR title becomes the commit message release-it reads.** A non-conventional title (e.g. "Add new plugin") collapses to a typeless commit, so release-it falls back to a patch bump and any intended minor bump is lost. PR titles MUST follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` / `feat(scope):` — new capability → **minor**
+- `fix:` — bug fix → **patch**
+- `feat!:` or a `BREAKING CHANGE:` footer — breaking change → **major**
+- `docs:`, `chore:`, `refactor:`, `ci:`, `test:`, `build:` — patch / no release as appropriate
 
 ## Categories
 
