@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Use when implementing any testable change and you want test-first discipline — write a failing test before the code, one behavior at a time.
+description: Use when implementing any testable change and you want test-first discipline.
 ---
 
 # Test-Driven Development

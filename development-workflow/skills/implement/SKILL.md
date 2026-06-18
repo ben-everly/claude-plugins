@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Use when implementing a single, well-scoped change that has already been decided on — a bug fix, a feature slice, or a small refactor.
+description: Use when implementing a single, well-scoped change that has already been decided on.
 ---
 
 # Implement
