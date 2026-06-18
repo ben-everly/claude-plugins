@@ -35,6 +35,7 @@ Install a plugin:
 | **conventional-branches** | Name git branches following the Conventional Branch spec (type-first prefixes)                            | `/plugin install conventional-branches@ben-everly` |
 | **ticket-branches**       | Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based dev        | `/plugin install ticket-branches@ben-everly`       |
 | **git-flow**              | Name branches and point PRs following the git flow model (git-flow CLI / Atlassian)                              | `/plugin install git-flow@ben-everly`              |
+| **product-discovery**     | Product-discovery skills — currently a Working Backwards (PR/FAQ) document drafter                        | `/plugin install product-discovery@ben-everly`     |
 
 ## Creating a Plugin
 
