@@ -85,24 +85,9 @@ When there are no fix options — a blocking question must be answered before an
 
 #### 3. Implement & confirm
 
-When the user signals which option to take:
+When the user signals which option ("A", "go with B", etc.), invoke the `implement` skill to carry out the chosen fix. A bare "yes" or similar is only a signal when there's a single fix option; otherwise it's ambiguous — if the signal isn't clear, don't proceed; ask the user to clarify.
 
-- **If you presented multiple fix options:** a letter or named option — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which option before coding.
-- **If you presented a single fix option (A plus Skip):** a plain "yes" / "go" / "do it" signals A. But any question, hedge, or sign of uncertainty means you should lay out alternatives and confirm the specific change before coding.
-
-Then:
-
-- Implement _only_ the current issue's fix; no adjacent cleanup
-- Run targeted verification (test, type check, grep) — not the full suite unless the issue is broad
-- Show the diff or short summary; reference files as `path:line`
-- State what verified it: `Verified by: <command/check, or "manual review only" if nothing automated applies>`
-
-**Then stop and wait.** If the user gives any clear positive acknowledgment of the fix, move to the next step. If the user pushes back, iterate on the same issue.
-
-**Signal recognition:**
-
-- Satisfied with the fix: "next" / "move on" / "good" / "great" / "lgtm" / "looks good" / "perfect" / "satisfied" / "👍" — anything clearly positive counts
-- Wants more changes: "actually, also do X" / "tweak it to Y" / any specific change request
+**Then stop and wait.** Any clear positive acknowledgment ("next" / "move on" / "lgtm" / "good" / 👍) → advance to substep 4. A change request ("actually, also do X" / "tweak it to Y") → iterate on the same issue.
 
 #### 4. After-fix review action
 
@@ -111,7 +96,7 @@ Only for issues that came from a review (`source` is not `chat`). For chat-only 
 Draft the reply comment up front and show it:
 
 ```text
-Fixed in <commit-ish or path:line>. <One-sentence description of the change.>
+Fixed in <short commit SHA>. <One-sentence description of the change.>
 ```
 
 (If the user chose not to fix, draft it as "Discussed and decided not to fix because X.") Short and factual — no "Thanks for the review!" or performative agreement.
@@ -136,7 +121,6 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | Auto-advancing after a fix                                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                                           |
 | Replying or resolving without asking                          | Use `AskUserQuestion` per issue                                                                                                               |
-| Auto-committing or auto-pushing                               | Never commit or push without an explicit user signal                                                                                          |
 | Filtering out `Not a Problem` issues silently                 | Present anyway with the verdict; user decides                                                                                                 |
 | Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                                     |
 | Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
