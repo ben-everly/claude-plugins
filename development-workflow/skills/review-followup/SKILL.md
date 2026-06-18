@@ -58,7 +58,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 
 ### Open questions:
 
-- **Q1** — <a question worth resolving; may decide between the directions above>
+- **Q1** — <a question worth resolving; may decide between the options above>
 
 ### Recommendation: <letter, or "answer Q1 first"> (<Low | Medium | High | Very High> confidence)
 
@@ -77,13 +77,15 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 
 For `Not a Problem` issues, the Verdict and its reasoning are the sections that matter most — make sure they're there — and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
 
-When the investigation surfaced **open questions**, include the Open questions section and label them `Q1`, `Q2`, …; they can sit alongside the Fix options. If a question blocks the choice between options, point the Recommendation at it ("answer Q1 first") rather than picking blindly. For a `Needs Input` verdict — where no fix options could even be framed — **omit the Recommendation** until the user answers; then invoke `investigate-issue` again with the user's answer, present real fix options, and add the recommendation in a follow-up turn before waiting for the implement signal.
+Label open questions `Q1`, `Q2`, …. If a question blocks the choice between fix options, point the Recommendation at it ("answer Q1 first") rather than picking blindly.
+
+When there are no fix options — a blocking question must be answered before any can be framed — **omit the Recommendation** until the user answers. Then re-invoke `investigate-issue` with the **original claim plus the user's answer** (not the answer alone, so the original context isn't lost), present the resulting fix options, and add the Recommendation in a follow-up turn before waiting for the implement signal.
 
 **Then stop and wait. Do not give a menu.** The Recommendation is advice, not a decision. Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 #### 3. Implement & confirm
 
-When the user signals which direction to take:
+When the user signals which option to take:
 
 - **If you presented multiple fix options:** a letter or named option — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which option before coding.
 - **If you presented a single fix option (A plus Skip):** a plain "yes" / "go" / "do it" signals A. But any question, hedge, or sign of uncertainty means you should lay out alternatives and confirm the specific change before coding.
