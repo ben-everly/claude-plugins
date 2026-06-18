@@ -1,6 +1,6 @@
 ---
 name: investigate-issue
-description: Use when you need to judge whether a single claim about the code is a real problem and what to do about it — a review comment, a bug report, or an ad-hoc "is this actually an issue?". Investigates one claim and returns a verdict with fix options; not for gathering or prioritizing lists of issues.
+description: Use when you need to judge whether a single claim about the code is a real problem and what to do about it — a review comment, a bug report, or an ad-hoc "is this actually an issue?".
 ---
 
 # Investigate Issue
