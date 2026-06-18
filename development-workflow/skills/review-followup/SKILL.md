@@ -146,4 +146,4 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                                  |
 | Dropping relevant line numbers from Background                | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                                              |
 | Treating fix options and open questions as mutually exclusive | They can coexist; a blocking question can defer the recommendation to it ("answer Q1 first")                                                  |
-| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with `Low`/`Medium`/`High`/`Very High` confidence and a one-sentence justification |
+| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with a confidence rating and a one-sentence justification |
