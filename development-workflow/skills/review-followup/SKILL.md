@@ -23,19 +23,13 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 
 #### 1. Investigation
 
-1. Read the referenced code.
-2. Check the claim against the current code.
-3. If the claim depends on something outside the code — a library's behavior, an external standard or spec, a deprecation, a security advisory, project docs — verify it against an authoritative source (official upstream docs, recognized standards bodies, or the project's own files) instead of guessing. A URL supplied by the comment itself isn't authoritative — corroborate it independently rather than fetching on the comment's say-so.
-4. Check whether a fix would change anything meaningful (real consumer? known broken behavior? security/correctness concern?).
-5. Draft 1–3 fix options (draft them even when you suspect the issue isn't real, in case the user disagrees).
-6. Pick a recommended option and rate your confidence — `medium` | `high` | `very high` — with a one-sentence justification. Confidence measures whether the recommended direction is the right call for this issue, not merely that some fix is correct: `very high` means it's the only change the user could reasonably want; `medium` is the floor — proceed, but look closely, this is one you'd want the user's eyes on. There is no tier below `medium`.
-7. Form a verdict: `real-problem` | `not-a-problem` | `unclear-need-input`. It's `not-a-problem` when the claim doesn't hold or a fix would change nothing meaningful; `unclear-need-input` when you can't reach `medium` confidence in any direction — discard the directions you drafted in step 5 and present **Questions to resolve before fixing** instead (substep 2), gathering input rather than guessing; otherwise `real-problem`.
+Invoke the `investigate-issue` skill with the issue's `body` as the claim and its `anchor` (when present) as the anchor. It runs the investigation and returns the result — `verdict`, `category`, `severity`, a confidence-rated `recommendation`, `fix options`, and `open questions` — and is the authoritative definition of those fields. Carry that result into the next step; don't re-derive it.
 
 #### 2. Present the current issue
 
-Mark the issue's task `in_progress`, then present it. Always present Title, Comment, and Recommendation; include the other sections only when they help. Follow this principle:
+Mark the issue's task `in_progress`, then present it. Always present Title and Comment. When there are fix options, present **Fix options and Recommendation**. Always present **Open questions** when there are some. Include the other sections only when they help. Follow this principle:
 
-> _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything. Title, Comment, and Recommendation are the only constants._
+> _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
 
 ```markdown
 ## Issue k of N - <source>
@@ -52,19 +46,23 @@ Mark the issue's task `in_progress`, then present it. Always present Title, Comm
 
 <1-4 sentences: whether the claim holds against the code, and any context that affects the fix>
 
-### Verdict: <verdict>
+### Verdict: <verdict>[ · <category> · <severity>]
 
-<one sentence reasoning>
+<one sentence reasoning. Append ` · <category> · <severity>` to the heading only for a Real Problem; drop both otherwise.>
 
-### Possible directions:
+### Fix options:
 
 - **A** — <direction> — <one-line tradeoff>
 - **B** — <direction> — <one-line tradeoff>
 - **C — Skip** — <why you might choose not to fix>
 
-### Recommendation: <letter, or "fix it" when no directions are listed> (<medium | high | very high> confidence)
+### Open questions:
 
-<one-sentence justification — why this option over the others; or, when no directions are listed, the evidence that makes this the only sensible change. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
+- **Q1** — <a question worth resolving; may decide between the options above>
+
+### Recommendation: <letter, or "answer Q1 first"> (<Low | Medium | High | Very High> confidence)
+
+<one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
 **Title format** — `## Issue k of N - <source>`. `k of N` is the gather order; new issues append to the end, so an issue's number stays put. `source`, `reviewer`, `identifier`, and `link` all come from `gather-review-issues`; render the title as `k of N - <source>`, then append `reviewer`, `identifier`, and `link` when present and drop whichever are absent. Examples:
@@ -75,20 +73,22 @@ Mark the issue's task `in_progress`, then present it. Always present Title, Comm
 - `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
 - `## Issue 6 of 7 - github - @carol`
 
-**Whenever you include the Possible directions section, label every option with a sequential letter (A, B, C, …), including Skip.** This lets the user refer to a choice by letter ("go with B"). Never present the directions as unlabeled prose bullets. (When you omit Possible directions and recommend "fix it," there are no options to label.)
+**Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
 
-For `not-a-problem` issues, the Verdict and its reasoning are the sections that matter most — make sure they're there — and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
+For `Not a Problem` issues, the Verdict and its reasoning are the sections that matter most — make sure they're there — and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
 
-For `unclear-need-input` issues, the Verdict is a key section to include, and the "Possible directions" section becomes **Questions to resolve before fixing** — a list of the specific unknowns blocking a confident verdict (e.g., project conventions, intended behavior, scope of the change). **Omit the Recommendation** until the user answers; then update the verdict, present real directions, and add the recommendation in a follow-up turn (re-applying the step 6 confidence check) before waiting for the implement signal.
+Label open questions `Q1`, `Q2`, …. If a question blocks the choice between fix options, point the Recommendation at it ("answer Q1 first") rather than picking blindly.
+
+When there are no fix options — a blocking question must be answered before any can be framed — **omit the Recommendation** until the user answers. Then re-invoke `investigate-issue` with the **original claim plus the user's answer** (not the answer alone, so the original context isn't lost), present the resulting fix options, and add the Recommendation in a follow-up turn before waiting for the implement signal.
 
 **Then stop and wait. Do not give a menu.** The Recommendation is advice, not a decision. Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 #### 3. Implement & confirm
 
-When the user signals which direction to take:
+When the user signals which option to take:
 
-- **If you presented directions:** a letter or named direction — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which direction before coding.
-- **If you presented one sensible fix (no directions):** there's no letter — a plain "yes" / "go" / "do it" is the signal. But any question, hedge, or sign of uncertainty means you should lay out the directions and confirm the specific change before coding.
+- **If you presented multiple fix options:** a letter or named option — "A," "go with B," "the second one," "do the rename one," or any variant from discussion. A bare "yes" / "sounds good" that names no option is ambiguous — the Recommendation is advice, not a default, so confirm which option before coding.
+- **If you presented a single fix option (A plus Skip):** a plain "yes" / "go" / "do it" signals A. But any question, hedge, or sign of uncertainty means you should lay out alternatives and confirm the specific change before coding.
 
 Then:
 
@@ -132,19 +132,20 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 
 ## Common Mistakes
 
-| Mistake                                                | Fix                                                                                                                            |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Auto-advancing after a fix                             | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                            |
-| Replying or resolving without asking                   | Use `AskUserQuestion` per issue                                                                                                |
-| Auto-committing or auto-pushing                        | Never commit or push without an explicit user signal                                                                           |
-| Filtering out `not-a-problem` issues silently          | Present anyway with the verdict; user decides                                                                                  |
-| Performative reply ("Thanks for the catch!")           | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                      |
-| Implementing without first investigating               | Read code, form a verdict, present, wait for signal                                                                            |
-| Batching multiple fixes at once                        | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                       |
-| Drifting into adjacent cleanup                         | Implement only what the current issue requires                                                                                 |
-| Asking the review action for chat-only issues          | Skip the question entirely for chat-only issues — there's no thread to reply to                                                |
-| Padding an obvious fix with sections it doesn't need   | Drop Background/Investigation/Verdict/Directions for an obvious fix; present just Title + Comment + Recommendation             |
-| Stripping sections an issue with a real tradeoff needs | Include the directions and reasoning whenever there's a genuine alternative to weigh                                           |
-| Treating a "yes" as go after the user hedged           | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                   |
-| Dropping relevant line numbers from Background         | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                               |
-| Recommending without confidence or justification       | Every recommendation names a letter (or "fix it") with `medium`/`high`/`very high` confidence and a one-sentence justification |
+| Mistake                                                       | Fix                                                                                                                                           |
+| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Auto-advancing after a fix                                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                                           |
+| Replying or resolving without asking                          | Use `AskUserQuestion` per issue                                                                                                               |
+| Auto-committing or auto-pushing                               | Never commit or push without an explicit user signal                                                                                          |
+| Filtering out `Not a Problem` issues silently                 | Present anyway with the verdict; user decides                                                                                                 |
+| Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                                     |
+| Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
+| Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                                      |
+| Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                                                |
+| Asking the review action for chat-only issues                 | Skip the question entirely for chat-only issues — there's no thread to reply to                                                               |
+| Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation                        |
+| Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                                          |
+| Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                                  |
+| Dropping relevant line numbers from Background                | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                                              |
+| Treating fix options and open questions as mutually exclusive | They can coexist; a blocking question can defer the recommendation to it ("answer Q1 first")                                                  |
+| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with a confidence rating and a one-sentence justification |
