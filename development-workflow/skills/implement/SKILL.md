@@ -13,6 +13,8 @@ Do one change per invocation.
 
 ## Workflow
 
+**Before starting**, check the working tree (`git status`). If it isn't clean — any staged or unstaged changes that aren't part of this task — stop and ask the user how to proceed (commit, stash, or explicitly implement on top of the existing changes).
+
 A review-gated loop:
 
 1. **Scope** — implement _only_ the agreed change. No adjacent cleanup, no opportunistic refactors.
