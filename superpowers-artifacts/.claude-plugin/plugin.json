@@ -1,8 +1,0 @@
-{
-  "name": "superpowers-artifacts",
-  "description": "Route Superpowers spec artifacts to a pluggable backend (local file or Jira), scoped per-developer and per-project. Plans stay local.",
-  "version": "0.1.0",
-  "author": {
-    "name": "Ben Everly"
-  }
-}
