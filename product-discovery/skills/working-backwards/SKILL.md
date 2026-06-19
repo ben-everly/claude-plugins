@@ -23,6 +23,8 @@ Do not guess or invent any fact, metric, quote, price, date, customer name, or c
 
 Customer quotes and leadership quotes are always gap-marked unless a real one exists in the conversation.
 
+When you infer a load-bearing fact (product name, target customer, scope) rather than taking it from the conversation, surface it — inline or in Open Questions — as an assumption to confirm, not as settled fact.
+
 ### Gap markers
 
 Where required information is missing, insert a gap marker instead of content, two options:
