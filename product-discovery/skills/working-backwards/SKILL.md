@@ -25,11 +25,11 @@ Customer quotes and leadership quotes are always gap-marked unless a real one ex
 
 ### Gap markers
 
-Where required information is missing, insert a gap marker instead of content, two ways:
+Where required information is missing, insert a gap marker instead of content, two options:
 
 - **Inline**, exactly where the content belongs, so the document's shape stays intact:
   `[GAP: <what's missing> — <where it might come from>]`
-- **Consolidated** at the end, in an "Open Questions & Gaps" section that lists every gap as a checklist the user works through while refining.
+- **At the end** in an "Open Questions & Gaps" section — for broader gaps that don't fit a single slot in the document.
 
 A section with no supporting material in the conversation becomes a single gap marker, not fabricated prose.
 
@@ -78,9 +78,9 @@ The hard questions leadership will press on — where the real thinking lives. A
 - Why us, and why now?
 - What are we explicitly NOT doing (non-goals)?
 
-### 4. Open Questions & Gaps
+### 4. Open Questions & Gaps (optional)
 
-A checklist collecting every gap marker from above, so the user has a single punch-list to resolve while refining.
+A checklist of the broader gaps that don't fit a single slot above.
 
 ## Principles
 
