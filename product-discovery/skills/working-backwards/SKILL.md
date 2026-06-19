@@ -15,7 +15,7 @@ This skill is user-invoked and non-interactive: produce the draft in one pass, d
 ## Inputs
 
 - **The conversation** — the primary and authoritative source. Build the document from what the user has already established here: the idea, decisions, research, constraints, and any quotes or numbers they provided.
-- **Optional grounding** — you may read the codebase or use external tools (web / MCP) only to support or verify something already implied by the conversation. Never to introduce new facts or assumptions.
+- **Optional grounding** — you may read the codebase or use external tools (web / MCP) only to support or verify something stated in the conversation. Never to introduce new facts or assumptions.
 
 ## Core discipline: never fabricate
 
