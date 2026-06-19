@@ -1,7 +1,7 @@
 {
   "name": "product-discovery",
   "version": "0.0.0",
-  "description": "Product-discovery skills — currently a Working Backwards (PR/FAQ) document drafter",
+  "description": "Product-discovery skills — a Working Backwards (PR/FAQ) document drafter",
   "author": {
     "name": "Ben Everly"
   }
