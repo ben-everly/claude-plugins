@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "tagName": "product-discovery-v${version}",
+    "tagAnnotation": "Release product-discovery v${version}",
+    "commitMessage": "chore(release): product-discovery v${version}",
+    "requireBranch": "main",
+    "requireCleanWorkingDir": false,
+    "requireCommits": true,
+    "requireCommitsFail": false,
+    "commitsPath": "."
+  },
+  "github": {
+    "release": true,
+    "releaseName": "product-discovery-v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "in": ".claude-plugin/plugin.json",
+      "out": ".claude-plugin/plugin.json"
+    },
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "gitRawCommitsOpts": {
+        "path": "."
+      },
+      "commitsOpts": {
+        "path": "."
+      },
+      "tagOpts": {
+        "prefix": "product-discovery-v"
+      }
+    }
+  },
+  "hooks": {
+    "after:bump": "node ../scripts/sync-marketplace.js product-discovery ${version} && git add ../.claude-plugin/marketplace.json"
+  }
+}
