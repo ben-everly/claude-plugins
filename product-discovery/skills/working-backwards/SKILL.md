@@ -1,6 +1,6 @@
 ---
 name: working-backwards
-description: Use when the user explicitly asks to draft a Working Backwards / PR-FAQ document from the conversation so far.
+description: Draft an Amazon-style Working Backwards (PR/FAQ) document from the research in the current conversation.
 disable-model-invocation: true
 ---
 
