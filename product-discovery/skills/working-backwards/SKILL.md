@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 Draft an Amazon-style Working Backwards document — a one-page Press Release plus an FAQ — from the research the user has already done in this conversation. Reason backwards from the customer's experience to what must be built.
 
-This skill is user-invoked and non-interactive: produce the draft in one pass, do not ask follow-up questions. The user has done the research and will refine the draft afterward.
+Produce the draft in one pass, do not ask follow-up questions.
 
 ## Inputs
 
