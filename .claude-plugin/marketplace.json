@@ -20,29 +20,9 @@
       "category": "development"
     },
     {
-      "name": "atlassian-tools",
-      "source": "./atlassian-tools",
-      "description": "Atlassian CLI (acli) skills — currently covers Jira (JQL queries, ticket management, sprints, boards, comments, and workflow operations)",
-      "version": "0.1.0",
-      "author": {
-        "name": "Ben Everly"
-      },
-      "category": "productivity"
-    },
-    {
       "name": "intelephense",
       "source": "./intelephense",
       "description": "PHP language server (Intelephense) for Claude Code with optimized file exclusions to reduce RAM usage",
-      "version": "0.1.0",
-      "author": {
-        "name": "Ben Everly"
-      },
-      "category": "development"
-    },
-    {
-      "name": "superpowers-artifacts",
-      "source": "./superpowers-artifacts",
-      "description": "Route Superpowers spec artifacts to a pluggable backend (local file or Jira), scoped per-developer and per-project",
       "version": "0.1.0",
       "author": {
         "name": "Ben Everly"

@@ -38,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          for plugin in development-workflow atlassian-tools intelephense superpowers-artifacts conventional-branches ticket-branches git-flow product-discovery; do
+          for plugin in development-workflow intelephense conventional-branches ticket-branches git-flow product-discovery; do
             echo "::group::release $plugin"
             (cd "$plugin" && npx release-it --ci) || echo "no release for $plugin"
             echo "::endgroup::"

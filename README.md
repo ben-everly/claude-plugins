@@ -29,9 +29,7 @@ Install a plugin:
 | Plugin                    | Description                                                                                               | Install                                            |
 | ------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
 | **development-workflow**  | A structured development workflow covering planning, design, implementation, review, and delivery         | `/plugin install development-workflow@ben-everly`  |
-| **atlassian-tools**       | Atlassian CLI skills — Jira queries, ticket management, sprints, boards, and workflow operations          | `/plugin install atlassian-tools@ben-everly`       |
 | **intelephense**          | PHP language server (Intelephense) with optimized file exclusions to reduce RAM usage                     | `/plugin install intelephense@ben-everly`          |
-| **superpowers-artifacts** | Route Superpowers specs to a pluggable backend (local file or Jira), scoped per-developer and per-project | `/plugin install superpowers-artifacts@ben-everly` |
 | **conventional-branches** | Name git branches following the Conventional Branch spec (type-first prefixes)                            | `/plugin install conventional-branches@ben-everly` |
 | **ticket-branches**       | Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based dev        | `/plugin install ticket-branches@ben-everly`       |
 | **git-flow**              | Name branches and point PRs following the git flow model (git-flow CLI / Atlassian)                       | `/plugin install git-flow@ben-everly`              |
