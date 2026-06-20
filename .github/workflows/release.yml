@@ -38,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          for plugin in development-workflow intelephense conventional-branches ticket-branches git-flow product-discovery; do
+          for plugin in $(jq -r '.plugins[].source | ltrimstr("./")' .claude-plugin/marketplace.json); do
             echo "::group::release $plugin"
             (cd "$plugin" && npx release-it --ci) || echo "no release for $plugin"
             echo "::endgroup::"
