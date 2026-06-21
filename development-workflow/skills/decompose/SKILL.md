@@ -38,7 +38,7 @@ Cutting along technical layers (a database slice, an API slice, a UI slice) almo
 Return these fields.
 
 - **verdict** — `Decompose` · `Do Not Decompose`
-- **reason** _(when `Do Not Decompose`)_ — which rule the attempted cuts fail, and the recommendation to ship the change whole.
+- **reason** _(when `Do Not Decompose`)_ — why no honest split exists: either the change is already the smallest shippable unit, or every attempted cut fails rule 1 or rule 2. Include the recommendation to ship the change whole.
 - **slices** _(when `Decompose`)_ — two or more slices in ship order (dependency order: independent slices first, dependents after what they need). Each slice carries:
   - **title** — a one-line name for the slice.
   - **value** — what becomes observable once it ships (this is what satisfies rule 1).
