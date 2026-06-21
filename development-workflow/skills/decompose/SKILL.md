@@ -23,7 +23,7 @@ Read the codebase — enough to find real seams and to sanity-check each slice a
 Every slice must pass **both** rules. A candidate that fails either is not a slice — the cut is wrong.
 
 1. **Observable value** — once the slice ships, a user can observe something they couldn't before. A slice whose effect no user can observe isn't a deliverable.
-2. **Independently deployable** — the slice can ship to production by itself without leaving the system broken or half-finished: no stranded migrations, no dangling references, no dead UI, no behavior that only works once a later slice lands. Shipping it and stopping there must leave a coherent system.
+2. **Independently deployable** — the slice can ship to production by itself without leaving the system broken or half-finished: no stranded migrations, no dangling references, no dead UI, no behavior that only works once a later slice lands, no newly-reachable sensitive data ahead of the controls that govern it. Shipping it and stopping there must leave a coherent system. A capability's security controls — authentication, authorization, input validation, output encoding, and audit logging — ship in the **same** slice as the capability they protect; "harden it later" is not a valid cut.
 
 ### Dependencies
 
