@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Overview
 
-Split one oversized change into the smallest set of pieces — _slices_ — that can each ship on their own. Find an honest split, or say plainly that none exists.
+Split one oversized change into a set of smaller pieces — _slices_ — that can each ship on their own. Find an honest split, or say plainly that none exists.
 
 A good split is rare, not automatic. Most of the value is in the rules below and in the willingness to refuse. Hold every candidate slice to the two rules; if no split clears them, recommend shipping the change whole.
 
@@ -57,6 +57,5 @@ Together the slices must add up to the original change: no part of it left unass
 | Splitting by technical layer (DB / API / UI)            | Cut vertical slices that are each observable and shippable end-to-end                            |
 | A slice that only works once a later slice ships        | Fails rule 2 — fold it into the slice it depends on, or re-cut                                   |
 | Forward or circular dependencies between slices         | Dependencies point backward only; mutually dependent pieces are one slice                        |
-| Splitting past the floor for its own sake               | Stop once each slice is worth shipping alone; smaller is not better                              |
 | Slices that don't add up to the whole (gaps or overlap) | The union of slices must equal the original change exactly                                       |
 | Deep-diving one slice's implementation here             | Keep grounding light.                                                                            |
