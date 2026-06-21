@@ -16,7 +16,7 @@ A good split is rare, not automatic. Most of the value is in the rules below and
 
 - **change** (required) — the thing to split: a feature, issue, ticket, or described body of work, verbatim where possible.
 
-Read the codebase — enough to find real seams and to sanity-check each slice against the rules.
+Read the codebase — enough to locate the seams that decide rule 2 (migration/schema boundaries, call sites, feature-flag points, UI entry points) and to sanity-check each slice against the rules. Stop before designing any slice's implementation.
 
 ## The rules
 
