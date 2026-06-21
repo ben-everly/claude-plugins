@@ -58,4 +58,4 @@ Together the slices must add up to the original change: no part of it left unass
 | A slice that only works once a later slice ships        | Fails rule 2 — fold it into the slice it depends on, or re-cut                                   |
 | Forward or circular dependencies between slices         | Dependencies point backward only; mutually dependent pieces are one slice                        |
 | Slices that don't add up to the whole (gaps or overlap) | The union of slices must equal the original change exactly                                       |
-| Deep-diving one slice's implementation here             | Keep grounding light.                                                                            |
+| Deep-diving one slice's implementation here             | Keep grounding light                                                                             |
