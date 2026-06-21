@@ -20,6 +20,8 @@ Read the codebase — enough to locate the seams that decide rule 2 (migration/s
 
 ## The rules
 
+### Per-slice rules
+
 Every slice must pass **both** rules. A candidate that fails either is not a slice — the cut is wrong.
 
 1. **Observable value** — once the slice ships, an observer — an end user, an operator, or a consuming system — can observe something they couldn't before, including behavior like latency or a newly available capability. A slice whose effect no one can observe isn't a deliverable.
