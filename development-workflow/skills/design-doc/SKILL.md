@@ -14,6 +14,8 @@ Write up an already-agreed design as a Google-style design doc, at design altitu
 
 The agreed design, drawn from the conversation. This skill does no questioning of its own — it reads what has already been settled and writes it up.
 
+If the design isn't settled enough to fill the load-bearing sections — Design, Goals & Non-Goals — say so plainly and name what's still missing, rather than emitting a shell of "None"s. A near-empty doc is a signal the design isn't ready to write up, not a deliverable.
+
 ## Altitude
 
 Design altitude: what to build and the shape of how — components, data flow, key decisions, and the alternatives weighed. Stop short of file-level technicals. Name each unresolved technical point explicitly in Open Questions rather than leaving it implicit, so a downstream reader that lacks the original conversation sees the gap and settles it there, instead of inheriting silence.
