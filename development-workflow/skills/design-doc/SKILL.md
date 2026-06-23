@@ -16,7 +16,7 @@ The agreed design, drawn from the conversation. This skill does no questioning o
 
 ## Altitude
 
-Design altitude: what to build and the shape of how — components, data flow, key decisions, and the alternatives weighed. Stop short of file-level technicals. Name each unresolved technical point explicitly in Open Questions rather than leaving it implicit, so a downstream reader — possibly a fresh `decompose` or `implement`/`tdd` session that lacks the original conversation — sees the gap and settles it there, instead of inheriting silence.
+Design altitude: what to build and the shape of how — components, data flow, key decisions, and the alternatives weighed. Stop short of file-level technicals. Name each unresolved technical point explicitly in Open Questions rather than leaving it implicit, so a downstream reader that lacks the original conversation sees the gap and settles it there, instead of inheriting silence.
 
 ## Template
 
@@ -34,6 +34,7 @@ The doc renders these sections, in this order:
 ## Alternatives Considered
 
 ## Cross-cutting Concerns
+
 - Security: <addressed, or "not applicable because…">
 - Privacy: <addressed, or "not applicable because…">
 - Observability: <addressed, or "not applicable because…">
