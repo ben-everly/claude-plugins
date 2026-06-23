@@ -34,6 +34,7 @@ Install a plugin:
 | **ticket-branches**       | Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based dev        | `/plugin install ticket-branches@ben-everly`       |
 | **git-flow**              | Name branches and point PRs following the git flow model (git-flow CLI / Atlassian)                       | `/plugin install git-flow@ben-everly`              |
 | **product-discovery**     | Product-discovery skills — a Working Backwards (PR/FAQ) document drafter                                  | `/plugin install product-discovery@ben-everly`     |
+| **brainpower**            | A toolkit of named thinking techniques — Socratic-method questioning to stress-test an idea before committing                | `/plugin install brainpower@ben-everly`            |
 
 ## Creating a Plugin
 

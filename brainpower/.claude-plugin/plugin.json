@@ -1,0 +1,8 @@
+{
+  "name": "brainpower",
+  "version": "0.1.0",
+  "description": "A toolkit of named thinking techniques — deliberate cognitive moves to test thinking before committing. Seeded with the Socratic method.",
+  "author": {
+    "name": "Ben Everly"
+  }
+}

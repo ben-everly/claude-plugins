@@ -68,6 +68,16 @@
         "name": "Ben Everly"
       },
       "category": "productivity"
+    },
+    {
+      "name": "brainpower",
+      "source": "./brainpower",
+      "description": "A toolkit of named thinking techniques — deliberate cognitive moves to test thinking before committing. Seeded with the Socratic method.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Ben Everly"
+      },
+      "category": "productivity"
     }
   ]
 }
