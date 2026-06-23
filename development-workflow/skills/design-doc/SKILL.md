@@ -54,7 +54,7 @@ What each anchor holds, at design altitude:
 - **Goals & Non-Goals** — what success means; the boundaries. Non-Goals covers only real scope boundaries a reasonable reader might otherwise assume to be in scope.
 - **Design** — the target system; its substructure adapts to the topic and is the only section whose shape varies.
 - **Alternatives Considered** — the only place alternatives appear; only genuine options a reader would weigh, and why each was not chosen.
-- **Cross-cutting Concerns** — security, privacy, observability, and operations, each its own `###` subsection. When the concern applies, explain _how_ the design addresses it — the impact and the mitigation — not a bare "addressed"; a short paragraph is the norm. When it doesn't apply, dismiss it falsifiably: state the assumption that makes it moot ("not applicable because no untrusted input crosses a boundary here"), not a bare "not applicable" that can't be checked.
+- **Cross-cutting Concerns** — For each subsection, when the concern applies, explain _how_ the design addresses it — the impact and the mitigation. a short paragraph is the norm. When it doesn't apply, dismiss it falsifiably: state the assumption that makes it moot ("not applicable because no untrusted input crosses a boundary here").
 - **Open Questions** — unresolved points, including any deferred technical detail.
 
 ## Governing rules
