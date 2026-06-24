@@ -1,7 +1,6 @@
 ---
 name: design-doc
-description: Writes an agreed design up as a Google-style design doc.
-disable-model-invocation: true
+description: Use when a design has already been agreed in the conversation and you want it written up as a Google-style design doc.
 ---
 
 # Design Doc
