@@ -1,7 +1,6 @@
 ---
 name: decompose
 description: Use when a change, feature, or issue feels too big to build or ship in one go and you want to split it into smaller pieces that can each ship on their own.
-disable-model-invocation: true
 ---
 
 # Decompose
