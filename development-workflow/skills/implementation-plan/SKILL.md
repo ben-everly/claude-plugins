@@ -17,11 +17,11 @@ The settled design, drawn from the conversation. This skill does no design quest
 
 Any choice a competent implementer could reasonably pick differently than intended gets spelled out; everything else is left free.
 
-This keeps the plan lossless without lowering it to a line-by-line script. Decisions that have a single obvious right answer need no annotation; decisions where a capable person might go a different direction than the design intends must be made explicit.
+This keeps the plan lossless without lowering it to a line-by-line script. Decisions with a single obvious right answer need no annotation. For example: if the design assumes events publish to a specific one of two existing queues, the plan must name which — a capable implementer could reasonably pick the other. The name of a local loop variable is left free: no intent rides on it.
 
 ## Readiness guard
 
-Before writing, the skill applies the content rule as its trigger — if any choice a competent implementer could reasonably pick differently than intended is still unresolved in the conversation, it names that gap and stops rather than emitting a plan that silently hands off an unmade decision. This mirrors `design-doc`'s empty-state behavior: an incomplete plan is a signal the design isn't ready to write up, not a deliverable.
+Before writing, apply the content rule above as the trigger: if any choice it would require spelling out is still unresolved in the conversation, name that gap and stop rather than emitting a plan that silently hands off an unmade decision. This mirrors `design-doc`'s empty-state behavior: an incomplete plan is a signal the design isn't ready to write up, not a deliverable.
 
 This is the guard's only condition. It does not judge whether the design is "too big" — that is upstream judgment, not this skill's concern.
 
@@ -70,23 +70,9 @@ A task is finer-grained than a `decompose` slice: a slice is an independently sh
 
 ## Artifact
 
-The plan is persisted to a file. An inline-only render cannot be consumed by a fresh context — the reader that executes the plan may be a different session, days later, with none of the conversation history. A file is the artifact.
+The plan is persisted to a Markdown file so a fresh context can execute it — an inline-only render cannot be consumed by a different session, days later, with none of the conversation history. A file is the artifact.
 
-**Default location:** `~/.claude/projects/<slugified-project-path>/development-workflow/plans/`
-
-This follows Claude Code's per-project convention. The slugified path is the absolute working-directory path with each `/` and `.` replaced by `-`, so any session launched from that directory resolves the identical path without coordination. For example, `/home/user/dev/my.app` becomes `-home-user-dev-my-app`.
-
-The default location lives outside the repository — a disposable plan cannot be committed by accident — and, unlike a temp directory, it survives reboots and session boundaries for a handoff that may happen later.
-
-**User-configurable override:** when the user specifies a different location, write there instead. This override is the only external input to the write path (see security note below).
-
-**Filename:** `<YYYY-MM-DD>-<title-slug>.md`
-
-The date prefix makes collisions structurally impossible and sorts plans chronologically; the slug keeps them identifiable. Plans are never overwritten or reused — each invocation writes a new file.
-
-**No lifecycle is enforced.** Plans may live indefinitely. They are simply expected never to be reused.
-
-**Security — override confinement (the tricky part):** the user-configurable override is the only external input to the write; it must be resolved and confined to the intended plans root before writing. Reject or clamp any path that escapes the root, for example via `..` traversal. The default path is a deterministic slug of the working directory with no external input and cannot be steered.
+The file path is the deliverable: write the plan, then report its path. Where the file goes is the user's (or a calling skill's) call — this skill does not impose a location, an override-confinement model, or a filename scheme.
 
 ## Boundary
 
