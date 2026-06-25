@@ -7,7 +7,7 @@ description: Use when a design has settled in the conversation and you want it t
 
 ## Overview
 
-Read the design already settled in the conversation and write it up as a structured implementation plan. This skill is independent of `design-doc` — it consumes conversation context directly, not that skill's output. As a building block, it owns document format and content quality and nothing else.
+Read the design already settled in the conversation and write it up as a structured implementation plan. It consumes conversation context directly. As a building block, it owns document format and content quality and nothing else.
 
 ## Input
 
@@ -21,13 +21,13 @@ This keeps the plan lossless without lowering it to a line-by-line script. Decis
 
 ## Readiness guard
 
-Before writing, apply the content rule above as the trigger: if any choice it would require spelling out is still unresolved in the conversation, name that gap and stop rather than emitting a plan that silently hands off an unmade decision. This mirrors `design-doc`'s empty-state behavior: an incomplete plan is a signal the design isn't ready to write up, not a deliverable.
+Before writing, apply the content rule above as the trigger: if any choice it would require spelling out is still unresolved in the conversation, name that gap and stop rather than emitting a plan that silently hands off an unmade decision. An incomplete plan is a signal the design isn't ready to write up, not a deliverable.
 
 This is the guard's only condition. It does not judge whether the design is "too big" — that is upstream judgment, not this skill's concern.
 
 ## Plan structure
 
-A plan is divided into tasks, each sized to one logical, independently committable change. This skill carries a bare template plus a section guide, mirroring the approach `design-doc` uses for its own template.
+A plan is divided into tasks, each sized to one logical, independently committable change. This skill carries a bare template plus a section guide.
 
 ```markdown
 # <plan title>
@@ -65,8 +65,6 @@ What each section holds:
 A clean task boundary is one coherent change committable on its own that, where the change is testable, leaves the tree green.
 
 When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
-
-A task is finer-grained than a `decompose` slice: a slice is an independently shippable unit of observable value and typically spans several tasks. This distinction is orientation only — `decompose` is not a prerequisite for this skill.
 
 ## Artifact
 
