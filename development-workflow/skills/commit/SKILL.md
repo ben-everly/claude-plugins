@@ -1,7 +1,7 @@
 ---
 name: commit
 description: Use when you want to commit current changes. Accepts optional hint text to guide the commit message.
-allowed-tools: Bash(git add:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*)
+allowed-tools: Bash(git add:*), Bash(git diff:*), Bash(git log:*), Bash(git commit:*), Bash(echo:*)
 ---
 
 # /commit
@@ -14,7 +14,7 @@ Create a conventional commit for the current changes. This command depends on th
 
 The following is gathered before the command runs. If nothing is staged, all changes are staged with `git add -A` first (already-staged changes are left as-is and committed alone).
 
-- Staged diff: !`git diff --cached --quiet && { git add -A; echo "[auto-staged all changes]"; }; git diff --cached --quiet && echo "NO_CHANGES" || git diff --cached`
+- Staged diff: !`git diff --cached --quiet && git add -A && echo AUTO_STAGED; git diff --cached --quiet && echo NO_CHANGES || git diff --cached`
 - Changed files: !`git diff --cached --stat`
 - Recent commits (for scope/convention): !`git log --oneline -20`
 
@@ -23,7 +23,7 @@ The following is gathered before the command runs. If nothing is staged, all cha
 Follow these steps exactly:
 
 1. **Check for changes:**
-   - If the staged diff above is `NO_CHANGES`, the working tree is clean. Inform the user there is nothing to commit and stop.
+   - If the staged diff above contains the `NO_CHANGES` marker, the working tree is clean. Inform the user there is nothing to commit and stop.
 
 2. **Analyze the diff:**
    - Examine the staged diff and changed files above to understand what was done and why.
@@ -56,4 +56,4 @@ EOF
 
 6. **Report:**
    - Show the user the commit hash and message.
-   - If the staged diff above started with `[auto-staged all changes]`, mention that files were auto-staged.
+   - If the staged diff above contains the `AUTO_STAGED` marker, mention that files were auto-staged.
