@@ -1,6 +1,6 @@
 ---
 name: implementation-plan
-description: Use when a design has settled in the conversation and you want it turned into a commit-by-commit implementation plan a fresh context can execute without losing intent.
+description: Use when the user requests a commit-by-commit implementation plan a fresh context can execute without losing intent. Expects the design to have no unresolved gaps.
 ---
 
 # Implementation Plan

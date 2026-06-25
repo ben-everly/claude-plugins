@@ -1,6 +1,6 @@
 ---
 name: design-doc
-description: Use when a design has already been agreed in the conversation and you want it written up as a Google-style design doc.
+description: Use when the user requests a Google-style design doc. Expects the design to have already been discussed in the conversation.
 ---
 
 # Design Doc
