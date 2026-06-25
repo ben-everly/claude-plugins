@@ -66,14 +66,12 @@ A clean task boundary is one coherent change committable on its own that, where 
 
 When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
 
-## Artifact
+## Output
 
-The plan is persisted to a Markdown file so a fresh context can execute it — an inline-only render cannot be consumed by a different session, days later, with none of the conversation history. A file is the artifact.
-
-The file path is the deliverable: write the plan, then report its path. Where the file goes is the user's (or a calling skill's) call — this skill does not impose a location, an override-confinement model, or a filename scheme.
+The plan is the deliverable. If the user or a calling skill wants it written to a file, write to the location they give — confirm one if they don't — and report the path. This skill chooses no location or filename scheme of its own.
 
 ## Boundary
 
 This skill produces the plan document and stops.
 
-After writing, it reports the absolute path of the plan file as its deliverable — describing its own output, not execution guidance. It offers no "which approach?" handoff menu and names no downstream skill; stringing skills into a workflow, if ever wanted, is a separate skill.
+Reporting its output — the plan, and the file path when one was written — describes the skill's own output, not execution guidance. It offers no "which approach?" handoff menu and names no downstream skill; stringing skills into a workflow, if ever wanted, is a separate skill.
