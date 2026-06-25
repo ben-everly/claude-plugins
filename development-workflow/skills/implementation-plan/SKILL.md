@@ -66,6 +66,10 @@ A clean task boundary is one coherent change committable on its own that, where 
 
 When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
 
+## Before finishing
+
+Once the plan is drafted, walk every task's **Consumes** in one pass: each *from Task N* must name something that task's **Produces** actually exposes, and N must be lower than the consuming task. A forward reference, or a name no `Produces` exposes, is a broken seam — fix it before delivering.
+
 ## Output
 
 The plan is the deliverable. If the user or a calling skill wants it written to a file, write to the location they give — confirm one if they don't — and report the path. This skill chooses no location or filename scheme of its own.
