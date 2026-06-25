@@ -21,7 +21,7 @@ This keeps the plan lossless without lowering it to a line-by-line script. For e
 
 ## Readiness guard
 
-Before writing, apply the content rule above as the trigger: if any choice it would require spelling out is still unresolved in the conversation, name that gap and stop rather than emitting a plan that silently hands off an unmade decision. An incomplete plan is a signal the design isn't ready to write up, not a deliverable.
+Before writing, enumerate the choices the content rule flags as load-bearing — the ones a competent implementer could pick differently than intended — and confirm each was actually settled in the conversation. If any is still open, name each one — what's undecided and why it blocks the plan — and stop, rather than emitting a plan that silently hands off an unmade decision. An incomplete plan is a signal the design isn't ready to write up, not a deliverable.
 
 This is the guard's only condition. It does not judge whether the design is "too big" — that is upstream judgment, not this skill's concern.
 
