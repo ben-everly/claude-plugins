@@ -67,3 +67,31 @@ A clean task boundary is one coherent change committable on its own that, where 
 When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
 
 A task is finer-grained than a `decompose` slice: a slice is an independently shippable unit of observable value and typically spans several tasks. This distinction is orientation only — `decompose` is not a prerequisite for this skill.
+
+## Artifact
+
+The plan is persisted to a file. An inline-only render cannot be consumed by a fresh context — the reader that executes the plan may be a different session, days later, with none of the conversation history. A file is the artifact.
+
+**Default location:** `~/.claude/projects/<slugified-project-path>/development-workflow/plans/`
+
+This follows Claude Code's per-project convention. The slugified path is the absolute working-directory path with each `/` and `.` replaced by `-`, so any session launched from that directory resolves the identical path without coordination. For example, `/home/user/dev/my.app` becomes `-home-user-dev-my-app`.
+
+The default location lives outside the repository — a disposable plan cannot be committed by accident — and, unlike a temp directory, it survives reboots and session boundaries for a handoff that may happen later.
+
+**User-configurable override:** when the user specifies a different location, write there instead. This override is the only external input to the write path (see security note below).
+
+**Filename:** `<YYYY-MM-DD>-<title-slug>.md`
+
+The date prefix makes collisions structurally impossible and sorts plans chronologically; the slug keeps them identifiable. Plans are never overwritten or reused — each invocation writes a new file.
+
+**No lifecycle is enforced.** Plans may live indefinitely. They are simply expected never to be reused.
+
+**Security — override confinement (the tricky part):** the user-configurable override is the only external input to the write; it must be resolved and confined to the intended plans root before writing. Reject or clamp any path that escapes the root, for example via `..` traversal. The default path is a deterministic slug of the working directory with no external input and cannot be steered.
+
+## Boundary
+
+This skill produces the plan document and stops.
+
+After writing, it reports the absolute path of the plan file as its deliverable. Reporting the artifact's location is describing the skill's own output, not execution guidance — it names no downstream skill.
+
+The skill carries no execution guidance and offers no "which approach?" handoff menu. Stringing skills into a workflow, if ever wanted, is a separate skill.
