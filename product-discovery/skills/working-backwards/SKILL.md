@@ -1,6 +1,6 @@
 ---
 name: working-backwards
-description: Use when you've done product research in the conversation and want it drafted as an Amazon-style Working Backwards (PR/FAQ) document.
+description: Use when the user requests an Amazon-style Working Backwards (PR/FAQ) document. Expects product research already done in the conversation.
 ---
 
 # Working Backwards (PR/FAQ)
