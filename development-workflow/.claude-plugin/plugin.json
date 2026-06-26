@@ -1,6 +1,6 @@
 {
   "name": "development-workflow",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A structured development workflow covering planning, design, implementation, review, and delivery",
   "author": {
     "name": "Ben Everly"
