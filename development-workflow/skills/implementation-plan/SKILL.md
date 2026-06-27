@@ -27,7 +27,7 @@ This is the guard's only condition. It does not judge whether the design is "too
 
 ## Plan structure
 
-A plan is divided into tasks, each sized to one logical, independently committable change. This skill carries a bare template plus a section guide.
+A plan is divided into tasks, each sized to one logical, independently committable change that leaves the tree green where testable. This skill carries a bare template plus a section guide.
 
 ```markdown
 # <plan title>
@@ -53,7 +53,7 @@ What each section holds:
 
 - **Overview** — one paragraph: what this plan builds and the end state.
 - **Context** — stable orientation true before the plan starts and throughout: key existing files and what they do, patterns/conventions to follow, settled design decisions bearing on the work. Anything shared across tasks lives here, so each task reads on its own.
-- **Tasks** — the work, divided so one task is one logical, independently committable change. Tasks are listed in **dependency order**: every `Consumes: from Task N` references an *earlier* task, a lower N. Dependencies point **backward only** — never forward, never in a cycle — so build order is verifiable by eye. Each task is also **self-contained**: an implementer reading only that task plus **Context** loses nothing, and a task understandable only by reading other task bodies is not yet lossless.
+- **Tasks** — the work, listed in **dependency order**: every `Consumes: from Task N` references an *earlier* task, a lower N. Dependencies point **backward only** — never forward, never in a cycle — so build order is verifiable by eye. Each task is also **self-contained**: an implementer reading only that task plus **Context** loses nothing, and a task understandable only by reading other task bodies is not yet lossless.
   - **Files** — the comprehensive list of paths the task touches: created, modified, or deleted, including tests.
   - **Change** — prose describing the behavior this commit adds or modifies, including how edge and error cases are handled, with explicit call-outs of tricky parts. Reach for a literal snippet only where it is clearer than prose — an exact signature, a subtle algorithm, a specific data shape — and stay in prose otherwise.
   - **Consumes** — preconditions that must already hold, each tagged by source: *from Task N* for an earlier task's output (the seam to match against that task's `Produces`), or *existing* for code already in the repo. Omit when the task consumes nothing. **Before finishing** verifies every *from Task N* resolves to a real `Produces`.
@@ -61,8 +61,6 @@ What each section holds:
   - **Done when** — the completion gate: the behavior in **Change** is covered by passing tests, plus any condition not expressible as a unit test (integration wired up, observable end state). Keep it explicit and checkable; avoid vague criteria like "works correctly."
 
 ## Cutting tasks
-
-A clean task boundary is one coherent change committable on its own that, where the change is testable, leaves the tree green.
 
 When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
 
