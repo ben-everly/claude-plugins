@@ -57,7 +57,7 @@ What each section holds:
   - **Files** — the comprehensive list of paths the task touches: created, modified, or deleted, including tests.
   - **Change** — prose describing the behavior this commit adds or modifies, including how edge and error cases are handled, with explicit call-outs of tricky parts. Reach for a literal snippet only where it is clearer than prose — an exact signature, a subtle algorithm, a specific data shape — and stay in prose otherwise.
   - **Consumes** — preconditions that must already hold, each tagged by source: *from Task N* for an earlier task's output (the seam to match against that task's `Produces`), or *existing* for code already in the repo. Omit when the task consumes nothing. **Before finishing** verifies every *from Task N* resolves to a real `Produces`.
-  - **Produces** — what the task exposes for later tasks to consume, including contract-level error outputs (thrown exceptions, error returns) a later task depends on.
+  - **Produces** — name each thing the task exposes for later tasks to consume, including contract-level error outputs (thrown exceptions, error returns) a later task depends on, so a `Consumes: from Task N` can resolve against it.
   - **Done when** — the completion gate: the behavior in **Change** is covered by passing tests, plus any condition not expressible as a unit test (integration wired up, observable end state). Keep it explicit and checkable; avoid vague criteria like "works correctly."
 
 ## Cutting tasks
