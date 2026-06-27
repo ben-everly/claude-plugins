@@ -17,7 +17,7 @@ The settled design, drawn from the conversation. This skill does no design quest
 
 Any choice a competent implementer could reasonably pick differently than intended gets spelled out; everything else is left free.
 
-This keeps the plan lossless without lowering it to a line-by-line script. For example: if the design assumes events publish to a specific one of two existing queues, the plan must name which — a capable implementer could reasonably pick the other. The name of a local loop variable is left free: no intent rides on it.
+This keeps the plan lossless without lowering it to a line-by-line script. For example: if the design intends validation to run before the write so a rejected request leaves no partial state, the plan must say so — a capable implementer could reasonably do it after. The order of two side-effect-free checks is left free: no intent rides on it.
 
 ## Readiness guard
 
