@@ -1,0 +1,73 @@
+---
+name: implementation-plan
+description: Use when the user requests a commit-by-commit implementation plan a fresh context can execute without losing intent.
+---
+
+# Implementation Plan
+
+## Overview
+
+Read the design already settled in the conversation and write it up as a structured implementation plan. It consumes conversation context directly.
+
+## Input
+
+The settled design, drawn from the conversation. This skill does no design questioning of its own — it reads what was settled and writes it up.
+
+## The content rule
+
+Any choice a competent implementer could reasonably pick differently than intended gets spelled out; everything else is left free.
+
+This keeps the plan lossless without lowering it to a line-by-line script. For example: if the design intends validation to run before the write so a rejected request leaves no partial state, the plan must say so — a capable implementer could reasonably do it after. The order of two side-effect-free checks is left free: no intent rides on it.
+
+## Readiness guard
+
+Before writing, enumerate the choices the content rule flags as load-bearing — the ones a competent implementer could pick differently than intended — and confirm each was actually settled in the conversation. If any is still open, name each one — what's undecided and why it blocks the plan — and stop, rather than emitting a plan that silently hands off an unmade decision. An incomplete plan is a signal the design isn't ready to write up, not a deliverable.
+
+This is the guard's only condition. It does not judge whether the design is "too big" — that is upstream judgment, not this skill's concern.
+
+## Plan structure
+
+A plan is divided into tasks, each sized to one logical, independently committable change that leaves the tree green where testable. This skill carries a bare template plus a section guide.
+
+```markdown
+# <plan title>
+
+## Overview
+
+## Context
+
+## Tasks
+
+### Task N: <imperative title>
+
+- **Files:**
+- **Change:**
+- **Consumes:**
+- **Produces:**
+- **Done when:**
+```
+
+## Section guide
+
+What each section holds:
+
+- **Overview** — one paragraph: what this plan builds and the end state.
+- **Context** — stable orientation true before the plan starts and throughout: key existing files and what they do, patterns/conventions to follow, settled design decisions bearing on the work. Anything shared across tasks lives here, so each task reads on its own.
+- **Tasks** — the work, listed in **dependency order**: every `Consumes: from Task N` references an *earlier* task, a lower N. Dependencies point **backward only** — never forward, never in a cycle — so build order is verifiable by eye. Each task is also **self-contained**: reading only that task plus **Context**, an implementer grasps its full intent without re-deriving another task's reasoning. Naming a dependency as a seam — `Consumes: from Task N`, described well enough to stand alone — is fine; a task whose intent is recoverable only by reading another task's body is not yet lossless.
+  - **Files** — the comprehensive list of paths the task touches: created, modified, or deleted, including tests.
+  - **Change** — prose describing the behavior this commit adds or modifies, including how edge and error cases are handled, with explicit call-outs of tricky parts. Reach for a literal snippet only where it is clearer than prose — an exact signature, a subtle algorithm, a specific data shape — and stay in prose otherwise.
+  - **Consumes** — preconditions that must already hold, each tagged by source: *from Task N* for an earlier task's output (the seam to match against that task's `Produces`), or *existing* for code already in the repo. Omit when the task consumes nothing. **Before finishing** verifies every *from Task N* resolves to a real `Produces`.
+  - **Produces** — name each thing the task exposes for later tasks to consume, including contract-level error outputs (thrown exceptions, error returns) a later task depends on, so a `Consumes: from Task N` can resolve against it.
+  - **Done when** — the completion gate: an explicit, checkable end state. When the change is testable, that is passing tests covering the behavior in **Change**; where it isn't, name the observable end state instead — e.g. the migration applied and the new column queryable, or the integration wired up and serving. Avoid vague criteria like "works correctly."
+
+## Cutting tasks
+
+When pieces of a change cannot be split into separate green commits — for example, changing a function's signature and every call site, where any partial commit leaves the tree uncompilable — they stay **one task**, however many files it touches. Splitting for size alone, at the cost of a red intermediate tree, is the artificial split to avoid.
+
+## Before finishing
+
+Once the plan is drafted, walk every task's **Consumes** in one pass: each *from Task N* must name something that task's **Produces** actually exposes, and N must be lower than the consuming task. A forward reference, or a name no `Produces` exposes, is a broken seam — fix it before delivering.
+
+## Boundary
+
+This skill produces the plan and stops — no "which approach?" handoff menu, no naming a downstream skill to run it.

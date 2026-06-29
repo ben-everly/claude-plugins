@@ -38,7 +38,7 @@ This repo is a Claude Code plugin marketplace. It follows the marketplace spec u
         "name": "plugin-name",
         "source": "./plugin-name",
         "description": "What the plugin does",
-        "version": "1.0.0",
+        "version": "0.0.0",
         "author": {
             "name": "Ben Everly"
         },
@@ -50,7 +50,7 @@ This repo is a Claude Code plugin marketplace. It follows the marketplace spec u
 
 ## Releases
 
-Plugins are released automatically by release-it, which derives each plugin's version bump from the Conventional Commits made since its last tag.
+Plugins are released automatically by release-it, which derives each plugin's version bump from the Conventional Commits made since its last tag. You should NEVER manually edit plugin versions except to set the initial version, which should always be `0.0.0`.
 
 **Pull requests are squash-merged, so the PR title becomes the commit message release-it reads.** A non-conventional title (e.g. "Add new plugin") collapses to a typeless commit, so release-it falls back to a patch bump and any intended minor bump is lost. PR titles MUST follow [Conventional Commits](https://www.conventionalcommits.org/):
 
