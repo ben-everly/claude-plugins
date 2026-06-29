@@ -7,7 +7,7 @@ description: Use when the user requests a commit-by-commit implementation plan a
 
 ## Overview
 
-Read the design already settled in the conversation and write it up as a structured implementation plan. It consumes conversation context directly. As a building block, it owns document format and content quality and nothing else.
+Read the design already settled in the conversation and write it up as a structured implementation plan. It consumes conversation context directly.
 
 ## Input
 
@@ -53,7 +53,7 @@ What each section holds:
 
 - **Overview** — one paragraph: what this plan builds and the end state.
 - **Context** — stable orientation true before the plan starts and throughout: key existing files and what they do, patterns/conventions to follow, settled design decisions bearing on the work. Anything shared across tasks lives here, so each task reads on its own.
-- **Tasks** — the work, listed in **dependency order**: every `Consumes: from Task N` references an *earlier* task, a lower N. Dependencies point **backward only** — never forward, never in a cycle — so build order is verifiable by eye. Each task is also **self-contained**: an implementer reading only that task plus **Context** loses nothing, and a task understandable only by reading other task bodies is not yet lossless.
+- **Tasks** — the work, listed in **dependency order**: every `Consumes: from Task N` references an *earlier* task, a lower N. Dependencies point **backward only** — never forward, never in a cycle — so build order is verifiable by eye. Each task is also **self-contained**: reading only that task plus **Context**, an implementer grasps its full intent without re-deriving another task's reasoning. Naming a dependency as a seam — `Consumes: from Task N`, described well enough to stand alone — is fine; a task whose intent is recoverable only by reading another task's body is not yet lossless.
   - **Files** — the comprehensive list of paths the task touches: created, modified, or deleted, including tests.
   - **Change** — prose describing the behavior this commit adds or modifies, including how edge and error cases are handled, with explicit call-outs of tricky parts. Reach for a literal snippet only where it is clearer than prose — an exact signature, a subtle algorithm, a specific data shape — and stay in prose otherwise.
   - **Consumes** — preconditions that must already hold, each tagged by source: *from Task N* for an earlier task's output (the seam to match against that task's `Produces`), or *existing* for code already in the repo. Omit when the task consumes nothing. **Before finishing** verifies every *from Task N* resolves to a real `Produces`.
@@ -62,18 +62,12 @@ What each section holds:
 
 ## Cutting tasks
 
-When a unit of behavior genuinely cannot be a single self-contained commit — for example, a schema migration and the code depending on it — it is **still one task**, and **Done when** names the multi-step end state rather than forcing an artificial split.
+When pieces of a change cannot be split into separate green commits — for example, changing a function's signature and every call site, where any partial commit leaves the tree uncompilable — they stay **one task**, however many files it touches. Splitting for size alone, at the cost of a red intermediate tree, is the artificial split to avoid.
 
 ## Before finishing
 
 Once the plan is drafted, walk every task's **Consumes** in one pass: each *from Task N* must name something that task's **Produces** actually exposes, and N must be lower than the consuming task. A forward reference, or a name no `Produces` exposes, is a broken seam — fix it before delivering.
 
-## Output
-
-The plan is the deliverable. If the user or a calling skill wants it written to a file, write to the location they give — confirm one if they don't — and report the path. This skill chooses no location or filename scheme of its own.
-
 ## Boundary
 
-This skill produces the plan document and stops.
-
-Reporting its output — the plan, and the file path when one was written — describes the skill's own output, not execution guidance. It offers no "which approach?" handoff menu and names no downstream skill; stringing skills into a workflow, if ever wanted, is a separate skill.
+This skill produces the plan and stops — no "which approach?" handoff menu, no naming a downstream skill to run it.
