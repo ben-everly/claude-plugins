@@ -14,6 +14,8 @@ One skill owns both title and body because they are artifacts of one act: identi
 - **Generate (default).** Produce title-and-body text and hand it back. Do **not** open the PR.
 - **Open (explicit).** Only on an explicit user decision to open the PR, invoke `gh pr create` yourself, under the [Security](#security) contract below.
 
+An unambiguous imperative to open/create/submit the PR selects Open; anything else — draft it, write the PR, what should the PR say — stays in Generate.
+
 ## Know what shipped
 
 Before authoring, gather the changeset — `git diff <base>...HEAD` and `git log <base>..HEAD`, where `<base>` is the PR's target (the repo default unless a target is already known). The Summary and the Breaking-changes determination are grounded in this diff; without it, "Breaking changes: None" is a guess, not the falsifiable claim the [forcing function](#body--fallback-section-set) intends.
