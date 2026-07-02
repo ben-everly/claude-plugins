@@ -12,7 +12,7 @@ One skill owns both title and body because they are artifacts of one act: identi
 ## Modes
 
 - **Generate (default).** Produce title-and-body text and hand it back as raw, copy-pasteable markdown — the title and the body clearly labeled, the body in a fenced block so headings and code fences survive for pasting into GitHub's compose box. Do **not** touch the PR.
-- **Open (explicit).** Only on an explicit user decision to open the PR, invoke `gh pr create` yourself, under the [Security](#security) contract below.
+- **Open (explicit).** Only on an explicit user decision to open the PR, invoke `gh pr create` yourself, under the [Security](#security) contract below. Set `--base` to the diff's target (the repo default unless the user names one). For `--draft`, honor an explicit user instruction or a project-documented convention (`README`/`CONTRIBUTING`); absent either, pass no draft flag and leave the default to `gh` — do not impose one.
 - **Edit (explicit).** Only on an explicit user decision to update an existing PR, invoke `gh pr edit` (same `--title`/`--body-file` channels, same contract) against the branch's open PR.
 
 Both write modes require an unambiguous imperative and are never the default: open/create/submit selects Open; update/edit/revise the existing PR selects Edit. Anything else — draft it, write the PR, what should the PR say — stays in Generate. If Open is asked for but a PR already exists for the branch, surface that and treat it as Edit rather than dead-ending on the `create` collision.
