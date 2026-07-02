@@ -55,6 +55,17 @@ When no structure is documented, emit your own sections. **Summary** and **Break
 
 Do not add a screenshots/recording section (a `gh` body is text-only and you cannot capture a UI) or a Tests section (the diff already shows the tests).
 
+**Example** — a small bugfix with no break and no extra sections triggered:
+
+> ## Summary
+> `retryRequest` dropped the `Authorization` header on the second attempt, so retried calls 401'd. This threads the original headers through the retry path; the added test covers the retry case a reviewer should scrutinize.
+>
+> ## Breaking changes
+> None.
+>
+> ## Related issues
+> Closes #214.
+
 ## Title — source precedence
 
 A PR title is a distinct artifact from the branch name and the commit message; the same repo can run different conventions for each. Resolve the title from the first available source, preferring trusted evidence over inference:
@@ -65,6 +76,11 @@ A PR title is a distinct artifact from the branch name and the commit message; t
 4. **Cold-start default.** When nothing above applies — no documented convention, merge history absent or too sparse after filtering, or `gh` offline/unauthenticated — default to a Conventional Commit-style title, carrying a ticket id when the branch name reveals one. Use your own Conventional Commit knowledge; do not invoke another skill.
 
 When the title comes from step 3 or 4, **surface the convention and its source** alongside the proposed title (e.g. "inferred from recent merged PRs: `type: subject [TICKET]`") so a wrong guess is catchable. When a documented convention (step 1 or 2) drove it, stay silent. Do not attempt to detect the repo's merge strategy as an encoded rule — leave any such weighing to your judgment.
+
+**Examples** (cold-start default, step 4):
+
+- branch `fix/side-142-token-refresh` (ticket revealed) → `fix(auth): refresh token before expiry [SIDE-142]`
+- branch `add-csv-export` (no ticket) → `feat: add CSV export`
 
 ## Security
 
