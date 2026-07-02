@@ -1,0 +1,41 @@
+{
+  "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+  "git": {
+    "tagName": "brainpower-v${version}",
+    "tagAnnotation": "Release brainpower v${version}",
+    "commitMessage": "chore(release): brainpower v${version}",
+    "requireBranch": "main",
+    "requireCleanWorkingDir": false,
+    "requireCommits": true,
+    "requireCommitsFail": false,
+    "commitsPath": "."
+  },
+  "github": {
+    "release": true,
+    "releaseName": "brainpower-v${version}"
+  },
+  "npm": {
+    "publish": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "in": ".claude-plugin/plugin.json",
+      "out": ".claude-plugin/plugin.json"
+    },
+    "@release-it/conventional-changelog": {
+      "preset": "angular",
+      "gitRawCommitsOpts": {
+        "path": "."
+      },
+      "commitsOpts": {
+        "path": "."
+      },
+      "tagOpts": {
+        "prefix": "brainpower-v"
+      }
+    }
+  },
+  "hooks": {
+    "after:bump": "node ../scripts/sync-marketplace.js brainpower ${version} && git add ../.claude-plugin/marketplace.json"
+  }
+}
