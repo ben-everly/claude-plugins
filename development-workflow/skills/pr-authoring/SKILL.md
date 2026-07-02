@@ -1,6 +1,6 @@
 ---
 name: pr-authoring
-description: Use when opening or writing a GitHub pull request with `gh` — authors the PR title and body.
+description: Use when opening, writing, or editing a GitHub pull request with `gh`.
 ---
 
 # PR Authoring
