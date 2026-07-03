@@ -19,7 +19,7 @@ Both write modes need an explicit imperative and are never the default. "Open/cr
 
 ## Gather the changeset
 
-Before authoring, read the diff and log against the PR's target: `git diff <base>...HEAD` and `git log <base>..HEAD`. `<base>` is the repo default unless a target is known. The Summary and the Breaking-changes claim depend on this; without it, "Breaking changes: None" is a guess.
+Before authoring, capture the base ref (`base=$(...)` — data, never pasted literally; see [Security](#security)); abort if it resolves empty, or `git diff "$base"...HEAD` silently degrades to an empty range. Read the diff and log against it: `git diff "$base"...HEAD` and `git log "$base"..HEAD`. The base is the repo default unless a target is known. The Summary and the Breaking-changes claim depend on this; without it, "Breaking changes: None" is a guess.
 
 ## Body — structure precedence
 
@@ -88,11 +88,14 @@ Use this exact invocation — **do not modify the quoting**. It routes both arti
 bf=$(mktemp); tf=$(mktemp)                    # mktemp: unpredictable, user-only; a fixed shared-dir name invites a symlink/TOCTOU race
 # write the body to "$bf" and the single-line title to "$tf" with your file tool — NOT via shell echo/printf (that re-introduces interpolation)
 # Edit mode: seed "$bf"/"$tf" with the PR's current body/title first, then apply the change — the flags full-replace both fields
-gh pr create --base <base> --title "$(cat "$tf")" --body-file "$bf"   # Edit mode: gh pr edit --title "$(cat "$tf")" --body-file "$bf"   (no arg → the branch's PR)
+base=$(...)                                   # resolve the base ref into a variable — command-substitution output is not re-parsed, so a metacharacter-bearing ref stays inert; never paste an untrusted ref literally into the command
+gh pr create --base "$base" --title "$(cat "$tf")" --body-file "$bf"   # Edit mode: gh pr edit --title "$(cat "$tf")" --body-file "$bf"   (no arg → the branch's PR)
 rm -f "$bf" "$tf"                             # after gh returns, success or failure — the files may hold diff content
 ```
 
-`gh` has no `--title-file`, so the title uses `--title "$(cat "$tf")"`: double-quoted command substitution is not re-parsed, so quotes / `$` / backticks in the file stay inert. `--title "$TITLE"` or unquoted `$(cat …)` breaks that — do not substitute either. Strip newlines before writing the title; it is one line.
+`gh` has no `--title-file`, so the title uses `--title "$(cat "$tf")"`: double-quoted command substitution is not re-parsed, so quotes / `$` / backticks in the file stay inert. Do not hand-assemble the title in a shell variable and pass `--title "$TITLE"` instead — a literal paste into the assignment (`TITLE="…"`) re-parses `$()`/backticks before the quoting can help. Read it from the file. Strip newlines before writing the title; it is one line.
+
+The base ref is data too — git allows `$`, backticks, and `;|&()<>` in branch names. Capture it by command substitution (`base=$(...)`, whose output is not re-parsed) and pass `--base "$base"`. Never write `--base "<ref>"` with the ref pasted in literally: double quotes do not stop `$()`/backtick expansion of an embedded value, so a ref like `` foo`id` `` would execute. A bare `"$base"` suffices here — unlike the title and body, which route through files to also bound argument size and keep large untrusted content off the command line — because the base is one short, command-resolved token.
 
 Before running `gh`, **surface the full title and body to the user**. The data-as-data rule is best-effort model behavior against indirect prompt injection; the human confirming the artifacts is the real enforcement point — and `--body-file` means the command-approval prompt shows only a temp path.
 
