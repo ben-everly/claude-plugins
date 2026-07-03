@@ -73,7 +73,7 @@
       "name": "brainpower",
       "source": "./brainpower",
       "description": "A toolkit of named thinking techniques — deliberate cognitive moves to test and expand thinking before committing.",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "Ben Everly"
       },
