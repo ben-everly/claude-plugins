@@ -11,7 +11,7 @@ Author the title and body and nothing else: do not decide when to open the PR, d
 
 ## Modes
 
-Both write modes need an explicit imperative and are never the default. "Open/create/submit" → Open; "update/edit/revise" → Edit; anything else (draft it, write the PR, what should it say) → Generate. If Open is asked but a PR already exists for the branch, switch to Edit rather than failing on the collision.
+Both write modes need an explicit imperative and are never the default. "Open/create/submit" → Open; "update/edit/revise" → Edit; anything else (draft it, write the PR, what should it say) → Generate. Before Open, check whether the branch already has an **open** PR (`gh pr view --json state` — a non-zero exit means no PR at all; a `MERGED`/`CLOSED` state is not an open one). If one is open, switch to Edit rather than failing on the collision; a merged/closed PR is not a collision, so create a fresh one.
 
 - **Generate (default).** Return the title and body as raw, copy-pasteable markdown — title and body labeled, body in a fenced block. Do not touch the PR.
 - **Open.** Run `gh pr create` under the [Security](#security) contract. Set `--base` to the diff's target. For `--draft`, follow an explicit instruction or a `README`/`CONTRIBUTING` convention; otherwise pass no draft flag.
@@ -88,7 +88,7 @@ Use this exact invocation — **do not modify the quoting**. It routes both arti
 bf=$(mktemp); tf=$(mktemp)                    # mktemp: unpredictable, user-only; a fixed shared-dir name invites a symlink/TOCTOU race
 # write the body to "$bf" and the single-line title to "$tf" with your file tool — NOT via shell echo/printf (that re-introduces interpolation)
 # Edit mode: seed "$bf"/"$tf" with the PR's current body/title first, then apply the change — the flags full-replace both fields
-gh pr create --base <base> --title "$(cat "$tf")" --body-file "$bf"   # Edit mode: gh pr edit <pr> --title "$(cat "$tf")" --body-file "$bf"
+gh pr create --base <base> --title "$(cat "$tf")" --body-file "$bf"   # Edit mode: gh pr edit --title "$(cat "$tf")" --body-file "$bf"   (no arg → the branch's PR)
 rm -f "$bf" "$tf"                             # after gh returns, success or failure — the files may hold diff content
 ```
 
