@@ -46,11 +46,15 @@ This repo is a Claude Code plugin marketplace. It follows the marketplace spec u
     }
     ```
 
-5. Update the "Available Plugins" section in README.md.
+5. Add a `.release-it.json` to the plugin directory (see "Releases" — a plugin without one is silently skipped by CI and never releases).
+
+6. Update the "Available Plugins" section in README.md.
 
 ## Releases
 
 Plugins are released automatically by release-it, which derives each plugin's version bump from the Conventional Commits made since its last tag. You should NEVER manually edit plugin versions except to set the initial version, which should always be `0.0.0`.
+
+**Every plugin MUST have its own `.release-it.json`.** The CI workflow loops over each plugin in `marketplace.json` and runs `release-it` inside it; a plugin without a config is silently skipped (release-it can't determine a tag prefix or compute a bump, so it prints "No new version to release" and exits 0). Copy an existing plugin's `.release-it.json` and replace every `<plugin-name>-v` tag prefix, `commitMessage`, `releaseName`, and the `sync-marketplace.js` argument with the new plugin's name. When adding a plugin, verify a matching config exists before merging.
 
 **Pull requests are squash-merged, so the PR title becomes the commit message release-it reads.** A non-conventional title (e.g. "Add new plugin") collapses to a typeless commit, so release-it falls back to a patch bump and any intended minor bump is lost. PR titles MUST follow [Conventional Commits](https://www.conventionalcommits.org/):
 
