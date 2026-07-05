@@ -15,9 +15,9 @@ Author from the real changeset — the diff and the commits against the PR's bas
 
 ## Body — structure precedence
 
-Resolve the body's structure from the first source that applies:
+Resolve the body's structure from the first source that prescribes a body structure:
 
-1. **Session context.** An explicit instruction, or an already-loaded `CLAUDE.md`/`AGENTS.md`. Do not read those files yourself — rely on what's already in context.
+1. **Session context.** An explicit instruction, or PR-structure guidance already present in a loaded `CLAUDE.md`/`AGENTS.md`. Do not read those files yourself — rely on what's already in context.
 2. **Repo-documented structure**, two kinds that usually compose:
    - a `PULL_REQUEST_TEMPLATE.md` (case-insensitive) in the repo root, `.github/`, or `docs/`, or a `PULL_REQUEST_TEMPLATE/` directory under any of those;
    - a structure prescribed in `README.md`/`CONTRIBUTING.md` prose, which stands in as the template when no template file exists.
