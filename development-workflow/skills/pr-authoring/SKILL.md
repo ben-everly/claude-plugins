@@ -36,7 +36,7 @@ When no structure is documented, emit these. **Summary** and **Breaking changes*
 | Section | Renders when | Good content |
 | -- | -- | -- |
 | **Summary** | always | the problem and the solution, plus specific hints for the reviewer |
-| **Breaking changes** | always — asserts "None" when nothing breaks | what broke and how behavior changed; an explicit "None" otherwise |
+| **Breaking changes** | always | what broke and how behavior changed; an explicit "None" otherwise |
 | **Architecture impact** | a decision reaches beyond this PR | decisions not contained to this PR; anything that should affect design going forward |
 | **Deployment/rollback notes** | deploy/rollback needs more than the vanilla path | special steps — set env/secrets, provision infra, and similar |
 | **Related issues** | related issues exist | the issues and their relation — closes / related / depends on |
@@ -60,5 +60,4 @@ Breaking changes always renders — asserting "None" turns "did the agent even l
 | -- | -- |
 | Ignoring the repo's `PULL_REQUEST_TEMPLATE.md` because it isn't auto-applied outside the web box | Discover and honor it (structure precedence) |
 | Authoring before reading the diff | Gather the changeset first; the Summary and Breaking-changes claim depend on it |
-| Omitting Breaking changes | Always render it; assert "None" when nothing breaks |
 | Leaving placeholders or HTML comments in a filled template | Fill with real content; delete comments after reading them for intent |
