@@ -9,9 +9,9 @@ Author a PR's **body** as copy-pasteable markdown. GitHub injects the repo's `PU
 
 Author the body and nothing else: not the title, and don't open the PR, drive the merge, name the branch, or write commit messages. Return the body as raw markdown in a fenced block for the user to paste.
 
-## Gather the changeset
+## Ground the body in the actual changes
 
-Before authoring, read what changed so the Summary and the Breaking-changes claim are grounded, not guessed. Resolve the PR's base — the branch it will target, or the repo default: `base=$(gh repo view --json defaultBranchRef -q .defaultBranchRef.name)`. Then diff and log against it: `git diff "$base"...HEAD` (the changes) and `git log "$base"..HEAD` (the commits). Without this, "Breaking changes: None" is a guess.
+Author from the real changeset — the diff and the commits against the PR's base — not from memory or the branch name. The Summary must describe changes you've read, and "Breaking changes: None" is a claim about a diff you've seen, not a guess.
 
 ## Body — structure precedence
 
