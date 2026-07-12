@@ -17,7 +17,7 @@ If the design isn't settled enough to fill the load-bearing sections — Design,
 
 ## Altitude
 
-Design altitude: what to build and the shape of how — components, data flow, key decisions, and the alternatives weighed. Stop short of file-level technicals. Name each unresolved technical point explicitly in Open Questions rather than leaving it implicit, so a downstream reader that lacks the original conversation sees the gap and settles it there, instead of inheriting silence.
+Design altitude: what to build and the shape of how — components, data flow, key decisions, and the alternatives weighed. Stop short of file-level technicals. Name each open point whose answer could change the design explicitly in Open Questions rather than leaving it implicit, so a downstream reader that lacks the original conversation sees the gap and settles it there, instead of inheriting silence.
 
 ## Template
 
@@ -56,7 +56,7 @@ What each anchor holds, at design altitude:
 - **Design** — the target system; its substructure adapts to the topic and is the only section whose shape varies.
 - **Alternatives Considered** — the only place alternatives appear; only genuine options a reader would weigh, and why each was not chosen.
 - **Cross-cutting Concerns** — For each subsection, when the concern applies, explain _how_ the design addresses it — the impact and the mitigation. a short paragraph is the norm. When it doesn't apply, dismiss it falsifiably: state the assumption that makes it moot ("not applicable because no untrusted input crosses a boundary here").
-- **Open Questions** — unresolved points, including any deferred technical detail.
+- **Open Questions** — open points whose answer could change the design (its shape, scope, or feasibility). Two reasons a point is open: a decision the conversation deferred, or a load-bearing point you had to infer to keep the design coherent — flag the latter as an assumption to confirm. A purely local implementation choice with no design ripple is the implementer's call and does not belong here.
 
 ## Governing rules
 
