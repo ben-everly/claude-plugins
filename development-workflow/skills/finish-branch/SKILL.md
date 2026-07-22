@@ -18,6 +18,9 @@ the ticket reflects that." This skill does **not** run tests or any verification
 that), clean up branches or worktrees, name branches, manage review feedback, or merge. It never
 runs unprompted.
 
+Before starting, check the working tree with `git status`. If it is dirty, ask the user whether to
+commit first before continuing.
+
 Work through the four steps in order.
 
 ## 1. Resolve the merge target
@@ -25,9 +28,11 @@ Work through the four steps in order.
 Determine the branch the PR/MR will target. This is the skill's one hard precondition — proceed only
 when the target can be named confidently:
 
-- Current branch matches `hotfix/*` → target `main`.
+- If the repo documents a branching convention that dictates the target (e.g. in `CONTRIBUTING`/
+  `README`, or an established release/hotfix pattern) → follow it.
 - Otherwise → target the repo's default branch, as reported by the remote (not an assumption).
-- If the current branch *is* the default branch → stop and ask the user what to do.
+- If the current branch *is* the default branch, or the target is otherwise unclear → stop and ask
+  the user.
 
 If no target can be resolved, do nothing and notify the user.
 
@@ -37,18 +42,21 @@ Check whether the branch already has an open PR/MR.
 
 - **One exists** → do not open another. Report it and ask whether the user wants to update it. On
   confirmation, push the branch and re-invoke `pr-authoring` to refresh the body. (This is the
-  update path; skip step 3.)
+  update path; skip steps 3 and 4.)
 - **None exists** → continue to step 3.
 
 ## 3. Push and open the PR/MR
+
+Produce the body by invoking the `pr-authoring` skill; do not author it here.
 
 Push the branch and open a **ready (non-draft)** PR/MR against the target resolved in step 1, using
 whatever host tooling the repo uses (`gh`, `glab`, etc.) — state the intent to push and open, and
 leave the host-specific mechanics to your own judgment.
 
-Produce the body by invoking the `pr-authoring` skill; do not author it here.
+Never force-push implicitly: if the push is rejected because the branch has diverged from its remote,
+stop and ask the user rather than forcing.
 
-Opening a PR/MR is outward-facing and hard to reverse, so confirm with the user before it fires.
+Once the PR/MR is open, print its URL.
 
 ## 4. Move the tracker ticket (best-effort)
 
