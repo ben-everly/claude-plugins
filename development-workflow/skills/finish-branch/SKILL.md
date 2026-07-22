@@ -21,6 +21,10 @@ runs unprompted.
 Before starting, check the working tree with `git status`. If it is dirty, ask the user whether to
 commit first before continuing.
 
+Never force-push implicitly, on any push this skill performs (both the step 2 update path and the
+step 3 create path): if a push is rejected because the branch has diverged from its remote, stop and
+ask the user rather than forcing.
+
 Work through the four steps in order.
 
 ## 1. Resolve the merge target
@@ -52,9 +56,6 @@ Produce the body by invoking the `pr-authoring` skill; do not author it here.
 Push the branch and open a **ready (non-draft)** PR/MR against the target resolved in step 1, using
 whatever host tooling the repo uses (`gh`, `glab`, etc.) — state the intent to push and open, and
 leave the host-specific mechanics to your own judgment.
-
-Never force-push implicitly: if the push is rejected because the branch has diverged from its remote,
-stop and ask the user rather than forcing.
 
 Once the PR/MR is open, print its URL.
 
