@@ -17,11 +17,11 @@ Do one change per invocation.
 
 A review-gated loop:
 
-1. **Scope** — implement _only_ the agreed change. No adjacent cleanup, no opportunistic refactors.
+1. **Scope** — implement _only_ the agreed change: no out-of-scope changes or refactors.
 2. **TDD whenever possible** — when the change is testable, invoke the `tdd` skill and drive the change test-first. Skip TDD only when there is nothing meaningful to test (a doc, comment, or config tweak) — and say so.
 3. **Verify** — run targeted verification (the relevant test, a type check, a grep). Not the full suite unless the change is broad.
-4. **Review** — invoke the `/code-review low` command on the diff.
-    - If it surfaces findings that need fixing, go back to step 1 for the corrective change (test-first when testable), then re-verify and re-review.
-    - If the review is clean, continue.
+4. **Review** — invoke the `inline-review` skill on the diff of the change just made. Read the reported findings and, using your own judgment, apply whichever corrective changes are warranted.
+    - If a corrective change was made, go back to step 1 for it (test-first when testable), then re-verify and re-review.
+    - If no corrective change was made — whether the review was clean or nothing in it was judged worth fixing — continue.
 5. **Commit** — invoke the `/commit` command (which applies the `conventional-commits` skill).
 6. **Report** — state the specific commands/checks/tests that were run, or "Changes unverified" if nothing automated applies.
