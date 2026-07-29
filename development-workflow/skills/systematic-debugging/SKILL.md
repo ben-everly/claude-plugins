@@ -18,6 +18,8 @@ Nothing points at the offending code, and nothing needs to. The location is the 
 
 ## Workflow
 
+If the symptom does not fail on every run, depends on timing or ordering, or reproduces in one environment and not another, read `references/intermittent-failures.md` before starting — it carries the techniques for that case and one additional condition on confirming the fix.
+
 ### 1. Identify the frontier
 
 Name the one thing that cannot yet be done reliably. Early that is usually **making the failure happen at all**; once it is reproducible the frontier becomes **making it happen in a smaller box**. The loop shape is identical in both regimes — predict, test, refute — so there is no reproduce phase followed by a separate theorize phase. When reproduction is the frontier, each reproduction attempt is already a hypothesis test: "it fails when the clock crosses a day boundary" predicts that pinning the clock to 23:59:59.9 triggers it, and a clean run refutes that.
@@ -60,31 +62,13 @@ A confirmed hypothesis that leaves a minimal deterministic reproduction and an e
 
 After **three refuted hypotheses**, stop and report back rather than continuing to guess. "Ran out of hypotheses" is a legitimate terminal result, and it ships with the ruled-out list — each hypothesis, the observation that refuted it, and what remains unexplained — so the next attempt does not redo the ground. Abandoning quietly is the only illegitimate ending.
 
-### Techniques for intermittent, timing-dependent, and environment-specific failures
-
-- **Determinize** — the knob hunt in step 4: seed, clock, timezone and locale, test order, thread cap, resource ceiling. First move in every case.
-- **Amplify** — run the case N times in a loop, insert delays at the suspected interleaving points, add CPU or IO load, shrink timeouts. Amplification raises the failure rate so the loop can iterate at all; it does not by itself localize.
-- **Perturb ordering** — reverse or randomize test order, and compare the test in isolation against the same test in the suite. The **delta is itself evidence**: a test that passes alone and fails in-suite has named shared state as the mechanism, before any hypothesis about which state.
-- **Diff the environments** — bisect what differs between where it fails and where it does not, the way you would bisect commits: runtime and dependency versions, environment variables, CPU count, filesystem path case-sensitivity, locale, resource limits, container base image. Halve the difference set each round rather than eyeballing the whole list.
-- **Capture instead of reproduce** — when the failure cannot be triggered on demand, instrument the suspected point (logging, a conditional assert, a state dump on the failing branch) and wait for the next occurrence. Slow, and it costs a cycle of real time, but the observation it returns is real rather than modeled.
-
-### Two kinds of deterministic reproduction
-
-The confirmation rules below branch on which of these you built, because they carry different evidential weight.
-
-- **Pinned input** — a fixed RNG seed, a frozen clock, `TZ=UTC`, a captured payload. It exercises the path that actually failed, so what you observe **is** the defect.
-- **Constructed interleaving** — an injected delay, a barrier, a forced context switch, a hand-driven scheduler. It asserts a *model* of the race. Its determinism is a property of the harness, not evidence that the harness models the real defect: a constructed test can be perfectly deterministic and aimed at the wrong ordering.
-
-The failure mode to name for a constructed interleaving is a **real but misaimed fix** — the constructed test goes green while the original symptom keeps flaking, because the fix addressed the modeled ordering rather than the actual one. That is why condition 3 below exists.
-
 ### Confirming the fix
 
-Write the fix, then confirm it. Every condition below must hold; condition 3 has force only where the reproduction was a constructed interleaving.
+Write the fix, then confirm it. Every condition below must hold. An intermittent, timing-dependent, or environment-specific failure adds one more — see `references/intermittent-failures.md`.
 
 1. **The reproduction passes, and it was deterministic before the fix.** Determinism is established by several pre-fix runs that all fail. A reproduction that failed once is a failure, not a deterministic reproduction. Determinism earned that way is then spent on a **single** post-fix run — one run of an established-deterministic reproduction is sufficient, and repeat post-fix runs of it buy nothing.
 2. **Revert to confirm.** Back the fix out, observe the symptom return, then reapply. This separates causation from coincidence and catches the case where unrelated churn — a dependency update, a cache clear, someone else's commit — silenced the symptom.
-3. **Re-run the original symptom against its measured baseline rate, where the reproduction was a constructed interleaving.** Run at least three times the observed mean runs-to-failure, capped by a stated time budget: a 1-in-10 failure means 30 clean runs. Where the baseline was never measurable because the failure is too rare, say so and report the fix as confirmed **by explained mechanism only, not by rate**. A pinned-input reproduction needs no baseline re-run — it exercised the failing path itself.
-4. **The cause is explained.** Not "the symptom no longer appears" but "the symptom appeared because X, and the fix changes X".
+3. **The cause is explained.** Not "the symptom no longer appears" but "the symptom appeared because X, and the fix changes X".
 
 ## The result
 
