@@ -48,7 +48,7 @@ Determinization is the default objective: assume a controllable knob exists and 
 - cap or single-thread the thread pool, force one worker,
 - constrain the resource (memory ceiling, disk quota, connection cap, injected latency).
 
-Rate measurement — "fails 1 in 50" — is a **fallback**, not a second default. It is permitted only when determinization genuinely failed *and* you state the reason: either the nondeterminism sits below the available control surface (scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses), or the failure is a Heisenbug where the instrumentation needed to observe it masks it. A measured rate with no stated reason means the knob hunt was abandoned early, not that no knob exists.
+Rate measurement — "fails 1 in 50" — is a **fallback**, not a second default. It is permitted only after you have tried the knobs above and reported what each one did, and only when the reason determinization failed is one of these two: the nondeterminism sits below the available control surface (scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses), or the failure is a Heisenbug where the instrumentation needed to observe it masks it. A measured rate without that list, or without one of those two reasons, means the knob hunt was abandoned early — not that no knob exists.
 
 ### 5. Minimize
 
@@ -73,7 +73,7 @@ Write the fix, then confirm it. Every condition below must hold. An intermittent
 ## The result
 
 - **Cause** — the root cause, described as a mechanism: what state or ordering produced the symptom, and where.
-- **Reproduction** — a committed test where one is possible. Where the reproduction depends on a temporary patch it cannot be committed as a test; in that case deliver a written description of the reproducing steps **plus** a note naming the permanent seam a committed test would require.
+- **Reproduction** — a committed test. Where the reproduction depends on a temporary patch it cannot be committed as a test; in that case deliver a written description of the reproducing steps **plus** a note naming the permanent seam a committed test would require.
 - **Fix** — the change, carried through confirmation by this skill rather than handed off.
 
 Before finishing: remove every temporary probe, instrument, injected delay, and local patch from the tree. Note unrelated problems encountered along the way; do not fix them. File any needed permanent seam as follow-up rather than building it inside this change.
