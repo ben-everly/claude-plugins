@@ -7,7 +7,7 @@ description: Use when you have a symptom and not a cause — a failing test, a c
 
 ## Overview
 
-Debug one symptom by iterating hypotheses against the running code: name what cannot yet be done reliably, predict what would confirm and what would refute it, execute, and choose the next step from the result. Reproduction is not a preamble to the real work — it is the same loop aimed at an earlier frontier. The skill carries through to a fix confirmed against the reproduction, not merely to a diagnosis. Two boundaries are fixed: temporary modification of the working tree — probes, instrumentation, injected delays, local patches — is in scope; building a permanent testing seam (a shipped clock injection point, an ordering hook, a DI boundary) is a separate change, filed as follow-up.
+Debug one symptom by iterating hypotheses against the running code: name what cannot yet be done reliably, predict what would confirm and what would refute it, execute, and choose the next step from the result. Reproduction is not a preamble to the real work — it is the same loop aimed at an earlier frontier. The skill carries through to a fix confirmed against the reproduction, not merely to a diagnosis.
 
 ## Input
 
