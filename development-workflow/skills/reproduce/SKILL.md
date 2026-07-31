@@ -60,7 +60,7 @@ A refuted hypothesis is a result: it narrows the frontier and picks the next hyp
 
 A confirmed hypothesis that leaves a minimal deterministic reproduction and an explained mechanism exits the loop — that is the deliverable. A confirmed hypothesis that only narrows the box is a new frontier — return to step 1.
 
-After **three refuted hypotheses**, stop and report back rather than continuing to guess. "Could not reproduce it" is a legitimate terminal result, and it ships with the ruled-out list — each hypothesis, the observation that refuted it, and what remains unexplained — so the next attempt does not redo the ground. Abandoning quietly is the only illegitimate ending.
+After **three consecutive refuted hypotheses on the current frontier**, stop and report back rather than continuing to guess. A confirmation resets the count, and so does a refutation that narrows the frontier — that is progress, not guessing. "Could not reproduce it" is a legitimate terminal result, and it ships with the ruled-out list — each hypothesis, the observation that refuted it, and what remains unexplained — so the next attempt does not redo the ground. Abandoning quietly is the only illegitimate ending.
 
 ## The result
 
