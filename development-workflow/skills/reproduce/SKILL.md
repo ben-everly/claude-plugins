@@ -22,7 +22,7 @@ If the symptom does not fail on every run, depends on timing or ordering, or rep
 
 ### 1. Identify the frontier
 
-Name the one thing that cannot yet be done reliably. Three frontiers recur: **triggering the failure at all** — which input, which state, which sequence; **making it fire every time**, when it fires only sometimes; and **making it fire in a smaller box**, once it fires reliably. The loop shape is identical in all three — predict, test, refute — so there is no reproduce phase followed by a separate theorize phase. Each attempt is already a hypothesis test: "it fails when the clock crosses a day boundary" predicts that pinning the clock to 23:59:59.9 triggers it, and a clean run refutes that.
+Name the one thing that cannot yet be done reliably. Three frontiers recur: **triggering the failure at all** — which input, which state, which sequence; **making it fire every time**, when it fires only sometimes; and **making it fire in a smaller box**, once it fires reliably. The loop shape is identical in all three — predict, test, refute. Each attempt is already a hypothesis test: "it fails when the clock crosses a day boundary" predicts that pinning the clock to 23:59:59.9 triggers it, and a clean run refutes that.
 
 ### 2. Form a hypothesis and its refutation
 
@@ -48,11 +48,16 @@ Where the failure fires only sometimes, determinization is the objective: assume
 - cap or single-thread the thread pool, force one worker,
 - constrain the resource (memory ceiling, disk quota, connection cap, injected latency).
 
-Rate measurement — "fails 1 in 50" — is a **fallback**, not a second default. It is permitted only after you have tried the knobs above and reported what each one did, and only when the reason determinization failed is one of these two: the nondeterminism sits below the available control surface (scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses), or the failure is a Heisenbug where the instrumentation needed to observe it masks it. A measured rate without that list, or without one of those two reasons, means the knob hunt was abandoned early — not that no knob exists.
+Rate measurement — "fails 1 in 50" — is a **fallback**. Before reporting one, try every knob above and report what each one did, then name which of these two reasons determinization failed for:
+
+- the nondeterminism sits below the available control surface — scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses;
+- the failure is a Heisenbug, where the instrumentation needed to observe it masks it.
+
+A measured rate without that list, or without one of those two reasons, means the knob hunt was abandoned early — not that no knob exists.
 
 ### 5. Minimize
 
-Shrink the deterministic reproduction until nothing more can be removed: fewer steps, less data, fewer collaborators, one assertion. The mechanism becomes apparent when the reproduction is **minimal**, not merely when it exists — minimizing is how this skill produces understanding, not a tidying pass afterwards. A reproduction that fires reliably but still drives the whole request path is a frontier, not a finish line — feed it back into step 1.
+Shrink the deterministic reproduction until nothing more can be removed: fewer steps, less data, fewer collaborators, one assertion. The mechanism becomes apparent when the reproduction is **minimal**, not merely when it exists — minimizing is how this skill produces understanding. A reproduction that fires reliably but still drives the whole request path is a frontier, not a finish line — feed it back into step 1.
 
 ### 6. Loop or terminate
 
