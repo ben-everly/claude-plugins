@@ -48,12 +48,14 @@ Where the failure fires only sometimes, determinization is the objective: assume
 - cap or single-thread the thread pool, force one worker,
 - constrain the resource (memory ceiling, disk quota, connection cap, injected latency).
 
-Rate measurement — "fails 1 in 50" — is a **fallback**. Before reporting one, try every knob above and report what each one did, then name which of these two reasons determinization failed for:
+Rate measurement — "fails 1 in 50" — is a **fallback** for a failure you could not determinize. Before reporting one, try every knob above and report what each one did, then name which of these two reasons determinization failed for:
 
 - the nondeterminism sits below the available control surface — scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses;
 - the failure is a Heisenbug, where the instrumentation needed to observe it masks it.
 
 A measured rate without that list, or without one of those two reasons, means the knob hunt was abandoned early — not that no knob exists.
+
+This gates a rate offered *in place of* a reproduction. The baseline rate that ships with a constructed reproduction is a different measurement — the original symptom, recorded so the flake can be checked later — and it is required rather than gated.
 
 ### 5. Minimize
 
