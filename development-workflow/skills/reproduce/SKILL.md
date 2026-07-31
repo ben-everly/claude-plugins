@@ -18,6 +18,8 @@ Nothing points at the offending code, and nothing needs to. The location is the 
 
 ## Workflow
 
+**Before starting**, check the working tree (`git status`). If it isn't clean, stop and ask the user to commit or stash first. This skill scatters probes through the tree and reverts them on the way out, so without a clean baseline it cannot tell its own instrumentation from your uncommitted work — and the cleanup in **Before finishing** would discard it. If the user chooses to proceed anyway, capture the pre-existing diff first and revert against that rather than to a clean tree.
+
 If the symptom does not fail on every run, depends on timing or ordering, or reproduces in one environment and not another, read `references/intermittent-failures.md` before starting — it carries the techniques for that case and the obligation that comes with a constructed reproduction.
 
 ### 1. Identify the frontier
