@@ -64,7 +64,7 @@ After **three refuted hypotheses**, stop and report back rather than continuing 
 
 ## The result
 
-- **Reproduction** — a test file, left uncommitted for the caller to commit. Where the reproduction depends on a temporary patch it cannot be delivered as a test; in that case deliver a written description of the reproducing steps **plus** a note naming the permanent seam a committed test would require.
+- **Reproduction** — a test file, left uncommitted for the caller to commit. Where the reproduction depends on a temporary patch it cannot be delivered as a test; in that case deliver a written description of the reproducing steps **plus** a note naming the permanent seam a test would require.
 - **Mechanism** — what state or ordering produces the failure, and where, described as a mechanism rather than a restatement of the symptom.
 
 Note unrelated problems encountered along the way; do not fix them. File any needed permanent seam as follow-up rather than building it inside this change.
