@@ -18,7 +18,7 @@ Nothing points at the offending code, and nothing needs to. The location is the 
 
 ## Workflow
 
-**Before starting**, check the working tree (`git status`). If it isn't clean, stop and ask the user to commit or stash first. This skill scatters probes through the tree and reverts them on the way out, so without a clean baseline it cannot tell its own instrumentation from your uncommitted work — and the cleanup in **Before finishing** would discard it. If the user chooses to proceed anyway, capture the pre-existing diff first and revert against that rather than to a clean tree.
+**Before starting**, check the working tree (`git status`). If it isn't clean, stop and ask the user to commit or stash first. This skill scatters probes through the tree and reverts them on the way out, so without a clean baseline it cannot tell its own instrumentation from your uncommitted work — and the cleanup in **Before finishing** would discard it.
 
 If the symptom does not fail on every run, depends on timing or ordering, or reproduces in one environment and not another, read `references/intermittent-failures.md` before starting — it carries the techniques for that case and the obligation that comes with a constructed reproduction.
 
@@ -57,7 +57,7 @@ Rate measurement — "fails 1 in 50" — is a **fallback** for a failure you cou
 
 A measured rate without that list, or without one of those two reasons, means the knob hunt was abandoned early — not that no knob exists.
 
-This gates a rate offered *in place of* a reproduction. The baseline rate that ships with a constructed reproduction is a different measurement — the original symptom, recorded so the flake can be checked later — and it is required rather than gated.
+This gates a rate offered _in place of_ a reproduction. The baseline rate that ships with a constructed reproduction is a different measurement — the original symptom, recorded so the flake can be checked later — and it is required rather than gated.
 
 ### 5. Minimize
 
@@ -68,8 +68,6 @@ Shrink the deterministic reproduction until nothing more can be removed: fewer s
 A refuted hypothesis is a result: it narrows the frontier and picks the next hypothesis. Loop.
 
 A confirmed hypothesis that leaves a minimal deterministic reproduction and an explained mechanism exits the loop — that is the deliverable. A confirmed hypothesis that only narrows the box is a new frontier — return to step 1.
-
-After **three consecutive refuted hypotheses on the current frontier**, stop and report back rather than continuing to guess. A confirmation resets the count, and so does a refutation that narrows the frontier — that is progress, not guessing. "Could not reproduce it" is a legitimate terminal result, and it ships with the ruled-out list — each hypothesis, the observation that refuted it, and what remains unexplained — so the next attempt does not redo the ground. Abandoning quietly is the only illegitimate ending.
 
 ## The result
 
