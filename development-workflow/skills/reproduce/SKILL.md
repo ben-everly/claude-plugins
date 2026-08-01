@@ -18,7 +18,7 @@ Nothing points at the offending code, and nothing needs to. The location is the 
 
 ## Workflow
 
-**Before starting**, check the working tree (`git status`). If it isn't clean, stop and ask the user to commit or stash first. This skill scatters probes through the tree and reverts them on the way out, so without a clean baseline it cannot tell its own instrumentation from your uncommitted work — and the cleanup in **Before finishing** would discard it.
+**Before starting**, check the working tree (`git status`). If it isn't clean, stop and ask the user to commit or stash first. This skill scatters probes through the tree and reverts them on the way out, so without a clean baseline it cannot tell its own instrumentation from your uncommitted work — and would discard it.
 
 If the symptom does not fail on every run, depends on timing or ordering, or reproduces in one environment and not another, read `references/intermittent-failures.md` before starting — it carries the techniques for that case and the obligation that comes with a constructed reproduction.
 
@@ -61,21 +61,21 @@ This gates a rate offered _in place of_ a reproduction. The baseline rate that s
 
 ### 5. Minimize
 
-Shrink the deterministic reproduction until nothing more can be removed: fewer steps, less data, fewer collaborators, one assertion. The mechanism becomes apparent when the reproduction is **minimal**, not merely when it exists — minimizing is how this skill produces understanding. A reproduction that fires reliably but still drives the whole request path is a frontier, not a finish line — feed it back into step 1.
+Shrink the deterministic reproduction until nothing more can be removed: fewer steps, less data, fewer collaborators, one assertion. Instrumentation is in scope — remove each probe and rerun; whatever the reproduction still fires without was never part of it. The mechanism becomes apparent when the reproduction is **minimal**, not merely when it exists — minimizing is how this skill produces understanding. A reproduction that fires reliably but still drives the whole request path is a frontier, not a finish line — feed it back into step 1.
 
 ### 6. Loop or terminate
 
-A refuted hypothesis is a result: it narrows the frontier and picks the next hypothesis. Loop.
+A refuted hypothesis is a result: it narrows the frontier and picks the next hypothesis. Revert that hypothesis's probes before testing the next one — a leftover injected delay or forced ordering changes what the next hypothesis observes, so testing one at a time depends on it. Loop.
 
 A confirmed hypothesis that leaves a minimal deterministic reproduction and an explained mechanism exits the loop — that is the deliverable. A confirmed hypothesis that only narrows the box is a new frontier — return to step 1.
 
 ## The result
 
-- **Reproduction** — a test file, left uncommitted for the caller to commit. Where the reproduction depends on a temporary patch it cannot be delivered as a test; in that case deliver a written description of the reproducing steps **plus** a note naming the permanent seam a test would require.
+- **Reproduction** — the steps that make the failure fire, reliably and minimally, left uncommitted. Prefer them executable in the repository's own harness, so the caller can rerun them without interpretation; where they cannot be, write them out. Where a temporary patch is what made them work, name the permanent seam a test would require.
 - **Mechanism** — what state or ordering produces the failure, and where, described as a mechanism rather than a restatement of the symptom.
 
 Note unrelated problems encountered along the way; do not fix them. File any needed permanent seam as follow-up rather than building it inside this change.
 
-## Before finishing
+## Cleanup
 
-Revert every temporary modification — probes, instrumentation, injected delays, local patches — before reporting any result. This binds on every ending: a reproduction produced, three refuted hypotheses, an error, or stopping early. Verify rather than assert — `git status --porcelain` should show the reproduction test and nothing else, or nothing at all where the reproduction could not be delivered as a test. Any other line is a temporary modification you have not reverted yet.
+Before ending, revert anything left and verify the only changes in the working tree (`git status --porcelain`) are the reproduction and nothing else, or nothing at all where nothing runnable could be produced.
