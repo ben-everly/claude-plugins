@@ -50,6 +50,8 @@ Where the failure fires only sometimes, determinization is the objective: assume
 - cap or single-thread the thread pool, force one worker,
 - constrain the resource (memory ceiling, disk quota, connection cap, injected latency).
 
+Determinism is established by several runs that all fail. A reproduction that failed once is a failure, not a deterministic reproduction.
+
 Rate measurement — "fails 1 in 50" — is a **fallback** for a failure you could not determinize. Before reporting one, try every knob above and report what each one did, then name which of these two reasons determinization failed for:
 
 - the nondeterminism sits below the available control surface — scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses;
