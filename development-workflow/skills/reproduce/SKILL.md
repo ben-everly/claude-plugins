@@ -71,11 +71,13 @@ A confirmed hypothesis that leaves a minimal deterministic reproduction and an e
 
 ## The result
 
-- **Reproduction** — the steps that make the failure fire, reliably and minimally, left uncommitted. Prefer them executable in the repository's own harness, so the caller can rerun them without interpretation; where they cannot be, write them out. Where a temporary patch is what made them work, name the permanent seam a test would require.
+- **Reproduction** — the steps that make the failure fire, reliably and minimally, left uncommitted. Prefer them executable in the repository's own harness, so the caller can rerun them without interpretation; where they cannot be, write them out. Where a temporary patch is what made them work, leave it in place with them and name the permanent seam a test would require.
 - **Mechanism** — what state or ordering produces the failure, and where, described as a mechanism rather than a restatement of the symptom.
 
 Note unrelated problems encountered along the way; do not fix them. File any needed permanent seam as follow-up rather than building it inside this change.
 
 ## Cleanup
 
-Before ending, revert anything left and verify the only changes in the working tree (`git status --porcelain`) are the reproduction and nothing else, or nothing at all where nothing runnable could be produced.
+Revert every temporary modification before reporting any result. This binds however the loop ends, not just on success.
+
+Verify rather than assert: `git status --porcelain` should show the reproduction, plus the temporary patch it depends on where there is one, and nothing else. Where nothing runnable could be produced, it should show nothing at all. Any other line is something you have not reverted yet.
