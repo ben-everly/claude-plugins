@@ -12,7 +12,6 @@ Turn a failure that will not happen on demand into a minimal, deterministic repr
 ## Input
 
 - **symptom** (required) — the observed failure, verbatim where possible: test output, stack trace, CI log, bug report, or a description of the wrong behavior.
-- **conditions** (optional) — the command, environment, or circumstances under which it was seen.
 
 Nothing points at the offending code, and nothing needs to. The location is the unknown this skill exists to find.
 
