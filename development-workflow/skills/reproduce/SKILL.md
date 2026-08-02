@@ -52,7 +52,7 @@ Where the failure fires only sometimes, determinization is the objective: assume
 
 Determinism is established by several runs that all fail. A reproduction that failed once is a failure, not a deterministic reproduction.
 
-Rate measurement — "fails 1 in 50" — is a **fallback** for a failure you could not determinize. Before reporting one, try every knob above and report what each one did, then name which of these two reasons determinization failed for:
+Rate measurement — "fails 1 in 50" — is a **fallback** for a failure you could not determinize. Before reporting one, account for every knob above — what each one did, or why it did not apply — then name which of these two reasons determinization failed for:
 
 - the nondeterminism sits below the available control surface — scheduler preemption, memory ordering and cache visibility, JIT warmup, GC pauses;
 - the failure is a Heisenbug, where the instrumentation needed to observe it masks it.
