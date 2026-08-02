@@ -4,7 +4,7 @@ Read this when the symptom does not fail on every run, depends on timing or orde
 
 ## Techniques
 
-- **Determinize** — the knob hunt in step 4: seed, clock, timezone and locale, test order, thread cap, resource ceiling. First move in every case.
+- **Determinize** — the knob hunt in step 4, before anything here.
 - **Amplify** — run the case N times in a loop, insert delays at the suspected interleaving points, add CPU or IO load, shrink timeouts. Amplification raises the failure rate so the loop can iterate at all; it does not by itself localize.
 - **Perturb ordering** — reverse or randomize test order, and compare the test in isolation against the same test in the suite. The **delta is itself evidence**: a test that passes alone and fails in-suite has named shared state as the mechanism, before any hypothesis about which state.
 - **Diff the environments** — bisect what differs between where it fails and where it does not, the way you would bisect commits: runtime and dependency versions, environment variables, CPU count, filesystem path case-sensitivity, locale, resource limits, container base image. Halve the difference set each round rather than eyeballing the whole list.
