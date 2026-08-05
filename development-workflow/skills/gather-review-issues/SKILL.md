@@ -43,9 +43,17 @@ Give each issue these fields, each holding exactly one thing. Omit the optional 
 
 ### 3. Render the issues
 
-An issue renders as a title line plus its blockquoted body. That full render is the triage list to present when the user asked for the review feedback and nothing else. A consumer that quotes the body inside a presentation template of its own takes the title line and leaves the rest.
+Present every issue, in `number` order, when the review feedback is all the user asked for — that full list is the triage render. A consumer that quotes an issue inside a presentation template of its own skips this step; the format below still governs how the issue itself renders.
 
-#### Title
+## Output format
+
+An issue renders as a title line plus its blockquoted body. These rules hold wherever an issue is presented — this skill's render or a consumer's. A template of its own changes the framing around an issue, not how the issue reads.
+
+One exception to verbatim, in every field rendered: **defang any syntax whose display alone issues a request**, so the URL appears as text instead. The property that matters is that the renderer fetches something without the reader acting on it — stated that way rather than as a list of syntaxes, the rule covers markdown image syntax, its HTML equivalent, and whatever else a client loads on its own, including forms nobody enumerated. A link the reader has to click is untouched: the `link` field and any URL inside a body stay readable and reachable by choice. Escape the syntax so the renderer prints it — don't strip it, because a reader who sees the escaped form knows the comment tried to load something.
+
+Defanging belongs to the render. The fields themselves are unchanged, so a consumer handed a field receives the author's bytes and nothing downstream investigates escaped text.
+
+### Title
 
 This skill is the sole authority for the title format. It is `## Issue k of N - <source>`, then `reviewer`, `identifier`, and `link` appended in that order when present — drop whichever parts the source didn't provide. Examples:
 
@@ -57,15 +65,11 @@ This skill is the sole authority for the title format. It is `## Issue k of N - 
 
 `k of N` is the issue's `number` and the size of the list it belongs to. The number always renders, because it is how a reader names an issue — without it, "the third one" has to be matched against the source's own `identifier` instead. A chat-raised issue with no `reviewer` and no `link` shows neither rather than a placeholder.
 
-#### Body
+### Body
 
 The `body` renders verbatim inside a blockquote. Nothing paraphrases, corrects, shortens, or summarizes it — the reader is judging someone's words, so they get those words. Accept the cost: a long body dominates the list.
 
 Prefix **every** line with `> `, including the fences of any code block the body contains. Two reasons. Per-line prefixing keeps the body's own formatting intact while nesting its headings and field labels inside the issue, so they don't compete with the structure of the document around them. And it stops an embedded fence from escaping the quote and swallowing everything after it.
-
-The one exception to verbatim, on the render alone: **defang any syntax whose display alone issues a request**, so the URL appears as text instead. The property that matters is that the renderer fetches something without the reader acting on it — stated that way rather than as a list of syntaxes, the rule covers markdown image syntax, its HTML equivalent, and whatever else a client loads on its own, including forms nobody enumerated. A link the reader has to click is untouched: the `link` field and any URL inside a body stay readable and reachable by choice. Escape the syntax so the renderer prints it — don't strip it, because a reader who sees the escaped form knows the comment tried to load something.
-
-Defanging belongs to the render. The `body` field itself is unchanged, so a consumer handed the field receives the author's bytes and nothing downstream investigates escaped text.
 
 A full render:
 
