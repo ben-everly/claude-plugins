@@ -29,10 +29,14 @@ If there are no issues, say "No open review feedback found" (name the sources yo
 
 Give each issue these fields, each holding exactly one thing. Omit the optional ones when the source doesn't provide them.
 
-- **number** — its `1..N` position in the list, assigned in gather order. New issues are appended, so a number stays put once assigned — you can use it to refer back to an issue.
-- **source** — where the issue came from: `chat`, `github`, or `gitlab`. This is how a consumer tells a chat-only issue from a review one. If an issue was raised in both a review and chat, use the review as its `source` — that's what gets a reply.
-- **reviewer** — who raised the issue, stored as the handle you'd use to address them (`@alice`). Optional — omit for chat or when there's no distinct reviewer.
+- **number** — its `1..N` position in the list it was assigned in, in gather order. New issues are appended, so nothing renumbers while a list is being worked — the number is the handle a reader uses to refer back to an issue.
+- **source** — where the issue arrived from, and nothing more. An open set whose values in use are `chat`, `github`, and `gitlab`; another can be added without changing a rule in this skill. This is how a consumer tells a chat-raised issue from a review one.
+- **reviewer** — who raised the issue, stored as the handle you'd use to address them (`@alice`) — the account name the service assigns, not a free-text display name. Optional — omit for chat or when there's no distinct reviewer.
 - **identifier** — the source's own label for the item, whatever scheme it uses (`#3`, `R2`, `nit-1`), if one is given. Optional.
 - **link** — a clickable markdown link anchored to the original comment, if the source provides one. Optional.
 - **anchor** — the `path:line` (or line range) the comment is anchored to, if the source provides one. Optional.
 - **body** — the verbatim comment body.
+
+**Nothing derived** — an issue carries no verdict, category, severity, fix options, recommendation, confidence, or open questions. Those need an investigation to exist — `investigate-issue` defines them — and an issue is what exists before one.
+
+**One issue per occurrence** — an issue raised in both a review and chat is two entries, each carrying the body its author wrote and the provenance of where it arrived. Nothing merges them, because a merge would have to merge the bodies and a merged body is no longer verbatim anyone's text. No tie-break is needed either: a consumer replying to a review thread acts on the entry that came from the review, and the chat entry carries no thread to act on. The cost is that such an issue gets presented twice — the second pass finds it already addressed, while the review occurrence still gets its reply.
