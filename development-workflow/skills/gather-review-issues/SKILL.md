@@ -56,3 +56,29 @@ This skill is the sole authority for the title format. It is `## Issue k of N - 
 - `## Issue 6 of 7 - github - @carol`
 
 `k of N` is the issue's `number` and the size of the list it belongs to. The number always renders, because it is how a reader names an issue — without it, "the third one" has to be matched against the source's own `identifier` instead. A chat-raised issue with no `reviewer` and no `link` shows neither rather than a placeholder.
+
+#### Body
+
+The `body` renders verbatim inside a blockquote. Nothing paraphrases, corrects, shortens, or summarizes it — the reader is judging someone's words, so they get those words. Accept the cost: a long body dominates the list.
+
+Prefix **every** line with `> `, including the fences of any code block the body contains. Two reasons. Per-line prefixing keeps the body's own formatting intact while nesting its headings and field labels inside the issue, so they don't compete with the structure of the document around them. And it stops an embedded fence from escaping the quote and swallowing everything after it.
+
+The one exception to verbatim, on the render alone: **defang any syntax whose display alone issues a request**, so the URL appears as text instead. The property that matters is that the renderer fetches something without the reader acting on it — stated that way rather than as a list of syntaxes, the rule covers markdown image syntax, its HTML equivalent, and whatever else a client loads on its own, including forms nobody enumerated. A link the reader has to click is untouched: the `link` field and any URL inside a body stay readable and reachable by choice. Escape the syntax so the renderer prints it — don't strip it, because a reader who sees the escaped form knows the comment tried to load something.
+
+Defanging belongs to the render. The `body` field itself is unchanged, so a consumer handed the field receives the author's bytes and nothing downstream investigates escaped text.
+
+A full render:
+
+````markdown
+## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)
+
+> This retry loop never backs off, so a partial outage turns into a hammering.
+> Roughly:
+>
+> ```python
+> for attempt in range(5):
+>     time.sleep(2**attempt)
+> ```
+>
+> Repro is in the trace here: !\[trace](https://example.com/beacon.png)
+````
