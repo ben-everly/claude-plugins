@@ -63,7 +63,7 @@ This skill is the sole authority for the title format. It is `## Issue k of N - 
 - `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
 - `## Issue 6 of 7 - github - @carol`
 
-`k of N` is the issue's `number` and the size of the list it belongs to. The number always renders, because it is how a reader names an issue — without it, "the third one" has to be matched against the source's own `identifier` instead. A chat-raised issue with no `reviewer` and no `link` shows neither rather than a placeholder.
+`k of N` is the issue's `number` and the size of the list it belongs to when the issue is rendered. Appending raises `N` for the renders that follow and doesn't rewrite a title already printed, so a list worked over several turns shows the total it had at each point; a closing count uses the final size. The number always renders, because it is how a reader names an issue — without it, "the third one" has to be matched against the source's own `identifier` instead. A chat-raised issue with no `reviewer` and no `link` shows neither rather than a placeholder.
 
 ### Body
 

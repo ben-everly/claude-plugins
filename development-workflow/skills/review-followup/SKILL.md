@@ -32,7 +32,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 > _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
 
 ```markdown
-<title line, as gather-review-issues defines it>
+## Issue k of N - <source><rest of the title, as gather-review-issues appends it>
 
 ### Background:
 
@@ -40,7 +40,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 
 ### Comment:
 
-<verbatim body, trimmed if long>
+<the issue's `body`, rendered as gather-review-issues' output format defines it: verbatim, blockquoted, defanged>
 
 ### Investigation:
 
@@ -65,7 +65,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 <one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — `gather-review-issues` is the sole authority; render the title as defined there and state no variant here. The reference costs no load, since this skill already invokes that skill for the fields.
+**Title format** — the line above is a shape reminder, not a spec: `gather-review-issues` is the sole authority for the title and the body, and defines which parts drop when a field is absent. Render both as defined there and state no variant here. The reference costs no load, since this skill already invokes that skill for the fields.
 
 **Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
 
@@ -85,7 +85,7 @@ When the user signals which option ("A", "go with B", etc.), invoke the `impleme
 
 #### 4. After-fix review action
 
-Only for issues that came from a review (`source` is not `chat`). For chat-only issues there's nothing to act on — just advance.
+Only for an issue that arrived on a thread you can post a reply to or mark resolved — its `link` is the signal one exists, since that field is a URL to the original comment. An issue raised in chat has no such thread, so there's nothing to act on; just advance. Test for the thread, not for a `source` value: `source` is an open set, so "not `chat`" doesn't imply a thread is there. An `anchor` isn't the signal either — a chat-raised issue can name a `path:line` too.
 
 Draft the reply comment up front and show it:
 
@@ -120,7 +120,7 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
 | Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                                      |
 | Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                                                |
-| Asking the review action for chat-only issues                 | Skip the question entirely for chat-only issues — there's no thread to reply to                                                               |
+| Asking the review action for an issue with no thread          | Skip the question entirely when there's no thread to reply to — a chat-raised issue has none                                                  |
 | Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation                        |
 | Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                                          |
 | Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                                  |
