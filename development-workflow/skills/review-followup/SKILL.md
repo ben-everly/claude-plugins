@@ -32,7 +32,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 > _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
 
 ```markdown
-## Issue k of N - <source>
+<title line, as gather-review-issues defines it>
 
 ### Background:
 
@@ -65,13 +65,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 <one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — `## Issue k of N - <source>`. `k of N` is the gather order; new issues append to the end, so an issue's number stays put. `source`, `reviewer`, `identifier`, and `link` all come from `gather-review-issues`; render the title as `k of N - <source>`, then append `reviewer`, `identifier`, and `link` when present and drop whichever are absent. Examples:
-
-- `## Issue 2 of 7 - chat`
-- `## Issue 3 of 7 - chat - #2`
-- `## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
-- `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
-- `## Issue 6 of 7 - github - @carol`
+**Title format** — `gather-review-issues` is the sole authority; render the title as defined there and state no variant here. The reference costs no load, since this skill already invokes that skill for the fields.
 
 **Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
 

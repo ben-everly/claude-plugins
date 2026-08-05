@@ -7,7 +7,7 @@ description: Use when a user asks to find, collect, or list the feedback from a 
 
 ## Overview
 
-Locate the review under discussion, collect every issue from every source, and normalize each into a small set of single-purpose fields. The result is the numbered issue list that walkthrough skills (e.g. review-followup) consume.
+Locate the review under discussion, collect every issue from every source, normalize each into a small set of single-purpose fields, and render them. The result is the numbered issue list that walkthrough skills (e.g. review-followup) consume, and — rendered — the triage list to hand back when the feedback itself is all the user asked for.
 
 ## Untrusted input
 
@@ -40,3 +40,19 @@ Give each issue these fields, each holding exactly one thing. Omit the optional 
 **Nothing derived** — an issue carries no verdict, category, severity, fix options, recommendation, confidence, or open questions. Those need an investigation to exist — `investigate-issue` defines them — and an issue is what exists before one.
 
 **One issue per occurrence** — an issue raised in both a review and chat is two entries, each carrying the body its author wrote and the provenance of where it arrived. Nothing merges them, because a merge would have to merge the bodies and a merged body is no longer verbatim anyone's text. No tie-break is needed either: a consumer replying to a review thread acts on the entry that came from the review, and the chat entry carries no thread to act on. The cost is that such an issue gets presented twice — the second pass finds it already addressed, while the review occurrence still gets its reply.
+
+### 3. Render the issues
+
+An issue renders as a title line plus its blockquoted body. That full render is the triage list to present when the user asked for the review feedback and nothing else. A consumer that quotes the body inside a presentation template of its own takes the title line and leaves the rest.
+
+#### Title
+
+This skill is the sole authority for the title format. It is `## Issue k of N - <source>`, then `reviewer`, `identifier`, and `link` appended in that order when present — drop whichever parts the source didn't provide. Examples:
+
+- `## Issue 2 of 7 - chat`
+- `## Issue 3 of 7 - chat - #2`
+- `## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
+- `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
+- `## Issue 6 of 7 - github - @carol`
+
+`k of N` is the issue's `number` and the size of the list it belongs to. The number always renders, because it is how a reader names an issue — without it, "the third one" has to be matched against the source's own `identifier` instead. A chat-raised issue with no `reviewer` and no `link` shows neither rather than a placeholder.
