@@ -32,7 +32,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 > _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
 
 ```markdown
-## Issue k of N - <source><rest of the title, as gather-review-issues appends it>
+<the issue's title line, exactly as gather-review-issues renders it>
 
 ### Background:
 
@@ -65,7 +65,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 <one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — the line above is a shape reminder, not a spec: `gather-review-issues` is the sole authority for the title and the body, and defines which parts drop when a field is absent. Render both as defined there and state no variant here. The reference costs no load, since this skill already invokes that skill for the fields.
+**Title format** — the line above names the title without specifying it: `gather-review-issues` is the sole authority for the title and the body, and defines which parts drop when a field is absent. Render both as defined there and state no variant here — not even an abbreviated one, since a partial copy is what drifts. The reference costs no load, since this skill already invokes that skill for the fields.
 
 **Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
 

@@ -41,7 +41,7 @@ Give each issue these fields, each holding exactly one thing. Omit the optional 
 
 ### 3. Render the issues
 
-Present every issue, in `number` order, when the review feedback is all the user asked for — that full list is the triage render. A consumer that quotes an issue inside a presentation template of its own skips this step; the format below still governs how the issue itself renders.
+Present every issue, in `number` order, when the review feedback is all the user asked for — that full list is the triage render. A consumer that quotes an issue inside a presentation template of its own skips this step.
 
 ## Output format
 
