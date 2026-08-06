@@ -95,7 +95,7 @@ Draft the reply comment up front and show it:
 Fixed in <short commit SHA>. <One-sentence description of the change.>
 ```
 
-(If the user chose not to fix, draft it as "Discussed and decided not to fix because X.") Short and factual — no "Thanks for the review!" or performative agreement.
+The draft keys off what landed in the code, not off which option the user picked. If nothing was committed for this concern — here, or at an earlier occurrence of it — draft it as "Discussed and decided not to fix because X." Never name a SHA you don't have. Short and factual — no "Thanks for the review!" or performative agreement.
 
 Then ask via `AskUserQuestion` what to do with it:
 
