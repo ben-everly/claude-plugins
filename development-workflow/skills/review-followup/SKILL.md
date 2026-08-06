@@ -111,7 +111,7 @@ Post the reply in the appropriate place (the thread, or top-level review comment
 
 After the action: mark the issue's task `completed` and start the next issue (back to substep 1).
 
-When every task is `completed`, check whether the list grew since step 1 — issues append while a walkthrough runs, and an appended one has no task. Create tasks for any that appeared and keep walking. Only once nothing is left unwalked, say "All N issues addressed", where `N` is the number you walked, and stop.
+When every task is `completed`, say "All N issues addressed", where `N` is the number you walked, and stop.
 
 ## Common Mistakes
 
