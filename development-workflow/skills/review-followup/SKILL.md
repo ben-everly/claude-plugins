@@ -85,7 +85,9 @@ When the user signals which option ("A", "go with B", etc.), invoke the `impleme
 
 #### 4. After-fix review action
 
-Only for an issue that arrived on a thread you can post a reply to or mark resolved — its `link` is the signal one exists, since that field is a URL to the original comment. An issue raised in chat has no such thread, so there's nothing to act on; just advance. Test for the thread, not for a `source` value: `source` is an open set, so "not `chat`" doesn't imply a thread is there. An `anchor` isn't the signal either — a chat-raised issue can name a `path:line` too.
+Only for an issue that arrived somewhere you can post a reply — a review thread or comment you can reach through that source's API or CLI. An issue raised in `chat` has nowhere to post, so there's nothing to act on; just advance.
+
+Test for a postable reply target, not for a field. `link` is optional, so its absence doesn't mean there's no thread — a review-summary comment can yield an issue with no permalink and still be repliable. An `anchor` isn't the signal either: a chat-raised issue can name a `path:line` too. When the issue came from a review and you can't tell where a reply would go, ask rather than skipping.
 
 Draft the reply comment up front and show it:
 
@@ -120,7 +122,7 @@ After the action: mark the issue's task `completed` and start the next issue (ba
 | Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
 | Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                                      |
 | Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                                                |
-| Asking the review action for an issue with no thread          | Skip the question entirely when there's no thread to reply to — a chat-raised issue has none                                                  |
+| Asking the review action for an issue with no thread          | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test                                   |
 | Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation                        |
 | Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                                          |
 | Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                                  |
