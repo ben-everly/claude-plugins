@@ -109,7 +109,9 @@ If they pick **Chat about it**, discuss the options, then re-ask this menu once 
 
 Post the reply in the appropriate place (the thread, or top-level review comment). The user can edit the comment before it's sent.
 
-After the action: mark the issue's task `completed` and start the next issue (back to substep 1). When all are done, say "All N issues addressed" and stop.
+After the action: mark the issue's task `completed` and start the next issue (back to substep 1).
+
+When every task is `completed`, check whether the list grew since step 1 — issues append while a walkthrough runs, and an appended one has no task. Create tasks for any that appeared and keep walking. Only once nothing is left unwalked, say "All N issues addressed", where `N` is the number you walked, and stop.
 
 ## Common Mistakes
 
