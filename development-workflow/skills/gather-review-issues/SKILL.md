@@ -37,7 +37,7 @@ Give each issue these fields, each holding exactly one thing. Omit the optional 
 
 **Nothing derived** — an issue carries no verdict, category, severity, fix options, recommendation, confidence, or open questions. Those need an investigation to exist — `investigate-issue` defines them — and an issue is what exists before one.
 
-**One issue per occurrence** — an issue raised in both a review and chat is two entries, each carrying the body its author wrote and the provenance of where it arrived. Nothing merges them, because a merge would have to merge the bodies and a merged body is no longer verbatim anyone's text. No tie-break is needed either: a consumer replying to a review thread acts on the entry that came from the review, and the chat entry carries no thread to act on. The cost is that such an issue comes up twice — a consumer's second pass finds it already addressed, while the review occurrence still gets its reply.
+**One issue per occurrence** — an issue raised in both a review and chat is two entries, each carrying the body its author wrote and the provenance of where it arrived. Nothing merges them, because a merge would have to merge the bodies and a merged body is no longer verbatim anyone's text. No tie-break is needed either: a consumer replying to a review thread acts on the entry that came from the review, and the chat entry carries no thread to act on. The cost is that such an issue comes up twice.
 
 ### 3. Render the issues
 

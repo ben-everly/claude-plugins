@@ -25,8 +25,6 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 
 Invoke the `investigate-issue` skill with the issue's `body` as the claim and its `anchor` (when present) as the anchor. It runs the investigation and returns the result — `verdict`, `category`, `severity`, a confidence-rated `recommendation`, `fix options`, and `open questions` — and is the authoritative definition of those fields. Carry that result into the next step; don't re-derive it.
 
-**An occurrence you already addressed** — `gather-review-issues` emits one entry per occurrence, so the same concern raised in both a review and chat arrives twice. When an issue's claim was already addressed earlier in this walkthrough, skip the investigation and the presentation: say which issue covered it, name the commit, and go straight to substep 4 so this occurrence still gets its reply. Don't ask the user to pick a fix for something already fixed, and don't merge the two entries — each keeps its own body and provenance.
-
 #### 2. Present the current issue
 
 Mark the issue's task `in_progress`, then present it. Always present Title and Comment. When there are fix options, present **Fix options and Recommendation**. Always present **Open questions** when there are some. Include the other sections only when they help. Follow this principle:
@@ -125,7 +123,6 @@ When every task is `completed`, check whether the list grew since step 1 — iss
 | Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                                     |
 | Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
 | Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                                      |
-| Re-investigating a concern a previous issue already fixed     | Name the issue that covered it and go to substep 4 — the occurrence still gets its reply                                                       |
 | Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                                                |
 | Asking the review action for an issue with no thread          | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test                                   |
 | Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation                        |
