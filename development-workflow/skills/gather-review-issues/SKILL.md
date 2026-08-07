@@ -75,7 +75,7 @@ A full render:
 ## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)
 
 > This retry loop never backs off, so a partial outage turns into a hammering.
-> Roughly:
+> Sleep between attempts, something like:
 >
 > ```python
 > for attempt in range(5):
