@@ -32,7 +32,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 > _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
 
 ```markdown
-## Issue k of N - <source>
+<the issue's title line, exactly as gather-review-issues renders it>
 
 ### Background:
 
@@ -40,7 +40,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 
 ### Comment:
 
-<verbatim body, trimmed if long>
+<the issue's `body`, rendered as gather-review-issues' output format defines it: verbatim, blockquoted, defanged>
 
 ### Investigation:
 
@@ -65,13 +65,7 @@ Mark the issue's task `in_progress`, then present it. Always present Title and C
 <one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
 ```
 
-**Title format** — `## Issue k of N - <source>`. `k of N` is the gather order; new issues append to the end, so an issue's number stays put. `source`, `reviewer`, `identifier`, and `link` all come from `gather-review-issues`; render the title as `k of N - <source>`, then append `reviewer`, `identifier`, and `link` when present and drop whichever are absent. Examples:
-
-- `## Issue 2 of 7 - chat`
-- `## Issue 3 of 7 - chat - #2`
-- `## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
-- `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
-- `## Issue 6 of 7 - github - @carol`
+**Title format** — the line above names the title without specifying it: `gather-review-issues` is the sole authority for the title and the body, and defines which parts drop when a field is absent. Render both as defined there and state no variant here — not even an abbreviated one, since a partial copy is what drifts. The reference costs no load, since this skill already invokes that skill for the fields.
 
 **Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
 
@@ -91,7 +85,9 @@ When the user signals which option ("A", "go with B", etc.), invoke the `impleme
 
 #### 4. After-fix review action
 
-Only for issues that came from a review (`source` is not `chat`). For chat-only issues there's nothing to act on — just advance.
+Only for an issue that arrived somewhere you can post a reply — a review thread or comment you can reach through that source's API or CLI. An issue raised in `chat` has nowhere to post, so there's nothing to act on; just mark the issue's task `completed` and advance.
+
+Test for a postable reply target, not for a field. `link` is optional, so its absence doesn't mean there's no thread — a review-summary comment can yield an issue with no permalink and still be repliable. An `anchor` isn't the signal either: a chat-raised issue can name a `path:line` too. When the issue came from a review and you can't tell where a reply would go, ask rather than skipping.
 
 Draft the reply comment up front and show it:
 
@@ -99,7 +95,7 @@ Draft the reply comment up front and show it:
 Fixed in <short commit SHA>. <One-sentence description of the change.>
 ```
 
-(If the user chose not to fix, draft it as "Discussed and decided not to fix because X.") Short and factual — no "Thanks for the review!" or performative agreement.
+The draft keys off what landed in the code, not off which option the user picked. If no commits this session addressed this issue draft it as "Discussed and decided not to fix because X." Never name a SHA you don't have. Short and factual — no "Thanks for the review!" or performative agreement.
 
 Then ask via `AskUserQuestion` what to do with it:
 
@@ -113,23 +109,25 @@ If they pick **Chat about it**, discuss the options, then re-ask this menu once 
 
 Post the reply in the appropriate place (the thread, or top-level review comment). The user can edit the comment before it's sent.
 
-After the action: mark the issue's task `completed` and start the next issue (back to substep 1). When all are done, say "All N issues addressed" and stop.
+After the action: mark the issue's task `completed` and start the next issue (back to substep 1).
+
+When every task is `completed`, say "All N issues addressed", where `N` is the number you walked, and stop.
 
 ## Common Mistakes
 
-| Mistake                                                       | Fix                                                                                                                                           |
-| ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Auto-advancing after a fix                                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                                           |
-| Replying or resolving without asking                          | Use `AskUserQuestion` per issue                                                                                                               |
-| Filtering out `Not a Problem` issues silently                 | Present anyway with the verdict; user decides                                                                                                 |
-| Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                                                     |
-| Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                                           |
-| Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                                                      |
-| Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                                                |
-| Asking the review action for chat-only issues                 | Skip the question entirely for chat-only issues — there's no thread to reply to                                                               |
-| Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation                        |
-| Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                                          |
-| Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding                                  |
-| Dropping relevant line numbers from Background                | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                                              |
-| Treating fix options and open questions as mutually exclusive | They can coexist; a blocking question can defer the recommendation to it ("answer Q1 first")                                                  |
-| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with a confidence rating and a one-sentence justification |
+| Mistake                                                       | Fix                                                                                                                    |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Auto-advancing after a fix                                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                    |
+| Replying or resolving without asking                          | Use `AskUserQuestion` per issue                                                                                        |
+| Filtering out `Not a Problem` issues silently                 | Present anyway with the verdict; user decides                                                                          |
+| Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                              |
+| Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                    |
+| Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                               |
+| Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                         |
+| Asking the review action for an issue with no thread          | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test            |
+| Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation |
+| Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                   |
+| Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding           |
+| Dropping relevant line numbers from Background                | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                       |
+| Treating fix options and open questions as mutually exclusive | They can coexist; a blocking question can defer the recommendation to it ("answer Q1 first")                           |
+| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with a confidence rating and a one-sentence justification   |
