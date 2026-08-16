@@ -11,6 +11,8 @@ Render one investigated claim as a report: what the code does, what it should do
 
 One claim per report.
 
+**It renders when the user asks for a finding report.** Adjacent artifacts — a bug report, a design doc — are separate skills, requested by name. Which one is wanted is the user's call, so never infer it from the state of the material.
+
 **Every section rests on something you actually have** — a `path:line` you read, a commit you looked at, a source you reached. Where you don't have it, say so in the section rather than filling it in.
 
 ## The template
