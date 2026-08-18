@@ -7,7 +7,7 @@ description: Use when working through review feedback systematically — phrasin
 
 ## Overview
 
-Walk through review feedback one issue at a time: investigate, present with fix options, implement on the user's signal, confirm satisfaction, then advance.
+Walk through review feedback one issue at a time: investigate, present the finding report, implement on the user's signal, confirm satisfaction, then advance.
 
 ## Workflow
 
@@ -23,63 +23,26 @@ For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, unt
 
 #### 1. Investigation
 
-Invoke the `investigate-issue` skill with the issue's `body` as the claim and its `anchor` (when present) as the anchor. It runs the investigation and returns the result — `verdict`, `category`, `severity`, a confidence-rated `recommendation`, `fix options`, and `open questions` — and is the authoritative definition of those fields. Carry that result into the next step; don't re-derive it.
+Invoke the `investigate-issue` skill with the issue's `body` as the claim, and its `anchor` (when present) as where that claim points. It runs the investigation and returns the finding report. Carry that report into the next step; don't re-derive or reshape it.
 
 #### 2. Present the current issue
 
-Mark the issue's task `in_progress`, then present it. Always present Title and Comment. When there are fix options, present **Fix options and Recommendation**. Always present **Open questions** when there are some. Include the other sections only when they help. Follow this principle:
+Mark the issue's task `in_progress`, then present the issue as two stitched parts:
 
-> _**Brevity principle:** Explain the issue as simply and clearly as you can: include only the sections that help, keep each one short, and drop any that don't add anything._
+1. the issue's title line, exactly as `gather-review-issues` renders it — that skill is the sole authority for it and defines which parts drop when a field is absent;
+2. the report `investigate-issue` returned, rendered as `finding-report` defines it.
 
-```markdown
-<the issue's title line, exactly as gather-review-issues renders it>
+The two say different things — the title line is where the issue came from, the report's Location line is where the code is — so both render, and neither collapses into the other.
 
-### Background:
-
-<1-3 sentences: the current code the comment refers to. Start from the issue's `anchor`, then list EVERY relevant `path:line` and line range the issue touches — not just that anchor. Include a short code block only if it aids understanding>
-
-### Comment:
-
-<the issue's `body`, rendered as gather-review-issues' output format defines it: verbatim, blockquoted, defanged>
-
-### Investigation:
-
-<1-4 sentences: whether the claim holds against the code, and any context that affects the fix>
-
-### Verdict: <verdict>[ · <category> · <severity>]
-
-<one sentence reasoning. Append ` · <category> · <severity>` to the heading only for a Real Problem; drop both otherwise.>
-
-### Fix options:
-
-- **A** — <direction> — <one-line tradeoff>
-- **B** — <direction> — <one-line tradeoff>
-- **C — Skip** — <why you might choose not to fix>
-
-### Open questions:
-
-- **Q1** — <a question worth resolving; may decide between the options above>
-
-### Recommendation: <letter, or "answer Q1 first"> (<Low | Medium | High | Very High> confidence)
-
-<one-sentence justification — why this option over the others. When Background is omitted, name the `path:line`(s) here: "currently does X; should do Y.">
-```
-
-**Title format** — the line above names the title without specifying it: `gather-review-issues` is the sole authority for the title and the body, and defines which parts drop when a field is absent. Render both as defined there and state no variant here — not even an abbreviated one, since a partial copy is what drifts. The reference costs no load, since this skill already invokes that skill for the fields.
-
-**Always present the Fix options section with at least one lettered option, labeling every option with a sequential letter (A, B, C, …), including Skip.** Even an obvious single fix is option A (with Skip as the next letter) — there is no unlabeled "fix it" recommendation. This lets the user refer to a choice by letter ("go with B"). Never present the options as unlabeled prose bullets. Fix options are absent only when a blocking question must be answered before any option can be framed (see below).
-
-For `Not a Problem` issues, the Verdict and its reasoning are the sections that matter most — make sure they're there — and point the Recommendation at **Skip**. The user can still push back or ask to fix anyway.
-
-Label open questions `Q1`, `Q2`, …. If a question blocks the choice between fix options, point the Recommendation at it ("answer Q1 first") rather than picking blindly.
-
-When there are no fix options — a blocking question must be answered before any can be framed — **omit the Recommendation** until the user answers. Then re-invoke `investigate-issue` with the **original claim plus the user's answer** (not the answer alone, so the original context isn't lost), present the resulting fix options, and add the Recommendation in a follow-up turn before waiting for the implement signal.
+When the report closes with a blocking question instead of directions, there is nothing to pick: wait for the user's answer, then re-invoke `investigate-issue` with the **original claim plus the user's answer** (not the answer alone, so the original context isn't lost) and present the report it returns.
 
 **Then stop and wait. Do not give a menu.** The Recommendation is advice, not a decision. Expect discussion before a fix signal — the user often wants to talk through the directions before picking one. Treat new fix ideas as options to weigh, not directives to code.
 
 #### 3. Implement & confirm
 
 When the user signals which option ("A", "go with B", etc.), invoke the `implement` skill to carry out the chosen fix. A bare "yes" or similar is only a signal when there's a single fix option; otherwise it's ambiguous — if the signal isn't clear, don't proceed; ask the user to clarify.
+
+**A decision to change nothing is terminal whether or not the report lettered it.** A `Not a Problem` renders no Corrective action at all, so there is no letter to name — when the user accepts that verdict, nothing is implemented and you go straight to substep 4. Never ask them to pick an option that was never offered.
 
 **Then stop and wait.** Any clear positive acknowledgment ("next" / "move on" / "lgtm" / "good" / 👍) → advance to substep 4. A change request ("actually, also do X" / "tweak it to Y") → iterate on the same issue.
 
@@ -115,19 +78,14 @@ When every task is `completed`, say "All N issues addressed", where `N` is the n
 
 ## Common Mistakes
 
-| Mistake                                                       | Fix                                                                                                                    |
-| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Auto-advancing after a fix                                    | Wait for satisfaction, then do the review action (substep 4). Advance only after it                                    |
-| Replying or resolving without asking                          | Use `AskUserQuestion` per issue                                                                                        |
-| Filtering out `Not a Problem` issues silently                 | Present anyway with the verdict; user decides                                                                          |
-| Performative reply ("Thanks for the catch!")                  | Factual: "Fixed in `<ref>`. `<summary>`."                                                                              |
-| Implementing without first investigating                      | Read code, form a verdict, present, wait for signal                                                                    |
-| Batching multiple fixes at once                               | One at a time. Each gets its own present → discuss → fix → confirm cycle                                               |
-| Drifting into adjacent cleanup                                | Implement only what the current issue requires                                                                         |
-| Asking the review action for an issue with no thread          | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test            |
-| Padding an obvious fix with sections it doesn't need          | Drop Background/Investigation/Verdict for an obvious fix; keep the lettered directions (at least A) and Recommendation |
-| Stripping sections an issue with a real tradeoff needs        | Include the directions and reasoning whenever there's a genuine alternative to weigh                                   |
-| Treating a "yes" as go after the user hedged                  | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding           |
-| Dropping relevant line numbers from Background                | Background must list every relevant `path:line` the issue touches, not just the comment's anchor                       |
-| Treating fix options and open questions as mutually exclusive | They can coexist; a blocking question can defer the recommendation to it ("answer Q1 first")                           |
-| Recommending without confidence or justification              | Every recommendation names a letter (or "answer Q1 first") with a confidence rating and a one-sentence justification   |
+| Mistake                                              | Fix                                                                                                          |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Auto-advancing after a fix                           | Wait for satisfaction, then do the review action (substep 4). Advance only after it                          |
+| Replying or resolving without asking                 | Use `AskUserQuestion` per issue                                                                              |
+| Filtering out `Not a Problem` issues silently        | Present anyway with the verdict; user decides                                                                |
+| Performative reply ("Thanks for the catch!")         | Factual: "Fixed in `<ref>`. `<summary>`."                                                                    |
+| Implementing without first investigating             | Invoke `investigate-issue`, present the report it returns, wait for the signal                               |
+| Batching multiple fixes at once                      | One at a time. Each gets its own present → discuss → fix → confirm cycle                                     |
+| Drifting into adjacent cleanup                       | Implement only what the current issue requires                                                               |
+| Asking the review action for an issue with no thread | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test  |
+| Treating a "yes" as go after the user hedged         | Any question or hint of doubt means you lay out the directions and confirm the specific change before coding |
