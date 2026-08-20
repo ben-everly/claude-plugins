@@ -58,7 +58,3 @@ Not the point of the document, but write down what you have. Intake is the story
 Its bound is the material itself, not a length: the slot records what is in hand and never goes to produce more.
 
 Unlike the other two sections, it is omitted rather than gap-marked. An absent section reads as "nothing known yet", which is the accurate state for most intake.
-
-## Governing rules
-
-**Never fabricate.** Not a role, not a benefit, not a criterion. A slot with nothing behind it renders a line saying so, so the omission is visible rather than silent.

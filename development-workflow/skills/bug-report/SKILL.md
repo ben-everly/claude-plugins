@@ -11,8 +11,6 @@ Render a bug as the report you hand to whoever will pick the work up: what goes 
 
 Output is tracker-agnostic markdown — Linear, Jira, GitHub Issues, or a paste.
 
-**It never fabricates.** Not a version number, not an error string, not a step. A slot with nothing behind it renders a line saying so, so the omission is visible rather than silent.
-
 ## The template
 
 ```markdown
