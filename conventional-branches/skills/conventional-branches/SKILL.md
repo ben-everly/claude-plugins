@@ -1,6 +1,9 @@
 ---
 name: conventional-branches
-description: Use when naming a git branch, choosing which branch to base it on, targeting a pull request, or merging a branch, in a repo that follows the Conventional Branch spec (type-first branch naming).
+description:
+  Use when naming a git branch, choosing which branch to base it on, targeting a
+  pull request, or merging a branch, in a repo that follows the Conventional
+  Branch spec (type-first branch naming).
 ---
 
 # Conventional Branch
@@ -37,8 +40,8 @@ Use exactly one of the following category prefixes:
 \* `feat/` and `fix/` are accepted aliases for `feature/` and `bugfix/`; use
 them only if that is already your project's convention.
 
-The long-lived base branches are `main` and, if the repo uses
-one, `develop`. These have no prefix.
+The long-lived base branches are `main` and, if the repo uses one, `develop`.
+These have no prefix.
 
 ## Naming rules
 

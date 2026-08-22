@@ -1,0 +1,67 @@
+name: Format
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: format-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    env:
+      # Fork PRs get a read-only token, so they are verified instead of fixed.
+      IS_FORK:
+        ${{ github.event.pull_request.head.repo.full_name != github.repository
+        }}
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          # A fork's branch does not exist here; fall back to the merge ref.
+          ref: ${{ env.IS_FORK != 'true' && github.head_ref || '' }}
+          persist-credentials: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        if: env.IS_FORK == 'true'
+        run: npm run format:check
+
+      - name: Run Prettier
+        if: env.IS_FORK != 'true'
+        run: npm run format
+
+      - name: Commit formatting
+        if: env.IS_FORK != 'true'
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          if git diff --quiet; then
+            echo "Already formatted; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "style: format with prettier"
+          if git push; then
+            exit 0
+          fi
+          remote=$(git ls-remote origin "refs/heads/$BRANCH" | cut -f1)
+          if [ "$remote" != "$(git rev-parse HEAD~1)" ]; then
+            echo "Branch advanced during formatting; the newer run will format it."
+            exit 0
+          fi
+          exit 1
