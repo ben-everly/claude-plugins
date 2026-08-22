@@ -30,7 +30,9 @@ Output is tracker-agnostic markdown — Linear, Jira, GitHub Issues, or a paste.
 
 ## Expected vs actual
 
-**Expected** — <what should happen> **Actual** — <what happens instead>
+**Expected** — <what should happen>
+
+**Actual** — <what happens instead>
 
 ## Evidence
 

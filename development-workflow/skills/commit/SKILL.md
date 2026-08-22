@@ -59,16 +59,18 @@ Follow these steps exactly:
 5. **Commit:**
    - Run `git commit` with the generated message.
    - Use a HEREDOC to pass the message:
+
      ```bash
      git commit -m "$(cat <<'EOF'
+     type(scope): description
+
+     Multi-line body goes here. The blank line above separating description
+     from body is required.
+     EOF
+     )"
      ```
 
-type(scope): description
-
-Multi-line body goes here. The blank line above separating description from body
-is required. EOF )" ```
-
-- Do NOT ask for confirmation. Just commit.
+   - Do NOT ask for confirmation. Just commit.
 
 6. **Report:**
    - Show the user the commit hash and message.
