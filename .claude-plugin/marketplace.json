@@ -33,7 +33,7 @@
       "name": "conventional-branches",
       "source": "./conventional-branches",
       "description": "Name git branches following the Conventional Branch spec (type-first: feature/, bugfix/, hotfix/, release/, chore/)",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "Ben Everly"
       },
