@@ -1,13 +1,16 @@
 ---
 name: ticket-branches
-description: Use when naming a git branch, choosing which branch to base it on, targeting a pull request, or merging a branch, in a repo that names branches after their ticket/issue id (ticket-first).
+description:
+  Use when naming a git branch, choosing which branch to base it on, targeting a
+  pull request, or merging a branch, in a repo that names branches after their
+  ticket/issue id (ticket-first).
 ---
 
 # Ticket-First Branches
 
-You name branches after their tracker ticket/issue id, with the id leading so
-it is the primary, autocompletable key. This matches the "create branch from
-issue" style used by GitHub and GitLab. It suits trunk-based development.
+You name branches after their tracker ticket/issue id, with the id leading so it
+is the primary, autocompletable key. This matches the "create branch from issue"
+style used by GitHub and GitLab. It suits trunk-based development.
 
 ## Format
 
@@ -38,8 +41,8 @@ git for-each-ref refs/heads/PROJ-123/ refs/remotes/*/PROJ-123/
 - **Ticket id:** use the id as the tracker emits it — Jira `PROJ-123`,
   GitHub/GitLab issue number `1234` — and only from a trusted tracker, since it
   flows straight into branch names and `git` commands. Match its canonical case:
-  git ref namespaces are case-sensitive, so `PROJ-123/...` and `proj-123/...` are
-  different namespaces that won't group together.
+  git ref namespaces are case-sensitive, so `PROJ-123/...` and `proj-123/...`
+  are different namespaces that won't group together.
 - **Description:** lowercase, hyphen-separated (kebab-case), alphanumeric and
   hyphens only, short.
 - One `/` only — separating the ticket id from the description.
@@ -47,8 +50,8 @@ git for-each-ref refs/heads/PROJ-123/ refs/remotes/*/PROJ-123/
 ## No ticket?
 
 This convention assumes a tracker. If there is genuinely no ticket, do not
-invent a fake id — note that another model may fit better. If it's not clear from
-context, ask the user how they want to handle it.
+invent a fake id — note that another model may fit better. If it's not clear
+from context, ask the user how they want to handle it.
 
 ## Where PRs point
 

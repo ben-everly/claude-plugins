@@ -1,7 +1,7 @@
 ---
 name: convergent-thinking
 description:
-    Narrows a set of candidate options down through explicit, stated criteria.
+  Narrows a set of candidate options down through explicit, stated criteria.
 disable-model-invocation: true
 ---
 

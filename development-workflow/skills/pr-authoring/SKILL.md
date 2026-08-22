@@ -9,28 +9,45 @@ Author a PR's **body** as markdown while honoring the repo's conventions.
 
 ## Ground the body in the actual changes
 
-Author from the real changeset — the diff and the commits against the PR's base — not from memory or the branch name. The Summary must describe changes you've read, and "Breaking changes: None" is a claim about a diff you've seen, not a guess.
+Author from the real changeset — the diff and the commits against the PR's base
+— not from memory or the branch name. The Summary must describe changes you've
+read, and "Breaking changes: None" is a claim about a diff you've seen, not a
+guess.
 
 ## Body — structure precedence
 
-Resolve the body's structure from the first source that prescribes a body structure:
+Resolve the body's structure from the first source that prescribes a body
+structure:
 
-1. **Session context.** An explicit instruction, or PR-structure guidance already present in context.
+1. **Session context.** An explicit instruction, or PR-structure guidance
+   already present in context.
 2. **Repo-documented structure**, two kinds that usually compose:
-    - a `PULL_REQUEST_TEMPLATE.md` (case-insensitive) in the repo root, `.github/`, or `docs/`, or a `PULL_REQUEST_TEMPLATE/` directory under any of those;
-    - a structure prescribed in `README.md`/`CONTRIBUTING.md` prose, which stands in as the template when no template file exists.
+   - a `PULL_REQUEST_TEMPLATE.md` (case-insensitive) in the repo root,
+     `.github/`, or `docs/`, or a `PULL_REQUEST_TEMPLATE/` directory under any
+     of those;
+   - a structure prescribed in `README.md`/`CONTRIBUTING.md` prose, which stands
+     in as the template when no template file exists.
 
-    Honor the template's structure and layer prose rules on top. Ask the user only on a genuine structural conflict, or when a `PULL_REQUEST_TEMPLATE/` directory offers several templates.
+   Honor the template's structure and layer prose rules on top. Ask the user
+   only on a genuine structural conflict, or when a `PULL_REQUEST_TEMPLATE/`
+   directory offers several templates.
 
 3. **Fallback section set** (below).
 
-Follow any content rules in `README.md`/`CONTRIBUTING.md` (e.g. "always link the issue") regardless of where structure comes from.
+Follow any content rules in `README.md`/`CONTRIBUTING.md` (e.g. "always link the
+issue") regardless of where structure comes from.
 
-**Filling a template:** read its HTML comments for intent (e.g. "delete if not applicable") before removing them, then fill each section with real content — no placeholders, no leftover comments. Extend it only to add something material (a breaking change, a migration step), in a marked block after the maintainers' sections, never interleaved.
+**Filling a template:** read its HTML comments for intent (e.g. "delete if not
+applicable") before removing them, then fill each section with real content — no
+placeholders, no leftover comments. Extend it only to add something material (a
+breaking change, a migration step), in a marked block after the maintainers'
+sections, never interleaved.
 
 ## Body — fallback section set
 
-When no structure is documented, emit these. **Summary** and **Breaking changes** always render; the rest render only when triggered, so the body isn't padded with empty headers.
+When no structure is documented, emit these. **Summary** and **Breaking
+changes** always render; the rest render only when triggered, so the body isn't
+padded with empty headers.
 
 | Section                       | Renders when                                     | Good content                                                                         |
 | ----------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------ |

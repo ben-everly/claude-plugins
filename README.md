@@ -1,6 +1,7 @@
 # ben-everly Claude Code Plugins
 
-A marketplace of Claude Code plugins — skills, commands, and agents for development workflows.
+A marketplace of Claude Code plugins — skills, commands, and agents for
+development workflows.
 
 ## Installation
 
@@ -26,19 +27,20 @@ Install a plugin:
 
 ## Available Plugins
 
-| Plugin                    | Description                                                                                               | Install                                            |
-| ------------------------- | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **development-workflow**  | A structured development workflow covering planning, design, implementation, review, and delivery         | `/plugin install development-workflow@ben-everly`  |
-| **intelephense**          | PHP language server (Intelephense) with optimized file exclusions to reduce RAM usage                     | `/plugin install intelephense@ben-everly`          |
-| **conventional-branches** | Name git branches following the Conventional Branch spec (type-first prefixes)                            | `/plugin install conventional-branches@ben-everly` |
-| **ticket-branches**       | Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based dev        | `/plugin install ticket-branches@ben-everly`       |
-| **git-flow**              | Name branches and point PRs following the git flow model (git-flow CLI / Atlassian)                       | `/plugin install git-flow@ben-everly`              |
-| **product-discovery**     | Product-discovery skills — a Working Backwards (PR/FAQ) document drafter                                  | `/plugin install product-discovery@ben-everly`     |
-| **brainpower**            | A toolkit of named thinking techniques — deliberate cognitive moves to test and expand thinking           | `/plugin install brainpower@ben-everly`            |
+| Plugin                    | Description                                                                                        | Install                                            |
+| ------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **development-workflow**  | A structured development workflow covering planning, design, implementation, review, and delivery  | `/plugin install development-workflow@ben-everly`  |
+| **intelephense**          | PHP language server (Intelephense) with optimized file exclusions to reduce RAM usage              | `/plugin install intelephense@ben-everly`          |
+| **conventional-branches** | Name git branches following the Conventional Branch spec (type-first prefixes)                     | `/plugin install conventional-branches@ben-everly` |
+| **ticket-branches**       | Name git branches after their ticket/issue id (ticket-first, slash-namespaced) for trunk-based dev | `/plugin install ticket-branches@ben-everly`       |
+| **git-flow**              | Name branches and point PRs following the git flow model (git-flow CLI / Atlassian)                | `/plugin install git-flow@ben-everly`              |
+| **product-discovery**     | Product-discovery skills — a Working Backwards (PR/FAQ) document drafter                           | `/plugin install product-discovery@ben-everly`     |
+| **brainpower**            | A toolkit of named thinking techniques — deliberate cognitive moves to test and expand thinking    | `/plugin install brainpower@ben-everly`            |
 
 ## Creating a Plugin
 
-Each plugin lives in its own directory at the repo root with the following structure:
+Each plugin lives in its own directory at the repo root with the following
+structure:
 
 ```
 plugin-name/
@@ -54,7 +56,8 @@ plugin-name/
 └── .mcp.json               # MCP server config (optional)
 ```
 
-After adding a plugin directory, register it in `.claude-plugin/marketplace.json` under the `plugins` array.
+After adding a plugin directory, register it in
+`.claude-plugin/marketplace.json` under the `plugins` array.
 
 ## License
 

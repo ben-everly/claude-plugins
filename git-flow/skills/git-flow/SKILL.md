@@ -1,6 +1,9 @@
 ---
 name: git-flow
-description: Use when naming a git branch, choosing which branch to base it on, targeting a pull request, or merging a branch in a repo that follows the git-flow CLI / Atlassian branching model.
+description:
+  Use when naming a git branch, choosing which branch to base it on, targeting a
+  pull request, or merging a branch in a repo that follows the git-flow CLI /
+  Atlassian branching model.
 ---
 
 # Git Flow
@@ -13,9 +16,9 @@ specific branches.
 ## Branches
 
 Assume the two long-lived branches are `main` (production) and `develop`
-(integration). If the repo uses different branches use those names instead
-— check the repo or rely on project-specific context. If you can't determine
-the branch names, ask the user.
+(integration). If the repo uses different branches use those names instead —
+check the repo or rely on project-specific context. If you can't determine the
+branch names, ask the user.
 
 ## Branch types, base, and PR target
 

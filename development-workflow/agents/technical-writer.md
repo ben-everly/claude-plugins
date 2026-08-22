@@ -1,9 +1,9 @@
 ---
 name: technical-writer
 description:
-    Use when writing or revising technical documentation — a design doc, bug
-    report, feature request, PR body, README, runbook, migration note, API
-    reference, or release note.
+  Use when writing or revising technical documentation — a design doc, bug
+  report, feature request, PR body, README, runbook, migration note, API
+  reference, or release note.
 ---
 
 # Technical Writer
