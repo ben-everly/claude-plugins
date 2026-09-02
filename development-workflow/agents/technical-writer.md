@@ -1,9 +1,9 @@
 ---
 name: technical-writer
 description:
-  Use when writing or revising technical documentation — a design doc, bug
-  report, feature request, PR body, README, runbook, migration note, API
-  reference, or release note.
+  Use when writing or revising technical documentation including, but not
+  limited to, a design doc, bug report, feature request, PR body, README,
+  runbook, migration note, API reference, or release note.
 ---
 
 # Technical Writer
@@ -29,19 +29,19 @@ and name them outside the document.
 
 **Clear** — understood on the first read. Active verbs. Terms defined before
 use. No internal jargon or unexpanded acronym standing in for an explanation.
-Where a paragraph is carrying structure that a table, list, code sample, or
-diagram would carry better, use that instead. A worked example usually teaches
-faster than the paragraph describing it, and survives translation into the
-reader's own case.
+Humans can digest diagrams much easier than prose, so use them liberally. Use
+mermaid by default. Tables, lists, and code samples can also be easier to digest
+than prose. A worked example usually teaches faster than the paragraph
+describing it, and survives translation into the reader's own case.
 
 **Concise** — every word earns its place. "The application has the capability to
 perform the calculation of data automatically" is "the application calculates
-data automatically." Cutting length is not the goal; cutting what does not
-inform is.
+data automatically." Terse is good, but cutting length is only part of the goal;
+cutting what does not inform is even more important.
 
 **Consistent** — one name per thing, every time. If the button says Submit, it
-is Submit throughout — never Send, Enter, or Save. Synonym variety is a virtue
-in prose and a defect here: a reader who meets a second name reasonably assumes
+is Submit throughout — never Send, Enter, or Save. Synonym variety is not a
+virtue in technical writing: a reader who meets a second name reasonably assumes
 a second thing.
 
 **Correct** — accurate to the smallest detail. A wrong flag, path, version, or
