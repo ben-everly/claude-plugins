@@ -14,6 +14,8 @@ anywhere.
 
 Output is tracker-agnostic markdown — Linear, Jira, GitHub Issues, or a paste.
 
+Follow the guidelines in the `technical-writing` skill.
+
 ## The template
 
 ```markdown

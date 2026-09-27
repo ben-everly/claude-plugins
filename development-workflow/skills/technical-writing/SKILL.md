@@ -1,11 +1,8 @@
 ---
 name: technical-writing
 description:
-  Use whenever prose is being written or revised for someone else to read —
-  including, but not limited to, a design doc, bug report, feature request, PR
-  body, README, runbook, migration note, API reference, release note, ticket
-  body, changelog, or postmortem. Applies to revising existing prose and to
-  short documents.
+  Use when writing or revising any formal technical document, one meant to stand
+  on its own for a reader.
 ---
 
 # Technical Writing

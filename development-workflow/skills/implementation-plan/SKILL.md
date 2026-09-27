@@ -12,6 +12,8 @@ description:
 Read the design already settled in the conversation and write it up as a
 structured implementation plan. It consumes conversation context directly.
 
+Follow the guidelines in the `technical-writing` skill.
+
 ## Input
 
 The settled design, drawn from the conversation. This skill does no design
