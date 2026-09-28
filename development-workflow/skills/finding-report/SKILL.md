@@ -18,6 +18,8 @@ one.
 
 One claim per report.
 
+Follow the guidelines in the `technical-writing` skill.
+
 **It renders when the user asks for a finding report.** Adjacent artifacts — a
 bug report, a design doc — are separate skills, requested by name. Which one is
 wanted is the user's call, so never infer it from the state of the material.
