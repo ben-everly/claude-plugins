@@ -7,7 +7,7 @@ description: Use when writing or drafting a GitHub pull request's body.
 
 Author a PR's **body** as markdown while honoring the repo's conventions.
 
-Follow the guidelines in the `technical-writing` skill.
+Load the `technical-writing` skill and strictly follow its guidelines.
 
 ## Ground the body in the actual changes
 

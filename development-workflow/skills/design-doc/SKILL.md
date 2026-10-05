@@ -10,7 +10,7 @@ description: Use when the user requests a Google-style design doc.
 Write up an already-agreed design as a Google-style design doc, at design
 altitude, from the conversation context. This skill is the document's format.
 
-Follow the guidelines in the `technical-writing` skill.
+Load the `technical-writing` skill and strictly follow its guidelines.
 
 If the design isn't settled enough to fill the load-bearing sections — Design,
 Goals & Non-Goals — say so plainly and name what's still missing.
