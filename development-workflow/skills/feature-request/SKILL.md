@@ -50,16 +50,40 @@ title that names a mechanism decides the design before anyone has weighed it.
 
 ### User story
 
-Three clauses, none of them filler.
+Three clauses, none of them filler. Hold the story to INVEST:
 
-- **`As a`** — a real role someone in the conversation identified. Not "as a
-  user", which names nobody and constrains nothing.
-- **`I want`** — a capability stated as behavior, not construction. "See which
-  comments I have already answered" is a capability; "add a `resolved` column"
-  is a design, and belongs in Technical notes if it belongs anywhere.
-- **`so that`** — the whole motivation. A `so that` that merely restates the
-  `I want` in other words is the signal that nobody has established why this
-  matters; say that in the slot rather than dressing it up.
+- **Independent** — it ships without waiting on another story nobody has filed.
+  Fails as "I want to filter comments by reviewer" when comments carry no
+  reviewer and no card adds one. A prerequisite already filed is a known fact,
+  and goes in Technical notes.
+- **Negotiable** — `I want` is a capability stated as behavior, not
+  construction. "See which comments I have already answered" is a capability;
+  "add a `resolved` column" is a design, and belongs in Technical notes if it
+  belongs anywhere.
+- **Valuable** — `As a` names a real role someone in the conversation
+  identified, and `so that` carries the whole motivation. "As a user" names
+  nobody and constrains nothing. A `so that` that merely restates the `I want`
+  in other words is the signal that nobody has established why this matters.
+- **Estimable** — enough is known that someone could size it. Fails as "I want
+  comments imported from our other review tool" when nobody has named the tool.
+- **Small** — one outcome. Fails as "I want to see which comments I have
+  answered and be notified when a new one arrives": two outcomes, each with its
+  own criteria.
+- **Testable** — its outcome can be confirmed by looking at the shipped thing,
+  which is what the acceptance criteria state. Fails as "I want the review flow
+  to feel faster."
+
+#### When the story fails
+
+- **Independent, Small** — the story's shape is wrong. Raise it with the user
+  alongside the draft, and leave the card clean. The fix is a split or another
+  card, and which one is the user's call.
+- **Valuable, Estimable, Testable** — something is not yet known. The slot it
+  belongs to says so rather than dressing it up, the way zero criteria renders.
+  Never Technical notes, which is omitted rather than gap-marked.
+- **Negotiable** — the design moves to Technical notes.
+
+The check is advisory. The draft always renders.
 
 ### Acceptance criteria
 
