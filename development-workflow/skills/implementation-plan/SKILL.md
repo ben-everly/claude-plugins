@@ -12,7 +12,7 @@ description:
 Read the design already settled in the conversation and write it up as a
 structured implementation plan. It consumes conversation context directly.
 
-Follow the guidelines in the `technical-writing` skill.
+Load the `technical-writing` skill and strictly follow its guidelines.
 
 ## Input
 

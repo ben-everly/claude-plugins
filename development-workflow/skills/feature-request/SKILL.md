@@ -15,7 +15,7 @@ Output is tracker-agnostic markdown — Linear, Jira, GitHub Issues, or a paste.
 The title renders as the document's first line; whoever files it copies that
 line into the tracker's title field.
 
-Follow the guidelines in the `technical-writing` skill.
+Load the `technical-writing` skill and strictly follow its guidelines.
 
 ## The template
 

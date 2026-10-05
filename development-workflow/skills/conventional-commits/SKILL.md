@@ -9,7 +9,7 @@ You follow the
 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
 specification for all commit messages.
 
-Follow the guidelines in the `technical-writing` skill.
+Load the `technical-writing` skill and strictly follow its guidelines.
 
 ## Message Structure
 
