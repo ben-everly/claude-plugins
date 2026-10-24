@@ -2,8 +2,7 @@
 name: finish-branch
 description:
   Use when finishing a completed local branch — pushing it, opening the PR/MR
-  against the right target, and moving the related ticket to review. Runs only
-  when explicitly invoked as /finish-branch.
+  against the right target, and transitioning the related ticket.
 disable-model-invocation: true
 ---
 
@@ -13,9 +12,9 @@ disable-model-invocation: true
 
 A user-invoked workflow that closes the branch lifecycle: it takes work that is
 already done and committed on a local branch and turns it into an open PR/MR
-against the correct target, with the related tracker ticket moved to a review
-state. It composes the `pr-authoring` skill for the PR/MR body and orchestrates
-a fixed four-step sequence.
+against the correct target, with the related tracker ticket transitioned. It
+composes the `pr-authoring` skill for the PR/MR body and orchestrates a fixed
+four-step sequence.
 
 Scope is the transition from "work is done and committed on a local branch" to
 "a PR/MR is open and the ticket reflects that." This skill does **not** run
@@ -67,11 +66,6 @@ to your own judgment.
 
 Once the PR/MR is open, print its URL.
 
-## 4. Move the tracker ticket (best-effort)
+## 4. Transition the tracker ticket (best-effort)
 
-Identify the related ticket — from the branch name or the conversation context —
-and move it to the tracker's review state. Keep this generic across trackers; do
-not bake in tracker-specific logic.
-
-If the ticket (from either source) or its target state cannot be identified
-confidently, do nothing and notify the user rather than guessing.
+Invoke the `ticket-tracker` skill and transition the related ticket.
