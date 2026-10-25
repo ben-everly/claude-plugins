@@ -14,6 +14,9 @@ structured implementation plan. It consumes conversation context directly.
 
 Load the `technical-writing` skill and strictly follow its guidelines.
 
+Load the `commit-steps` skill and cut and order tasks by its rules, one task per
+commit; ignore its output format.
+
 ## Input
 
 The settled design, drawn from the conversation. This skill does no design
@@ -44,9 +47,7 @@ big" — that is upstream judgment, not this skill's concern.
 
 ## Plan structure
 
-A plan is divided into tasks, each sized to one logical, independently
-committable change that leaves the tree green where testable. This skill carries
-a bare template plus a section guide.
+A plan is a bare template plus a section guide.
 
 ```markdown
 # <plan title>
@@ -75,12 +76,10 @@ What each section holds:
   key existing files and what they do, patterns/conventions to follow, settled
   design decisions bearing on the work. Anything shared across tasks lives here,
   so each task reads on its own.
-- **Tasks** — the work, listed in **dependency order**: every
-  `Consumes: from Task N` references an _earlier_ task, a lower N. Dependencies
-  point **backward only** — never forward, never in a cycle — so build order is
-  verifiable by eye. Each task is also **self-contained**: reading only that
-  task plus **Context**, an implementer grasps its full intent without
-  re-deriving another task's reasoning. Naming a dependency as a seam —
+- **Tasks** — the work, in dependency order: every `Consumes: from Task N`
+  references an _earlier_ task, a lower N. Each task is also **self-contained**:
+  reading only that task plus **Context**, an implementer grasps its full intent
+  without re-deriving another task's reasoning. Naming a dependency as a seam —
   `Consumes: from Task N`, described well enough to stand alone — is fine; a
   task whose intent is recoverable only by reading another task's body is not
   yet lossless.
@@ -104,14 +103,6 @@ What each section holds:
     **Change**; where it isn't, name the observable end state instead — e.g. the
     migration applied and the new column queryable, or the integration wired up
     and serving. Avoid vague criteria like "works correctly."
-
-## Cutting tasks
-
-When pieces of a change cannot be split into separate green commits — for
-example, changing a function's signature and every call site, where any partial
-commit leaves the tree uncompilable — they stay **one task**, however many files
-it touches. Splitting for size alone, at the cost of a red intermediate tree, is
-the artificial split to avoid.
 
 ## Before finishing
 
