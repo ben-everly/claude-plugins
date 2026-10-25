@@ -101,4 +101,6 @@ What each anchor holds:
   conversation deferred, or a load-bearing point you had to infer to keep the
   design coherent — flag the latter as an assumption to confirm. A purely local
   implementation choice with no design ripple is the implementer's call and does
-  not belong here.
+  not belong here. Never list a resolved point — not struck through, annotated,
+  or summarized as settled. A settled point is stated as fact in the section
+  that owns it.
