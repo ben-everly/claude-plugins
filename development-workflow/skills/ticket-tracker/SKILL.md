@@ -109,22 +109,53 @@ estimate field gets no size, and the draft says so.
 **Done when** the draft carries the tracker's value for its size, or the reason
 it has none.
 
-### 5. Confirm, then create
+### 5. Prioritize it
+
+Settle the ticket's priority from its confirmed container (step 3).
+
+- **No container** — ask the user for the priority.
+- **The container's tickets have no priorities** — offer the
+  [Setting priorities](#setting-priorities) action for the container. If the
+  user declines, ask for the ticket's priority.
+- **Otherwise** — invoke `prioritize` on the container's tickets plus the new
+  ticket, marking the container's tickets _settled_. Settled tickets are scored
+  from their text alone, so code is read only for the new ticket.
+
+Place the new ticket from the result:
+
+- **Critical** — propose the tracker's highest level (Linear Urgent, Jira
+  Highest), citing the line that evidences it.
+- **Otherwise** — propose the level of the nearest ticket by log(WSJF), among
+  the tickets that have a priority below the highest level. An exact tie between
+  two levels takes the higher level.
+
+A Low-confidence placement sets no priority. The draft shows the lean and the
+reason, and the user is asked.
+
+No existing ticket's priority changes in this flow. Re-cutting the container's
+levels is the Setting priorities action, on the user's request.
+
+**Done when** the draft carries a priority, or shows none with the lean and
+reason and the user has been asked.
+
+### 6. Confirm, then create
 
 Show the draft: destination (team, project, container, and any other convention
-applied), title, body, and size. Create only on the user's confirmation.
+applied), title, body, priority, and size. Create only on the user's
+confirmation.
 
 On create:
 
 - The title goes in the title field. The format skill's `# ` first line is
   removed from the body, so the title appears once.
 - The container goes in its own field, not the body.
+- The priority goes in the priority field, not the body.
 - The size goes in the estimate field, not the body.
 
 Report the new ticket's id and link.
 
-**Done when** the ticket exists with its title, body, container, and size each
-in its own field, or the user declined.
+**Done when** the ticket exists with its title, body, container, priority, and
+size each in its own field, or the user declined.
 
 ## Moving a ticket
 
