@@ -17,6 +17,11 @@ project, or an epic. Tickets rank only against their own group, because value is
 only inferable relative to a shared goal. Within a group, a ticket's value is
 how vital it is to the group's goal.
 
+When the input spans more than one group, the skill also orders the groups.
+Between unrelated groups, value depends on business context the skill cannot see
+(user demand, strategy, commitments), so a group order is only as strong as its
+evidence.
+
 ## Input
 
 - **tickets** (required) — the tickets to rank, from any source. Each is its
@@ -176,6 +181,23 @@ A **tier break** is a pair of adjacent tickets in different tiers.
 
 **Done when** every adjacent pair in each group has been checked for both.
 
+### 10. Order the groups
+
+Skip this step when the ranked tickets fall in one group.
+
+Otherwise, order the ranked groups, first group first, each placement with a
+confidence per [Confidence](#confidence). A group order recommends which group
+to work first; it is not a measure of value across groups.
+
+List every dependency that crosses groups as a fact naming both tickets and the
+relation, tracker or inferred, with the evidence for an inferred one. A
+cross-group dependency is High evidence for the group order. The group order
+leaves every within-group rank, tier, and confidence unchanged.
+
+**Done when** every ranked group has a placement with a confidence and its
+evidence, every cross-group dependency is listed naming both tickets, and no
+within-group rank changed.
+
 ## Output
 
 Report each group in turn: its name, then a ranked table, then its close calls
@@ -196,7 +218,9 @@ Below the table, list each cited line behind a `*` and each dependency move.
 After the last group, list each ticket left ungrouped at Low confidence with its
 lean and reason.
 
-Applying the ranking is the caller's call.
+When the input spans more than one group, end with the step 10 **Group order**:
+a table of position, group, confidence, and evidence; then each cross-group
+dependency; then a line stating that every within-group rank is unchanged.
 
 ```
 Group: Checkout v2 (milestone)
@@ -233,4 +257,18 @@ Evidence: PAY-30 and PAY-31 both change `logger.ts` and neither has a container.
 Unranked (Low confidence, your call)
 - PAY-40 Dark mode toggle: leans toward Checkout v2; only its own text
   suggests the fit.
+
+Group order
+
+| Order | Group                  | Confidence | Evidence                                                             |
+| ----- | ---------------------- | ---------- | -------------------------------------------------------------------- |
+| 1     | Checkout v2            | High       | Stated Nov 27 sale deadline (PAY-18); PAY-30 depends on PAY-21       |
+| 2     | Log hygiene (inferred) | High       | Follows Checkout v2: its PAY-30 depends on PAY-21 (tracker relation) |
+
+Cross-group dependencies
+- PAY-30 (Log hygiene) depends on PAY-21 (Checkout v2): it reuses the redaction
+  PAY-21 adds.
+
+The group order leaves every within-group rank unchanged: PAY-21 and PAY-30
+both stay rank 1 in their groups.
 ```
