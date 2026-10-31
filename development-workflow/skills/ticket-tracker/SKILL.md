@@ -66,7 +66,38 @@ the body.
 **Done when** the draft has a title and a body in the chosen format, every slot
 filled or marked as that format directs.
 
-### 3. Size it
+### 3. Pick the group
+
+A group is the narrowest container the tracker uses for a body of work: a Linear
+milestone or project, a Jira epic, a GitHub milestone. It holds weeks or more of
+work that together deliver value.
+
+A container the user or the project instructions name is the group; skip
+inference. Otherwise infer it:
+
+1. **List the candidates** — the existing containers in the destination, within
+   the team and project the filing conventions name.
+2. **Match by goal** — the ticket belongs to the container whose tickets share
+   its goal. Read the container's description and a sample of its tickets.
+3. **Rate the confidence** by the kind of evidence:
+
+| Confidence | Evidence                                                                                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| High       | A tracker relation or dependency. An external commitment: a deadline, a release, a blocked team. A goal the ticket's text names.                              |
+| Medium     | Indirect signals: the same code area as the container's tickets, linked customer requests, a time-critical ticket in the container, the container's progress. |
+| Low        | Only this skill's own read of the ticket and the container.                                                                                                   |
+
+- **High or Medium** — the container goes in the draft as part of the
+  destination.
+- **Low, or no container fits** — set no container. The draft shows the lean
+  (the closest container, or none) and the reason, and the user is asked.
+
+The group is always one of the existing containers, or none.
+
+**Done when** the draft carries a container, or shows no container with the lean
+and reason and the user has been asked.
+
+### 4. Size it
 
 Invoke the `estimate` skill and size the drafted ticket, passing the tracker's
 estimate scheme when it has one (read it from the tracker's settings for the
@@ -78,21 +109,22 @@ estimate field gets no size, and the draft says so.
 **Done when** the draft carries the tracker's value for its size, or the reason
 it has none.
 
-### 4. Confirm, then create
+### 5. Confirm, then create
 
-Show the draft: destination (team, project, and any other convention applied),
-title, body, and size. Create only on the user's confirmation.
+Show the draft: destination (team, project, container, and any other convention
+applied), title, body, and size. Create only on the user's confirmation.
 
 On create:
 
 - The title goes in the title field. The format skill's `# ` first line is
   removed from the body, so the title appears once.
+- The container goes in its own field, not the body.
 - The size goes in the estimate field, not the body.
 
 Report the new ticket's id and link.
 
-**Done when** the ticket exists with its title, body, and size each in its own
-field, or the user declined.
+**Done when** the ticket exists with its title, body, container, and size each
+in its own field, or the user declined.
 
 ## Moving a ticket
 
