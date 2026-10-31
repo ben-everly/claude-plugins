@@ -48,20 +48,45 @@ the user's.
 ### 1. Group the tickets
 
 Put each ticket in the group of the container it arrives with. Tickets with no
-container form one group labeled `no container`.
+container wait for step 3.
 
-**Done when** every ticket is in exactly one group.
+**Done when** every ticket with a container is in its container's group.
 
 ### 2. Read the code
 
 For each unsettled ticket, locate the code it touches: enough to see what it
-changes, what calls it, and which other tickets in the group touch the same
-code. Stop before designing the implementation.
+changes, what calls it, and which other tickets touch the same code. Stop before
+designing the implementation.
 
-**Done when** every claim in steps 3, 4, and 6 about an unsettled ticket can
+**Done when** every claim in steps 3, 4, 5, and 7 about an unsettled ticket can
 cite a file, a count, or a line of the ticket.
 
-### 3. Size each ticket
+### 3. Infer groups for ungrouped tickets
+
+Infer a group only for a ticket that arrives without a container. A ticket that
+arrives with a container stays in it.
+
+For each ungrouped ticket, in order:
+
+1. **Match an existing container.** The candidates are the containers present in
+   the input. A ticket matches the container whose tickets share its goal. Add
+   it to that group.
+2. **Else cluster.** Tickets that match no container but share a goal with each
+   other form a new group, named for that goal.
+3. **Else leave it.** A ticket that shares a goal with nothing stays alone as
+   the user's call.
+
+Mark every group formed or joined this way as _inferred_, with a confidence per
+[Confidence](#confidence). At Low confidence, the ticket joins no group and is
+not ranked.
+
+An inferred group ranks like any other from step 4 on. Because its goal is
+inferred, a value score in it is only as sound as that inference.
+
+**Done when** every ticket is in exactly one group or listed as Low-confidence
+with its lean, and every inferred group has a confidence and its evidence.
+
+### 4. Size each ticket
 
 Map an existing estimate by rank onto 1, 2, 3, 5, 8, 13. Fibonacci sizes keep
 their value; T-shirt sizes XS, S, M, L, XL map to 1, 2, 3, 5, 8.
@@ -82,7 +107,7 @@ size as unestimated.
 
 **Done when** every ticket has a size and every rough size is flagged.
 
-### 4. Score the cost of delay
+### 5. Score the cost of delay
 
 Score three parts on the scale 1, 2, 3, 5, 8, 13, using these anchors:
 
@@ -101,14 +126,14 @@ Time criticality is 1 unless evidence raises it. Mark any time criticality above
 **Done when** every ticket has all three parts and every time criticality above
 1 cites its line.
 
-### 5. Compute WSJF
+### 6. Compute WSJF
 
 Cost of delay (CoD) = value + time criticality + risk reduction. WSJF = CoD ÷
 size, rounded to two decimals.
 
 **Done when** every ticket has a CoD and a WSJF.
 
-### 6. Order each group
+### 7. Order each group
 
 Sort the group by WSJF, highest first. Equal WSJF puts the smaller ticket first.
 
@@ -123,7 +148,7 @@ Give each placement a confidence per [Confidence](#confidence).
 **Done when** every group is ordered, every placement has a confidence, and no
 ticket ranks behind a ticket that depends on it.
 
-### 7. Cut tiers
+### 8. Cut tiers
 
 Mark every ticket with time criticality 13 _critical_. Critical tickets keep
 their rank but take no tier.
@@ -142,7 +167,7 @@ script names the bad line on stderr; fix the input and rerun.
 
 **Done when** every ticket has a tier or is critical.
 
-### 8. Mark close calls and tier breaks
+### 9. Mark close calls and tier breaks
 
 A **close call** is a pair of adjacent tickets whose order would swap if one
 part of either ticket moved one step on the scale. Name the part and the step.
@@ -154,7 +179,8 @@ A **tier break** is a pair of adjacent tickets in different tiers.
 ## Output
 
 Report each group in turn: its name, then a ranked table, then its close calls
-and tier breaks. Each table row holds:
+and tier breaks. Label an inferred group `(inferred)` and give its confidence
+and evidence under the name. Each table row holds:
 
 - **Rank** — the position in the group, 1 first.
 - **Ticket** — its id or title.
@@ -167,6 +193,8 @@ and tier breaks. Each table row holds:
 - **Rationale** — one line naming the evidence that placed it.
 
 Below the table, list each cited line behind a `*` and each dependency move.
+After the last group, list each ticket left ungrouped at Low confidence with its
+lean and reason.
 
 Applying the ranking is the caller's call.
 
@@ -193,4 +221,16 @@ Tier breaks
 - PAY-18 (1) / PAY-20 (3)
 - PAY-20 (3) / PAY-12 (1) — PAY-20 is out of tier order as a dependency.
 - PAY-12 (1) / PAY-15 (2)
+
+Group: Log hygiene (inferred, Medium)
+Evidence: PAY-30 and PAY-31 both change `logger.ts` and neither has a container.
+
+| Rank | Ticket                      | V   | TC  | RR  | Size | WSJF | Tier | Confidence | Rationale                                    |
+| ---- | --------------------------- | --- | --- | --- | ---- | ---- | ---- | ---------- | -------------------------------------------- |
+| 1    | PAY-30 Redact tokens in logs | 8   | 1   | 3   | 2    | 6.00 | 1    | Medium     | Same file as PAY-31; goal inferred from both |
+| 2    | PAY-31 Structured log format | 5   | 1   | 1   | 3    | 2.33 | 2    | Medium     | Same file as PAY-30; goal inferred from both |
+
+Unranked (Low confidence, your call)
+- PAY-40 Dark mode toggle: leans toward Checkout v2; only its own text
+  suggests the fit.
 ```
