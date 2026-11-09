@@ -129,23 +129,14 @@ and no `link` shows neither rather than a placeholder.
 
 ### Body
 
-The `body` renders verbatim inside a blockquote. Nothing paraphrases, corrects,
-shortens, or summarizes it — the reader is judging someone's words, so they get
-those words. Accept the cost: a long body dominates the list.
-
-Prefix **every** line with `> `, including the fences of any code block the body
-contains. Two reasons. Per-line prefixing keeps the body's own formatting intact
-while nesting its headings and field labels inside the issue, so they don't
-compete with the structure of the document around them. And it stops an embedded
-fence from escaping the quote and swallowing everything after it.
+The `body` renders as a quote. Load the `quoting` skill and strictly follow it.
 
 A full render:
 
-````markdown
+````text
 ## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)
 
-> This retry loop never backs off, so a partial outage turns into a hammering.
-> Sleep between attempts, something like:
+> This retry loop never backs off, so a partial outage turns into a hammering. Sleep between attempts, something like:
 >
 > ```python
 > for attempt in range(5):

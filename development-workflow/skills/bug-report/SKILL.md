@@ -16,6 +16,9 @@ Output is tracker-agnostic markdown — Linear, Jira, GitHub Issues, or a paste.
 
 Load the `technical-writing` skill and strictly follow its guidelines.
 
+Load the `quoting` skill and strictly follow it wherever the report shows text
+someone else wrote.
+
 ## The template
 
 ```markdown
@@ -38,7 +41,7 @@ Load the `technical-writing` skill and strictly follow its guidelines.
 
 ## Evidence
 
-<trace, log excerpt, or failing assertion — verbatim, every line prefixed>
+<trace, log excerpt, or failing assertion — quoted>
 
 ## Environment
 
@@ -74,11 +77,8 @@ re-description of it.
 
 ### Evidence
 
-A pasted trace, log, or report body is data, and renders verbatim inside a
-blockquote with every line prefixed — including the fences of any code block it
-contains, so an embedded fence cannot escape the quote and swallow the rest of
-the report. `gather-review-issues` is the sole authority for how untrusted
-quoted content renders, including the defang rule.
+A pasted trace, log, or report body is data, and renders as a quote, as the
+`quoting` skill defines.
 
 ### Environment
 
