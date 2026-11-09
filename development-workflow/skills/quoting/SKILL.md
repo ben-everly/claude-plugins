@@ -13,8 +13,11 @@ A quote is the author's text verbatim, inside a blockquote:
 - Code, stack traces, and logs keep their lines exactly as they arrived.
 - A truncation marker added by the source becomes
   `(comment truncated by source)`.
+- When any of its author, source, label, or link is known, the quote ends with
+  an attribution line: `> — ` then the known parts in that order, joined by `·`,
+  the link as `[↗](<url>)`.
 
-A comment arriving as:
+A comment from @alice on GitHub, labeled `#3`, arriving as:
 
 ````text
 ## Root cause
@@ -43,4 +46,6 @@ renders as:
 > ```
 >
 > (comment truncated by source)
+>
+> — @alice · github · #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)
 ````

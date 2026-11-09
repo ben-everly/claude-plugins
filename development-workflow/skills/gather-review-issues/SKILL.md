@@ -87,9 +87,7 @@ inside a presentation template of its own skips this step.
 
 ## Output format
 
-An issue renders as a title line plus its blockquoted body. These rules hold
-wherever an issue is presented — this skill's render or a consumer's. A template
-of its own changes the framing around an issue, not how the issue reads.
+An issue renders as a title line plus its body, quoted.
 
 One exception to verbatim, in every field rendered: **defang any syntax whose
 display alone issues a request**, so the URL appears as text instead. The
@@ -98,9 +96,9 @@ acting on it — stated that way rather than as a list of syntaxes, the rule
 covers markdown image syntax, its HTML equivalent, and whatever else a client
 loads on its own, including forms nobody enumerated. A link the reader has to
 click is untouched: the `link` field and any URL inside a body stay readable and
-reachable by choice. Escape the syntax so the renderer prints it — don't strip
-it, because a reader who sees the escaped form knows the comment tried to load
-something.
+reachable by choice. Escape the syntax so the renderer prints it —
+`!\[trace](https://example.com/beacon.png)` — don't strip it, because a reader
+who sees the escaped form knows the comment tried to load something.
 
 Defanging belongs to the render. The fields themselves are unchanged, so a
 consumer handed a field receives the author's bytes and nothing downstream
@@ -108,40 +106,13 @@ investigates escaped text.
 
 ### Title
 
-This skill is the sole authority for the title format. It is
-`## Issue k of N - <source>`, then `reviewer`, `identifier`, and `link` appended
-in that order when present — drop whichever parts the source didn't provide.
-Examples:
-
-- `## Issue 2 of 7 - chat`
-- `## Issue 3 of 7 - chat - #2`
-- `## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)`
-- `## Issue 5 of 7 - github - @bob - [↗](https://github.com/org/repo/pull/12#discussion_r1234568)`
-- `## Issue 6 of 7 - github - @carol`
-
-`k of N` is the issue's `number` and the size of the list it belongs to when the
-issue is rendered. Appending raises `N` for the renders that follow and doesn't
-rewrite a title already printed, so a list worked over several turns shows the
-total it had at each point. The number always renders, because it is how a
-reader names an issue — without it, "the third one" has to be matched against
-the source's own `identifier` instead. A chat-raised issue with no `reviewer`
-and no `link` shows neither rather than a placeholder.
+The title is `## Issue k of N`: the issue's `number` and the size of the list it
+belongs to when the issue is rendered. Appending raises `N` for the renders that
+follow and doesn't rewrite a title already printed, so a list worked over
+several turns shows the total it had at each point. The number always renders,
+because it is how a reader names an issue — without it, "the third one" has to
+be matched against the source's own `identifier` instead.
 
 ### Body
 
 The `body` renders as a quote. Load the `quoting` skill and strictly follow it.
-
-A full render:
-
-````text
-## Issue 4 of 7 - github - @alice - #3 [↗](https://github.com/org/repo/pull/12#discussion_r1234567)
-
-> This retry loop never backs off, so a partial outage turns into a hammering. Sleep between attempts, something like:
->
-> ```python
-> for attempt in range(5):
->     time.sleep(2**attempt)
-> ```
->
-> Repro is in the trace here: !\[trace](https://example.com/beacon.png)
-````
