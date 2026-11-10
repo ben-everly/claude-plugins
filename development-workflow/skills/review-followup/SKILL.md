@@ -39,10 +39,15 @@ are addressed.
 
 #### 1. Check the report
 
-Use this issue's report from the up-front launch. If it has not arrived, wait
-for it. Reports that arrive while another issue is under discussion are held
-until their issue comes up; never present one early or out of order. Carry the
-report into the next step; don't re-derive or reshape it.
+Use this issue's report from the launch, waiting for it if it has not arrived.
+
+Earlier fixes may have changed what the report rests on. Run
+`git diff <launch commit> HEAD` over the files the report cites. If nothing in
+the diff changes something the verdict rests on, present the report as-is;
+otherwise re-investigate by invoking `investigate-issue` for this issue and
+present the new report.
+
+Carry the report into the next step; don't re-derive or reshape it.
 
 #### 2. Present the current issue
 
