@@ -20,6 +20,9 @@ One claim per report.
 
 Load the `technical-writing` skill and strictly follow its guidelines.
 
+Load the `quoting` skill and strictly follow it wherever the report shows text
+someone else wrote.
+
 **It renders when the user asks for a finding report.** Adjacent artifacts — a
 bug report, a design doc — are separate skills, requested by name. Which one is
 wanted is the user's call, so never infer it from the state of the material.
@@ -29,7 +32,7 @@ wanted is the user's call, so never infer it from the state of the material.
 ```markdown
 <where — see Location>
 
-> <the claim, verbatim, every line prefixed>
+> <the claim, quoted>
 
 ### Verdict: <verdict>[ · <category> · <severity>]
 
@@ -94,9 +97,7 @@ you searched and did not find.
 
 ### The claim
 
-Render it verbatim inside a blockquote, every line prefixed — including the
-fences of any code block the body contains — so an embedded fence cannot escape
-the quote and swallow the rest of the report.
+Render it as a quote, as the `quoting` skill defines.
 
 ### Verdict, category, severity, confidence
 

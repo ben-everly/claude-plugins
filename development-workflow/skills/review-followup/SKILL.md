@@ -33,25 +33,16 @@ are addressed.
 
 #### 1. Investigation
 
-Invoke the `investigate-issue` skill with the issue's `body` as the claim, and
-its `anchor` (when present) as where that claim points. It runs the
+Invoke the `investigate-issue` skill on the issue: its `body` is the claim, and
+its `anchor` (when present) is where that claim points. It runs the
 investigation and returns the finding report. Carry that report into the next
 step; don't re-derive or reshape it.
 
 #### 2. Present the current issue
 
-Mark the issue's task `in_progress`, then present the issue as two stitched
-parts:
-
-1. the issue's title line, exactly as `gather-review-issues` renders it — that
-   skill is the sole authority for it and defines which parts drop when a field
-   is absent;
-2. the report `investigate-issue` returned, rendered as `finding-report` defines
-   it.
-
-The two say different things — the title line is where the issue came from, the
-report's Location line is where the code is — so both render, and neither
-collapses into the other.
+Mark the issue's task `in_progress`, then present `## Issue k of N` — the
+issue's `number` and the size of the list — followed by the report
+`investigate-issue` returned, rendered as `finding-report` defines it.
 
 When the report closes with a blocking question instead of directions, there is
 nothing to pick: wait for the user's answer, then re-invoke `investigate-issue`
