@@ -11,9 +11,9 @@ description:
 
 ## Overview
 
-Walk through review feedback one issue at a time: investigate, present the
-finding report, implement on the user's signal, confirm satisfaction, then
-advance.
+Launch every issue's investigation up front, then walk through review feedback
+one issue at a time: present the finding report, implement on the user's signal,
+confirm satisfaction, then advance.
 
 ## Workflow
 
@@ -26,23 +26,34 @@ through.
 
 Create a `TaskCreate` task per issue.
 
-### 2. Walkthrough — one issue at a time
+### 2. Investigate every issue
+
+Record `HEAD` as the launch commit, then invoke the `investigate-issue` skill on
+every issue, without waiting for one report before starting the next. Reports
+that arrive early are held until their issue comes up.
+
+### 3. Walkthrough — one issue at a time
 
 For each issue loop the following steps: 1 → 2 → 3 → 4 → next issue, until all
 are addressed.
 
-#### 1. Investigation
+#### 1. Check the report
 
-Invoke the `investigate-issue` skill on the issue: its `body` is the claim, and
-its `anchor` (when present) is where that claim points. It runs the
-investigation and returns the finding report. Carry that report into the next
-step; don't re-derive or reshape it.
+Use this issue's report from the launch, waiting for it if it has not arrived.
+
+Earlier fixes may have changed what the report rests on. Run
+`git diff <launch commit> HEAD` over the files the report cites. If nothing in
+the diff changes something the verdict rests on, present the report as-is;
+otherwise re-investigate by invoking `investigate-issue` for this issue and
+present the new report.
+
+Carry the report into the next step; don't re-derive or reshape it.
 
 #### 2. Present the current issue
 
 Mark the issue's task `in_progress`, then present `## Issue k of N` — the
-issue's `number` and the size of the list — followed by the report
-`investigate-issue` returned, rendered as `finding-report` defines it.
+issue's `number` and the size of the list — followed by the report from substep
+1, rendered as `finding-report` defines it.
 
 When the report closes with a blocking question instead of directions, there is
 nothing to pick: wait for the user's answer, then re-invoke `investigate-issue`
@@ -124,7 +135,7 @@ number you walked, and stop.
 | Replying or resolving without asking                 | Use `AskUserQuestion` per issue                                                                              |
 | Filtering out `Not a Problem` issues silently        | Present anyway with the verdict; user decides                                                                |
 | Performative reply ("Thanks for the catch!")         | Factual: "Fixed in `<ref>`. `<summary>`."                                                                    |
-| Implementing without first investigating             | Invoke `investigate-issue`, present the report it returns, wait for the signal                               |
+| Implementing without first investigating             | Present the issue's report, wait for the signal                                                              |
 | Batching multiple fixes at once                      | One at a time. Each gets its own present → discuss → fix → confirm cycle                                     |
 | Drifting into adjacent cleanup                       | Implement only what the current issue requires                                                               |
 | Asking the review action for an issue with no thread | Skip the question only when there's nowhere to post — a chat-raised issue. A missing `link` is not the test  |
