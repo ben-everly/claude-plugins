@@ -24,7 +24,8 @@ normalized, numbered issue list (it defines the fields each issue carries). If
 `gather-review-issues` reports no issues, stop — there is nothing to walk
 through.
 
-Create a `TaskCreate` task per issue.
+Track each issue as a task — with the session's task-tracking tool if it has
+one, otherwise as a status on the numbered issue list.
 
 ### 2. Investigate every issue
 
