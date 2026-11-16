@@ -31,9 +31,11 @@ A review-gated loop:
    meaningful to test (a doc, comment, or config tweak) — and say so.
 3. **Verify** — run targeted verification (the relevant test, a type check, a
    grep). Not the full suite unless the change is broad.
-4. **Review** — invoke the `inline-review` skill on the diff of the change just
-   made. Read the reported findings and, using your own judgment, apply
-   whichever corrective changes are warranted.
+4. **Review** — invoke the `code-review` skill at `medium` effort on the diff of
+   the change just made, and wait for its findings. Always pass the level:
+   without one, it reuses whatever level was last typed. Read the reported
+   findings and, using your own judgment, apply whichever corrective changes are
+   warranted.
    - If a corrective change was made, go back to step 1 for it (test-first when
      testable), then re-verify and re-review.
    - If no corrective change was made — whether the review was clean or nothing
